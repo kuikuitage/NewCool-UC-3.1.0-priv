@@ -1,0 +1,2 @@
+screen: 1280 720
+sim mode: 0 	//0: SIM_DEBUG_MODE; 1: SIM_TEST_FW_MODE

@@ -1,0 +1,59 @@
+1,CA确认   ok
+2,面板确认 ok
+3,MAC地址烧写确认
+4,OTA确认  ok
+6,chipid   
+7,vd 切换  ok
+8,媒体播放后，点播不能使用  ok
+
+
+free 问题，这2天简单操作没有发现这个死机，不确定是否解决。
+内存泄漏问题，http get 失败后 没有有delete临时文件，已经解决
+视频播放卡住问题，出现过一次。
+视频播放缓冲几次后，音视频不同步问题，出现过一次。
+mac地址烧写还有问题。
+
+buglist:
+一直打印big errBIG Error: swi_chan_is_open 0
+BIG Error: swi_chan_is_open 0
+BIG Error
+
+a). 点击VOD的时候，UI会调用IPTV_initDataProvider()
+->DP_sendCmd()->x_push_cmd()->push command to internal fifo, p_hdl->cmd_num ++;
+b). 按menu退出的时候，UI会调用IPTV_deinitDataProvider ()
+-> DP_sendCmd()->x_push_cmd()->push command to internal fifo, p_hdl->cmd_num ++;
+c). DP_startDoCmdTask()->proc_cmd_task()的while循环中，会调用x_pop_cmd()->pop command from internal fifo, 不过要等上一个command执行完(p_hdl->proc_cmd_cb((void *)(p_hdl->p_dataprovider),(void *)(&cmd));-> do_iptv_cmd())
+d). 点击VOD的时候，执行命令，do_iptv_cmd()->bsw_iptv_dp_init()->bsw_get_vod_url()->get_server_url_hdl()->bsw_type_get_server_url()会调用Nw_DownloadURL_POST()6次，因为接的局域网，所以等timeout时间比较长
+
+
+关掉SPIDF输出
+RET_CODE aud_output_spdif_onoff_vsb(void *p_dev, BOOL is_on)；
+用这个试下关spdif 音频输出
+
+城市寄生虫 2015-7-15 17:02:44
+dev怎么获取？
+17:04:01
+lipeng 2015-7-15 17:04:01
+drv_audio_init
+  p_dev = dev_find_identifier(NULL, DEV_IDT_TYPE, SYS_DEV_TYPE_AUDIO);
+  
+  
+  
+  1，big err 保护后还存在。
+  2，快速操作过程中，FREE使用有问题，常见在HTTP模块  IQY晓飞那边的JSON那边
+	3, 点击播放，快速退出，退出后播放继续执行，开始播放，导致状态混乱，死机
+	
+	debug 更新  库更新
+
+
+20150821  后续关键问题
+
+1，http gzip。 ok
+2，播放缓冲几次后，音视频不同步问题。
+3，7601 wifi插拔死机问题。
+
+4，偶尔死机问题。
+5, 面板显示更新后，OTA升级问题
+6, 1080P显示抖动问题
+
+

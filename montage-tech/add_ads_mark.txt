@@ -1,0 +1,2 @@
+1,ui_ads_api.c   delete watermark
+2,clean    ui_ca_set_roll_status(TRUE);

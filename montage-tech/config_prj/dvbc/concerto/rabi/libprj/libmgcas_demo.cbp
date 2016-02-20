@@ -1,0 +1,1426 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="mgcas_demo" />
+		<Option pch_mode="2" />
+		<Option compiler="mips4k" />
+		<Build>
+			<Target title="Release">
+				<Option output="bin\Release\libmgcas_demo" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj\Release\" />
+				<Option type="2" />
+				<Option compiler="mips24k" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Os -EL  -march=mips32r2 -mxgot -mabi=32 -mlong-calls -mno-abicalls -Wall -Wno-pointer-sign -Werror -g  -DASSERT_ON -D_ASSEMBLER_ -DCACHE_INIT -DTLB_INIT -ffunction-sections -D${HW_PLATFORM}" />
+					<Add option='-MMD -MP -MF&quot;$object.d&quot; -MT&quot;$object.d&quot;' />
+					<Add option="-DVFONT" />
+					<Add option="-DUSE_AV_OS" />
+					<Add option="-DAUTO_FACTORY_DEFAULT" />
+					<Add option="-DIMPL_NEW_EPG" />
+					<Add option="-DPRINT_ON" />
+					<Add option="-DASSERT_ON" />
+					<Add option="-DENABLE_CA" />
+					<Add option="-DDOWNLOAD_HTTP_NEW" />
+					<Add option="-DAUTH_SERVER_SETTING" />
+					<Add option="-DDTMB_PROJECT" />
+					<Add option="-DDVB_CA" />
+					<Add directory="$(APP_PATH)\..\msys\1.0\local\mips-windows\lib\gcc\mipsel-unknown-linux-uclibc\4.3.4\include-fixed" />
+					<Add directory="${PROJECT_LOC}\inc" />
+					<Add directory="${PROJECT_LOC}\inc\util" />
+					<Add directory="${PROJECT_LOC}\inc\os" />
+					<Add directory="${PROJECT_LOC}\src\os\ucos\inc" />
+					<Add directory="${PROJECT_LOC}\src\kware\tcpip_pro\networking\inc" />
+					<Add directory="${PROJECT_LOC}\inc\hal\arch" />
+					<Add directory="${PROJECT_LOC}\inc\util\log" />
+					<Add directory="${PROJECT_LOC}\inc\mdl\eva" />
+					<Add directory="${PROJECT_LOC}\inc\mdl\filters" />
+					<Add directory="${PROJECT_LOC}\inc\mdl\mmi" />
+					<Add directory="${PROJECT_LOC\inc\kware\demux_mp" />
+					<Add directory="${PROJECT_LOC}\src\kware\demux_mp\mplayer" />
+					<Add directory="${PROJECT_LOC}\src\mdl\mmi\gui\vfont\inc" />
+					<Add directory="${PROJECT_LOC}\src\kware\tcpip_pro\lwip\src\include" />
+					<Add directory="${PROJECT_LOC}\src\kware\tcpip_pro\lwip\src\include\ipv4" />
+					<Add directory="${PROJECT_LOC}\src\kware\tcpip_pro\lwip\arch\include" />
+					<Add directory="${PROJECT_LOC}\src\kware\tcpip_pro\lwip\arch\include\arch" />
+					<Add directory="${PROJECT_LOC}\src\firmware\core\include" />
+					<Add directory="${PROJECT_LOC}\inc\firmware" />
+					<Add directory="${PROJECT_LOC}\inc\kware" />
+					<Add directory="${PROJECT_LOC}\inc\kware\ts_seq" />
+					<Add directory="${PROJECT_LOC}\src\mdl\vfs" />
+					<Add directory="${PROJECT_LOC}\inc\kware\network\netplay" />
+					<Add directory="${PROJECT_LOC}\prj\dvbc\rabi\common\inc" />
+					<Add directory="${PROJECT_LOC}\inc\kware\file_playback" />
+					<Add directory="${PROJECT_LOC}\src\mdl\mmi\framework" />
+					<Add directory="${PROJECT_LOC}\inc\drv" />
+					<Add directory="${PROJECT_LOC}\inc\drv\drvbase" />
+					<Add directory="${PROJECT_LOC}\inc\hal" />
+					<Add directory="${PROJECT_LOC}\inc\mdl" />
+					<Add directory="${PROJECT_LOC}\prj\dvbc\rabi\includes" />
+					<Add directory="${PROJECT_LOC}\inc\ap" />
+					<Add directory="${PROJECT_LOC}\prj\dvbc\rabi\database" />
+					<Add directory="${PROJECT_LOC}\prj\dvbc\rabi\sysstatus" />
+					<Add directory='&quot;${PROJECT_LOC}\inc\drv\bus&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\inc\hal\arch&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\inc\kware\ts_seq&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\inc\mdl\eva&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\inc\mdl\filters&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\inc\mdl\mmi&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\inc\util\iconv&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\inc\util\log&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\prj\dvbc\rabi&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\prj\dvbc\rabi\ui&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\prj\dvbc\rabi\includes\ms&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\prj\dvbc\rabi\sowell\inc&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\prj\dvbc\rabi\ca&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\prj\dvbc\rabi\ap&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\src\firmware\core\include&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\src\firmware\pic_16f7x&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\src\mdl\mmi\gui\vfont\inc&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\inc\kware\network\tcpip&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\inc\kware\network\samba&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\inc\kware\network\http_file&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\inc\kware\network\tcpip\netif&quot;' />
+					<Add directory="${PROJECT_LOC}\inc\kware\network\dlna" />
+					<Add directory='&quot;${PROJECT_LOC}\inc\kware\subt_ttx&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\prj\dvbc\rabi\sources&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\prj\dvbc\rabi\user_table&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\prj\dvbc\rabi\ui\dlna&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\src\mdl\mmi\gui\resource\vf&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\inc\kware\network\dlna&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\prj\dvbc\rabi\kware\cas\cas_dvbca\inc&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\prj\dvbc\rabi\ca\dvbca&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\src\kware\cas&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\prj\dvbc\rabi\authorization&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\prj\dvbc\rabi\jansson&quot;' />
+					<Add directory="${PROJECT_LOC}\inc\api" />
+					<Add directory='&quot;${PROJECT_LOC}\inc\kware\network\http&quot;' />
+					<Add directory="${PROJECT_LOC}\inc\kware\RSSClient\RSSParser" />
+					<Add directory="${PROJECT_LOC}\inc\kware\RSSClient\tinyxml" />
+				</Compiler>
+				<Environment>
+					<Variable name="PROJECT_LOC" value="${PROJECT_DIR}..\..\..\..\.." />
+					<Variable name="HW_PLATFORM" value="CHIP" />
+					<Variable name="ProjName" value="uilib" />
+				</Environment>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-EL -march=mips32r2 -mxgot -mlong-calls -mabi=32 -mno-abicalls -Wall -Wno-pointer-sign -O2 -Wno-pointer-to-int-cast  -ffunction-sections" />
+			<Add option='-MMD -MP -MF&quot;$object.d&quot; -MT&quot;$object.d&quot;' />
+			<Add option="-Ddemo=2" />
+			<Add option="-Ddemo_STORM" />
+			<Add option="-DASSERT_ON" />
+			<Add option="-DARCH=demo" />
+		</Compiler>
+		<Unit filename="..\..\..\..\..\inc\ap\ap_abs_ota.h" />
+		<Unit filename="..\..\..\..\..\inc\ap\ap_auto_diseqc.h" />
+		<Unit filename="..\..\..\..\..\inc\ap\ap_browser.h" />
+		<Unit filename="..\..\..\..\..\inc\ap\ap_cas.h" />
+		<Unit filename="..\..\..\..\..\inc\ap\ap_cst_m.h" />
+		<Unit filename="..\..\..\..\..\inc\ap\ap_dvbs_ota.h" />
+		<Unit filename="..\..\..\..\..\inc\ap\ap_dvbs_scan.h" />
+		<Unit filename="..\..\..\..\..\inc\ap\ap_epg4.h" />
+		<Unit filename="..\..\..\..\..\inc\ap\ap_framework.h" />
+		<Unit filename="..\..\..\..\..\inc\ap\ap_gbox.h" />
+		<Unit filename="..\..\..\..\..\inc\ap\ap_nvod.h" />
+		<Unit filename="..\..\..\..\..\inc\ap\ap_ota.h" />
+		<Unit filename="..\..\..\..\..\inc\ap\ap_playback.h" />
+		<Unit filename="..\..\..\..\..\inc\ap\ap_playback_i.h" />
+		<Unit filename="..\..\..\..\..\inc\ap\ap_rc.h" />
+		<Unit filename="..\..\..\..\..\inc\ap\ap_satcodx.h" />
+		<Unit filename="..\..\..\..\..\inc\ap\ap_satcodx_common.h" />
+		<Unit filename="..\..\..\..\..\inc\ap\ap_satcodx_parse.h" />
+		<Unit filename="..\..\..\..\..\inc\ap\ap_satcodx_recv.h" />
+		<Unit filename="..\..\..\..\..\inc\ap\ap_scan.h" />
+		<Unit filename="..\..\..\..\..\inc\ap\ap_scan_eli.h" />
+		<Unit filename="..\..\..\..\..\inc\ap\ap_signal_monitor.h" />
+		<Unit filename="..\..\..\..\..\inc\ap\ap_time.h" />
+		<Unit filename="..\..\..\..\..\inc\ap\ap_tkgs.h" />
+		<Unit filename="..\..\..\..\..\inc\ap\ap_ts_ota.h" />
+		<Unit filename="..\..\..\..\..\inc\ap\ap_uio.h" />
+		<Unit filename="..\..\..\..\..\inc\ap\ap_upgrade.h" />
+		<Unit filename="..\..\..\..\..\inc\ap\ap_usb_upgrade.h" />
+		<Unit filename="..\..\..\..\..\inc\api\albums_api.h" />
+		<Unit filename="..\..\..\..\..\inc\api\epg_api.h" />
+		<Unit filename="..\..\..\..\..\inc\api\epg_type.h" />
+		<Unit filename="..\..\..\..\..\inc\api\file_play_api.h" />
+		<Unit filename="..\..\..\..\..\inc\api\google_map_api.h" />
+		<Unit filename="..\..\..\..\..\inc\api\media_ip_api.h" />
+		<Unit filename="..\..\..\..\..\inc\api\music_api.h" />
+		<Unit filename="..\..\..\..\..\inc\api\music_api_mplayer.h" />
+		<Unit filename="..\..\..\..\..\inc\api\music_api_mt.h" />
+		<Unit filename="..\..\..\..\..\inc\api\music_api_net.h" />
+		<Unit filename="..\..\..\..\..\inc\api\net_extern_api.h" />
+		<Unit filename="..\..\..\..\..\inc\api\net_music_api.h" />
+		<Unit filename="..\..\..\..\..\inc\api\net_upg_api.h" />
+		<Unit filename="..\..\..\..\..\inc\api\news_api.h" />
+		<Unit filename="..\..\..\..\..\inc\api\ota_api.h" />
+		<Unit filename="..\..\..\..\..\inc\api\ota_dm_api.h" />
+		<Unit filename="..\..\..\..\..\inc\api\pic_api.h" />
+		<Unit filename="..\..\..\..\..\inc\api\pvr_api.h" />
+		<Unit filename="..\..\..\..\..\inc\api\rss_api.h" />
+		<Unit filename="..\..\..\..\..\inc\api\subt_ttx_api.h" />
+		<Unit filename="..\..\..\..\..\inc\api\subt_ttx_ctrl_api.h" />
+		<Unit filename="..\..\..\..\..\inc\api\utils_api.h" />
+		<Unit filename="..\..\..\..\..\inc\api\vod_api.h" />
+		<Unit filename="..\..\..\..\..\inc\api\weather_api.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\aud_vsb.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\audio.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\avsync.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\block.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\bus\hotplug.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\bus\i2c.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\bus\spi.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\camera.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\charsto.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\common.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\display.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\dmx.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\driver.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\drv_cfg.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\drv_misc.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\drvbase\drv_dev.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\dsp.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\ethernet.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\glb_info.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\gpe.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\gpe_vsb.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\hdmi.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\hid.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\lpower.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\modem.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\nim.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\osd.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\pdec.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\pti.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\region.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\rf.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\scart.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\secure\sctrl.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\security_concerto.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\smc_op.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\smc_pro.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\sub.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\tty.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\uio.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\vbi_inserter.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\vdec.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\video.h" />
+		<Unit filename="..\..\..\..\..\inc\drv\wifi.h" />
+		<Unit filename="..\..\..\..\..\inc\firmware\ipc.h" />
+		<Unit filename="..\..\..\..\..\inc\firmware\standby.h" />
+		<Unit filename="..\..\..\..\..\inc\hal\arch\hal_concerto_irq.h" />
+		<Unit filename="..\..\..\..\..\inc\hal\arch\hal_irq_jazz.h" />
+		<Unit filename="..\..\..\..\..\inc\hal\arch\hal_sonata_irq.h" />
+		<Unit filename="..\..\..\..\..\inc\hal\arch\hal_warriors_irq.h" />
+		<Unit filename="..\..\..\..\..\inc\hal\arch\mips.h" />
+		<Unit filename="..\..\..\..\..\inc\hal\arch\sys_regs_concerto.h" />
+		<Unit filename="..\..\..\..\..\inc\hal\arch\sys_regs_jazz.h" />
+		<Unit filename="..\..\..\..\..\inc\hal\arch\sys_regs_magic.h" />
+		<Unit filename="..\..\..\..\..\inc\hal\arch\sys_regs_sonata.h" />
+		<Unit filename="..\..\..\..\..\inc\hal\arch\sys_regs_warriors.h" />
+		<Unit filename="..\..\..\..\..\inc\hal\hal.h" />
+		<Unit filename="..\..\..\..\..\inc\hal\hal_base.h" />
+		<Unit filename="..\..\..\..\..\inc\hal\hal_cpu.h" />
+		<Unit filename="..\..\..\..\..\inc\hal\hal_dma.h" />
+		<Unit filename="..\..\..\..\..\inc\hal\hal_gpio.h" />
+		<Unit filename="..\..\..\..\..\inc\hal\hal_irq.h" />
+		<Unit filename="..\..\..\..\..\inc\hal\hal_misc.h" />
+		<Unit filename="..\..\..\..\..\inc\hal\hal_otp.h" />
+		<Unit filename="..\..\..\..\..\inc\hal\hal_secure.h" />
+		<Unit filename="..\..\..\..\..\inc\hal\hal_timer.h" />
+		<Unit filename="..\..\..\..\..\inc\hal\hal_uart.h" />
+		<Unit filename="..\..\..\..\..\inc\hal\hal_watchdog.h" />
+		<Unit filename="..\..\..\..\..\inc\hal\uart_win32.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\RSSClient\RSSParser\IPTVDataProvider.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\RSSClient\RSSParser\NetMediaDataProvider.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\RSSClient\RSSParser\SkyDataProvider.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\RSSClient\RSSParser\commonData.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\RSSClient\RSSParser\redxDataProvider.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\RSSClient\RSSParser\tvLiveDataProvider.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\RSSClient\RSSParser\utilDataProvider.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\RSSClient\RSSParser\youtubeDataProvider.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\RSSClient\tinyxml\tinystr.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\RSSClient\tinyxml\tinyxml.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\ads_ware.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\aud_descrip\ad_api.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\cas_ware.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\demux_mp\demux_mp.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\demux_mp\demux_mp_misc.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\demux_mp\ext_mem_interface.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\demux_mp\register_net_stream.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\file_playback\file_playback_sequence.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\fsioctl.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\HTTPC\eventSink.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\HTTPC\http_download.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\HTTPC\http_download_mini.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\HTTPC\httpc.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\HTTPC\md5.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cdlna.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cdlna_player.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\http\chttp.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\net\cinterface.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\net\csocket.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\net\curi.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\net\curl.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\soap\csoap.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\typedef.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\caction.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\cargument.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\ccontrolpoint.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\cdevice.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\cicon.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\control\ccontrol.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\cservice.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\cstatevariable.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\cupnp.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\cupnp_function.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\cupnp_limit.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\cupnp_status.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\event\cevent.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\event\cnotify.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\event\cproperty.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\event\csubscriber.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\media\ccontent.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\media\cdidl.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\media\cdms_filesys.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\media\cmd5.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\media\cmediaserver.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\media\cresource.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\ssdp\cssdp.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\ssdp\cssdp_server.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\std\av\ccontent.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\std\av\cdidl.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\std\av\cmd5.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\std\av\cmediarenderer.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\std\av\cmediaserver.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\std\av\cprotocolinfo.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\std\av\cresource.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\upnp\std\av\cupnpav.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\util\ccond.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\util\cdictionary.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\util\clist.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\util\clog.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\util\cmutex.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\util\cstring.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\util\cthread.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\util\ctime.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\dlna\cybergarage\xml\cxml.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\ftp\ftp.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\http\http.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\http\url.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\http_file\download_api.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\http_file\download_manager.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\librtmp\lib_amf.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\librtmp\lib_bytes.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\librtmp\lib_dh.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\librtmp\lib_dhgroups.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\librtmp\lib_handshake.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\librtmp\lib_http.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\librtmp\lib_log.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\librtmp\lib_rtmp.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\librtmp\lib_rtmp_sys.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\mini_httpd\match.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\mini_httpd\mime_encodings.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\mini_httpd\mime_types.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\mini_httpd\mini_httpd.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\mini_httpd\multicast_play.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\mini_httpd\tdate_parse.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\netplay\iptv.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\netplay\netplay.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\aes.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\asn1.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\asn1_mac.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\asn1t.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\bio.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\blowfish.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\bn.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\buffer.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\cast.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\comp.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\conf.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\conf_api.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\crypto.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\des.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\des_old.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\dh.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\dsa.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\dso.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\dtls1.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\e_os2.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\ebcdic.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\ec.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\ecdh.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\ecdsa.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\engine.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\err.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\evp.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\hmac.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\idea.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\krb5_asn.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\kssl.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\lhash.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\md2.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\md4.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\md5.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\obj_mac.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\objects.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\ocsp.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\opensslconf.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\opensslv.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\ossl_typ.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\pem.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\pem2.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\pkcs12.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\pkcs7.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\pq_compat.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\pqueue.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\rand.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\rc2.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\rc4.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\ripemd.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\rsa.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\safestack.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\sha.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\ssl.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\ssl2.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\ssl23.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\ssl3.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\stack.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\store.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\symhacks.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\tls1.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\tmdiff.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\txt_db.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\ui.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\ui_compat.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\x509.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\x509_vfy.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\openssl\x509v3.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\samba\samba_fs.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\socket\socket_api.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\arch\cc.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\arch\init.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\arch\lib.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\arch\lwipopts.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\arch\perf.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\arch\sys_arch.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\api.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\api_msg.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\arch.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\autoip.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\db.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\def.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\dhcp.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\dns.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\err.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\icmp.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\igmp.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\inet.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\inet_chksum.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\init.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\ip.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\ip_addr.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\ip_frag.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\mem.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\memp.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\memp_std.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\netbuf.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\netdb.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\netif.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\netifapi.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\opt.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\packet.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\pbuf.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\raw.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\sio.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\snmp.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\snmp_asn1.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\snmp_msg.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\snmp_structs.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\sockets.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\stats.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\sys.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\tcp.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\tcpip.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\lwip\udp.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\netif\etharp.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\netif\loopif.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\netif\ppp.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\netif\ppp_oe.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\network\tcpip\netif\slipif.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\record\record_seq.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\satip_play.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\subt_pic_ware.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\subt_ttx\subtitle_api.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\subt_ttx\vbi_api.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\sys_mem_cfg_warriors.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\ts_seq\ts_sequence.h" />
+		<Unit filename="..\..\..\..\..\inc\kware\ufs.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\avctrl1.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\bat.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\cat.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\data_base.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\data_base16.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\data_base16v2.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\data_manager.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\data_manager16.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\data_manager_v2.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\data_manager_v3.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\dds.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\dmx_manager.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\dsmcc.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\dvb_eli\bat_eli.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\dvb_eli\cat_eli.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\dvb_eli\ecm_eli.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\dvb_eli\emm_eli.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\dvb_eli\nit_eli.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\dvb_eli\pat_eli.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\dvb_eli\pmt_eli.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\dvb_eli\sdt_eli.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\dvb_eli\tdt_eli.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\dvb_eli\tot_eli.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\dvb_eli\video_packet_eli.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\dvb_factory.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\dvb_protocol.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\dvb_svc.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\dvb_tables.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\ecm.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\eit.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\emm.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\epg_data4.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\epg_database.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\eva\chain.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\eva\controller.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\eva\eva.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\eva\iasync_reader.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\eva\ifilter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\eva\imem_alloc.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\eva\input_pin.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\eva\interface.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\eva\ipin.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\eva\iqueue.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\eva\media_format_define.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\eva\output_pin.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\eva\sink_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\eva\sink_pin.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\eva\source_pin.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\eva\src_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\eva\transf_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\eva\transf_input_pin.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\eva\transf_output_pin.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\fdt.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\file_list.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\Pic_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\albums_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\albums_public.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\av_render_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\common_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\demux_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\demux_interface.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\dvb_transf_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\epg_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\eva_filter_factory.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\file_sink_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\file_source_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\flash_sink_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\google_map_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\lrc_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\media_ip_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\mp3_decode_frame.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\mp3_player_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\mplayer_aud_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\net_extern_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\net_filter_interface.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\net_music_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\net_sink_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\net_source_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\net_transf_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\net_upg_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\news_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\ota_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\pic_render_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\record_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\rss_filter.hpp" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\scan_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\str_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\subt_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\subt_station_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\subt_station_parse.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\ts_player_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\ttx_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\utils_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\vod_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\vod_public.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\filters\weather_filter.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\httpd_svc.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\magic_key.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mdl.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\media_data.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\ctrl_album.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\ctrl_base.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\ctrl_bitmap.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\ctrl_block.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\ctrl_combobox.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\ctrl_common.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\ctrl_container.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\ctrl_cpbar.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\ctrl_editbox.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\ctrl_ipbox.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\ctrl_list.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\ctrl_matrixbox.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\ctrl_numbox.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\ctrl_orb.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\ctrl_progressbar.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\ctrl_scrollbar.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\ctrl_setbox.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\ctrl_string.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\ctrl_textfield.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\ctrl_timebox.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\ctrl_wait.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\flinger.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\framework.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\gdi.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\gdi_anim.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\gdi_dc.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\gui_dump.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\gui_paint.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\gui_pango.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\gui_resource.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\gui_roll.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\gui_xml.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mmi\mmi.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\monitor_service.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mosaic.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\mt_time.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\net_svc.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\network_monitor.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\nim_ctrl.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\nim_ctrl_svc.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\nit.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\nvod_data.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\ota_public_def.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\pat.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\plug_monitor.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\pmt.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\pnp_service.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\preset_data.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\rc_xml.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\rst.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\sdt.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\service.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\smc_ctrl.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\ss_ctrl.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\surface.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\tdt.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\tkgs.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\tot.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\transport_shell.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\ts_packet.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\vfs.h" />
+		<Unit filename="..\..\..\..\..\inc\mdl\video_packet.h" />
+		<Unit filename="..\..\..\..\..\inc\os\mtos_debug.h" />
+		<Unit filename="..\..\..\..\..\inc\os\mtos_event.h" />
+		<Unit filename="..\..\..\..\..\inc\os\mtos_fifo.h" />
+		<Unit filename="..\..\..\..\..\inc\os\mtos_int.h" />
+		<Unit filename="..\..\..\..\..\inc\os\mtos_mem.h" />
+		<Unit filename="..\..\..\..\..\inc\os\mtos_misc.h" />
+		<Unit filename="..\..\..\..\..\inc\os\mtos_msg.h" />
+		<Unit filename="..\..\..\..\..\inc\os\mtos_mutex.h" />
+		<Unit filename="..\..\..\..\..\inc\os\mtos_printk.h" />
+		<Unit filename="..\..\..\..\..\inc\os\mtos_sem.h" />
+		<Unit filename="..\..\..\..\..\inc\os\mtos_task.h" />
+		<Unit filename="..\..\..\..\..\inc\os\mtos_timer.h" />
+		<Unit filename="..\..\..\..\..\inc\sys_define.h" />
+		<Unit filename="..\..\..\..\..\inc\sys_info.h" />
+		<Unit filename="..\..\..\..\..\inc\sys_types.h" />
+		<Unit filename="..\..\..\..\..\inc\trunk\error_code.h" />
+		<Unit filename="..\..\..\..\..\inc\trunk\sys_def.h" />
+		<Unit filename="..\..\..\..\..\inc\util\abs_util.h" />
+		<Unit filename="..\..\..\..\..\inc\util\big5.h" />
+		<Unit filename="..\..\..\..\..\inc\util\char_map.h" />
+		<Unit filename="..\..\..\..\..\inc\util\class_factory.h" />
+		<Unit filename="..\..\..\..\..\inc\util\des.h" />
+		<Unit filename="..\..\..\..\..\inc\util\dvbc_util.h" />
+		<Unit filename="..\..\..\..\..\inc\util\dvbs_util.h" />
+		<Unit filename="..\..\..\..\..\inc\util\dvbt_util.h" />
+		<Unit filename="..\..\..\..\..\inc\util\epg_util.h" />
+		<Unit filename="..\..\..\..\..\inc\util\err_check_def.h" />
+		<Unit filename="..\..\..\..\..\inc\util\fcrc.h" />
+		<Unit filename="..\..\..\..\..\inc\util\fifo_db.h" />
+		<Unit filename="..\..\..\..\..\inc\util\gb2312.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib-object.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\garray.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\gatomic.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\gbytes.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\gdataset.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\ghash.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\glib-init.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\glist.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\gmacros.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\gmem.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\gmessages.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\gnode.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\goption.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\gprintf.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\gqsort.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\gquark.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\gqueue.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\grand.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\gslice.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\gslist.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\gstrfuncs.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\gstring.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\gthread.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\gtree.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\gtypes.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\gunicode.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\gutils.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\gversion.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glib\gversionmacros.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\glibconfig.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\gobject\gboxed.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\gobject\genums.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\gobject\glib-types.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\gobject\gobject.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\gobject\gparam.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\gobject\gparamspecs.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\gobject\gtype.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\gobject\gtypemodule.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\gobject\gtypeplugin.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\gobject\gvalue.h" />
+		<Unit filename="..\..\..\..\..\inc\util\glib\gobject\gvaluetypes.h" />
+		<Unit filename="..\..\..\..\..\inc\util\gzip.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\armscii_8.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\ascii.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\atarist.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\big5.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\big5_2003.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\big5hkscs1999.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\big5hkscs2001.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\big5hkscs2004.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\big5hkscs2008.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\c99.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\ces_big5.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\ces_gbk.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cjk_variants.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cns11643.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cns11643_1.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cns11643_15.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cns11643_2.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cns11643_3.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cns11643_4.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cns11643_4a.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cns11643_4b.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cns11643_5.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cns11643_6.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cns11643_7.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cns11643_inv.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp1046.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp1124.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp1125.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp1129.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp1131.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp1133.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp1161.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp1162.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp1163.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp1250.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp1251.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp1252.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp1253.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp1254.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp1255.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp1256.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp1257.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp1258.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp437.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp737.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp775.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp850.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp852.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp853.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp855.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp856.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp857.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp858.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp860.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp861.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp862.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp863.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp864.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp865.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp866.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp869.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp874.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp922.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp932.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp932ext.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp936.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp936ext.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp943.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp949.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp950.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\cp950ext.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\dec_hanyu.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\dec_kanji.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\euc_cn.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\euc_jisx0213.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\euc_jp.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\euc_kr.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\euc_tw.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\flags.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\flushwc.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\gb12345.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\gb12345ext.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\gb18030.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\gb18030ext.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\gb18030uni.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\gb2312_iconv.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\gbk.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\gbkext1.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\gbkext2.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\gbkext_inv.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\georgian_academy.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\georgian_ps.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\hkscs1999.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\hkscs2001.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\hkscs2004.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\hkscs2008.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\hp_roman8.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\hz.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\iconv_ext.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\iconv_open1.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\iconv_open2.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\iso2022_cn.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\iso2022_cnext.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\iso2022_jp.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\iso2022_jp1.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\iso2022_jp2.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\iso2022_jp3.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\iso2022_kr.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\iso646_cn.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\iso646_jp.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\iso8859_1.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\iso8859_10.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\iso8859_11.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\iso8859_13.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\iso8859_14.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\iso8859_15.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\iso8859_16.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\iso8859_2.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\iso8859_3.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\iso8859_4.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\iso8859_5.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\iso8859_6.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\iso8859_7.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\iso8859_8.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\iso8859_9.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\isoir165.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\isoir165ext.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\java.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\jisx0201.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\jisx0208.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\jisx0212.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\jisx0213.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\johab.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\johab_hangul.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\koi8_r.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\koi8_ru.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\koi8_t.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\koi8_u.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\ksc5601.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\mac_arabic.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\mac_centraleurope.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\mac_croatian.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\mac_cyrillic.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\mac_greek.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\mac_hebrew.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\mac_iceland.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\mac_roman.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\mac_romania.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\mac_thai.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\mac_turkish.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\mac_ukraine.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\mulelao.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\nextstep.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\pt154.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\relocatable.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\riscos1.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\rk1048.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\shift_jisx0213.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\sjis.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\tcvn.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\tds565.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\tis620.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\translit.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\ucs2.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\ucs2be.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\ucs2internal.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\ucs2le.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\ucs2swapped.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\ucs4.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\ucs4be.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\ucs4internal.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\ucs4le.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\ucs4swapped.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\uhc_1.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\uhc_2.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\utf16.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\utf16be.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\utf16le.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\utf32.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\utf32be.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\utf32le.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\utf7.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\utf8.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\vietcomb.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iconv\viscii.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iso_639_2.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iso_6937.h" />
+		<Unit filename="..\..\..\..\..\inc\util\iso_8859.h" />
+		<Unit filename="..\..\..\..\..\inc\util\lib_bitops.h" />
+		<Unit filename="..\..\..\..\..\inc\util\lib_char.h" />
+		<Unit filename="..\..\..\..\..\inc\util\lib_math.h" />
+		<Unit filename="..\..\..\..\..\inc\util\lib_memf.h" />
+		<Unit filename="..\..\..\..\..\inc\util\lib_meml.h" />
+		<Unit filename="..\..\..\..\..\inc\util\lib_memp.h" />
+		<Unit filename="..\..\..\..\..\inc\util\lib_rect.h" />
+		<Unit filename="..\..\..\..\..\inc\util\lib_search.h" />
+		<Unit filename="..\..\..\..\..\inc\util\lib_unicode.h" />
+		<Unit filename="..\..\..\..\..\inc\util\lib_usals.h" />
+		<Unit filename="..\..\..\..\..\inc\util\lib_util.h" />
+		<Unit filename="..\..\..\..\..\inc\util\list.h" />
+		<Unit filename="..\..\..\..\..\inc\util\log\log.h" />
+		<Unit filename="..\..\..\..\..\inc\util\log\log_change_pg_imp.h" />
+		<Unit filename="..\..\..\..\..\inc\util\log\log_def.h" />
+		<Unit filename="..\..\..\..\..\inc\util\log\log_dm_imp.h" />
+		<Unit filename="..\..\..\..\..\inc\util\log\log_dmx_filter_rec_pin_imp.h" />
+		<Unit filename="..\..\..\..\..\inc\util\log\log_epg_imp.h" />
+		<Unit filename="..\..\..\..\..\inc\util\log\log_epg_match.h" />
+		<Unit filename="..\..\..\..\..\inc\util\log\log_flash_imp.h" />
+		<Unit filename="..\..\..\..\..\inc\util\log\log_flash_protect_imp.h" />
+		<Unit filename="..\..\..\..\..\inc\util\log\log_interface.h" />
+		<Unit filename="..\..\..\..\..\inc\util\log\log_mgr.h" />
+		<Unit filename="..\..\..\..\..\inc\util\log\log_pic_render_filter_imp.h" />
+		<Unit filename="..\..\..\..\..\inc\util\log\log_scan_imp.h" />
+		<Unit filename="..\..\..\..\..\inc\util\log\log_subtitle_filter_imp.h" />
+		<Unit filename="..\..\..\..\..\inc\util\log\log_tkgs_imp.h" />
+		<Unit filename="..\..\..\..\..\inc\util\lzma.h" />
+		<Unit filename="..\..\..\..\..\inc\util\lzmaif.h" />
+		<Unit filename="..\..\..\..\..\inc\util\md5_sign.h" />
+		<Unit filename="..\..\..\..\..\inc\util\mem_manager.h" />
+		<Unit filename="..\..\..\..\..\inc\util\mt_debug.h" />
+		<Unit filename="..\..\..\..\..\inc\util\mt_http.h" />
+		<Unit filename="..\..\..\..\..\inc\util\mt_sscanf.h" />
+		<Unit filename="..\..\..\..\..\inc\util\mt_url.h" />
+		<Unit filename="..\..\..\..\..\inc\util\rsa1024.h" />
+		<Unit filename="..\..\..\..\..\inc\util\rw_reg\rw_reg_api.h" />
+		<Unit filename="..\..\..\..\..\inc\util\sha1.h" />
+		<Unit filename="..\..\..\..\..\inc\util\sha256.h" />
+		<Unit filename="..\..\..\..\..\inc\util\showlogo.h" />
+		<Unit filename="..\..\..\..\..\inc\util\simple_queue.h" />
+		<Unit filename="..\..\..\..\..\inc\util\unzip.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\SM_StateMachine.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\SM_StateMachine.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\States_Classic.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\States_Desktop.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\States_Iptv.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\States_IptvSearch.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\palette_id.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_audio_set.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_audio_set.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_auth_server_setting.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_auth_server_setting.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_auto_search.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_auto_search.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_book_api.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_book_api.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_book_list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_book_list.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_comm_ctrl.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_comm_ctrl.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_comm_dlg.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_comm_dlg.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_comm_pwdlg.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_comm_pwdlg.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_comm_root.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_comm_root.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_common.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_config.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_dbase_api.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_dbase_api.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_desktop.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_desktop.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_do_search.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_do_search.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_dump_by_usb.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_dump_by_usb.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_edit_ip_path.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_edit_ip_path.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_edit_usr_pwd.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_edit_usr_pwd.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_epg_api.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_epg_api.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_factory.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_factory.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_fav_list.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_favorite.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_favorite.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_find.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_find.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_fp_audio_set.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_fp_audio_set.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_freq_set.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_freq_set.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_fun_help.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_fun_help.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_gui_defines.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_gui_defines.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_hdd_info.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_hdd_info.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_init.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_iptv.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_iptv_api.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_iptv_api.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_iptv_description.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_iptv_description.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_iptv_gprot.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_iptv_player.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_iptv_player.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_iptv_prot.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_iptv_search.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_jump.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_jump.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_keyboard_ctrl.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_keyboard_ctrl.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_keyboard_v2.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_keyboard_v2.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_live_tv.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_live_tv.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_live_tv_api.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_live_tv_api.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_manual_search.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_manual_search.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_menu_manager.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_menu_manager.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_music_api.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_music_api.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_mute.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_mute.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_net_upg.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_net_upg.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_net_upg_dec.cpp" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_net_upg_dec.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_network_config_lan.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_network_config_lan.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_network_config_wifi.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_network_config_wifi.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_notify.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_notify.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_nprog_bar.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_nprog_bar.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_num_play.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_num_play.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_osd_set.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_osd_set.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_ota.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_ota.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_ota_api.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_ota_api.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_ota_search.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_ota_search.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_pause.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_pause.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_pic_play_mode_set.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_pic_play_mode_set.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_picture.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_picture.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_picture_api.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_picture_api.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_ping_test.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_ping_test.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_play_api.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_play_api.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_play_hist.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_play_hist.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_pppoe_connect.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_pppoe_connect.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_prog_detail.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_prog_detail.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_prog_list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_prog_list.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_range_search.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_range_search.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_recall_list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_recall_list.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_rename.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_rename.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_scan_api.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_scan_api.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_set_search.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_signal.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_signal.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_signal_api.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_signal_api.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_sleep_hotkey.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_sleep_hotkey.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_sleep_timer.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_sleep_timer.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_small_info.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_small_info.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_small_list_v2.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_small_list_v2.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_sort_list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_sort_list.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_storage_format.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_storage_format.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_subt_language.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_subt_language.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_systatus_api.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_systatus_api.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_terrestrial.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_terrestrial.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_terrestrial_full_search.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_terrestrial_full_search.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_terrestrial_manual_search.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_terrestrial_manual_search.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_text_encode.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_text_encode.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_time_api.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_time_api.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_timer.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_timer.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_upgrade_api.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_upgrade_api.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_upgrade_by_network.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_upgrade_by_network.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_usb_api.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_usb_api.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_usb_music.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_usb_music.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_usb_music_fullscreen.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_usb_music_fullscreen.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_usb_picture.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_usb_picture.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_usb_setting.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_util.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_util.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_util_api.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_util_api.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_utils.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_utils.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_vdo_favorite.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_vdo_favorite.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_vepg.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_vepg.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_video.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_video_c.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_video_goto.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_video_goto.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_video_info.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_video_iqy.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_video_iqy.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_video_m.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_video_player.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_video_player.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_video_player_gprot.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_video_player_prot.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_video_subtitle.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_video_v.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_video_v_full_screen.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_video_v_full_screen.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_volume.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_volume.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_volume_usb.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_volume_usb.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_wifi.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_wifi.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_wifi_link_info.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_wifi_link_info.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xbootWizard.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xbootWizard.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xextend.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xextend.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xfilebox.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xfilebox.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xinfo.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xinfo.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xlanguage.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xlanguage.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xmainmenu.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xmainmenu.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xparental_lock.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xparental_lock.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xsearch.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xsearch.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xstb_help.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xstb_help.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xstb_name.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xstb_name.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xsys_set.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xsys_set.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xtime_set.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xtime_set.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xtvsys_set.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xtvsys_set.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xupgrade_by_rs232.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xupgrade_by_rs232.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xupgrade_by_usb.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_xupgrade_by_usb.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_zoom.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\ui\ui_zoom.h" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\vod\IIPTVDataProvider.cpp" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\vod\IqiyiDataProvider.cpp" />
+		<Unit filename="..\..\..\..\..\prj\dvbc\rabi\vod\iqy_porting_function.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
