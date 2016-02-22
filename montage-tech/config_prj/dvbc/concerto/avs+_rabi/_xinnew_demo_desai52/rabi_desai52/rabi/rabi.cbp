@@ -980,6 +980,18 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_iqy\ui_video_iqy.h" />
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_xingmei\ui_video_xinmei.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_xingmei\ui_video_xinmei.h" />
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_xingmei\xingmeiDataPorcess.h" />
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_xingmei\xingmeiDataProcess.cpp" />
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_xingmei\xingmeiDataProvider.cpp" />
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_xingmei\xingmeiDataProvider.h" />
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_xingmei\xingmei_api.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_xingmei\xingmei_api.h" />
 		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\ui_iptv_api.c">
 			<Option compilerVar="CC" />
 		</Unit>

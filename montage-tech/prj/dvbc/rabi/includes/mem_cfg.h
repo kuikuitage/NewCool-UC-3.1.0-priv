@@ -93,7 +93,7 @@ typedef enum
 
 #if		defined ADS_DIVI_SUPPORT
 #define SYS_PARTITION_SIZE        (0x2000000 - 0x200000 - 4500*KBYTES)
-#elif	defined TR_CA || defined (TEMP_SUPPORT_DS_AD) || defined (ADS_DESAI_SUPPORT) || defined (SUPPORT_DVB_AD)
+#elif	defined TR_CA || defined (TEMP_SUPPORT_DS_AD) || defined (ADS_DESAI_SUPPORT) || defined (SUPPORT_DVB_AD) || defined SUPPORT_EXTERN_IPTV
 #define SYS_PARTITION_SIZE        (0x2000000 - 0x200000 - 3000*KBYTES)
 #else
 #define SYS_PARTITION_SIZE        (0x2000000 - 0x200000 - 1700*KBYTES)

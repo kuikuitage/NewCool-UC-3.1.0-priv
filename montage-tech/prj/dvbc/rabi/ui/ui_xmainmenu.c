@@ -15,6 +15,8 @@
 #include "ui_picture_api.h"
 #include "ui_picture_api.h"
 #include "authorization.h"
+#include "ui_iptv_api.h"
+
 //#include "tree.h"
 
 enum main_menu_control_id
@@ -22,10 +24,16 @@ enum main_menu_control_id
 	IDC_INVALID = 0,
 	IDC_TV = 1,
 	IDC_VOD = 2,
-	IDC_MPLAY = 3,
-	IDC_SET = 4,
+	#ifdef SUPPORT_EXTERN_IPTV
+	IDC_EXTERN_VOD,
+	#endif
+	IDC_MPLAY,
+	IDC_SET,
 	IDC_TV_TEXT,
 	IDC_VOD_TEXT,
+	#ifdef SUPPORT_EXTERN_IPTV
+	IDC_EXTERN_VOD_TEXT,
+	#endif
 	IDC_MPLAY_TEXT,
 	IDC_SET_TEXT,
 	IDC_SPACE1,
@@ -63,6 +71,17 @@ RET_CODE open_main_menu(u32 para1, u32 para2)
 {
 	control_t *p_cont, *p_btn, *p_btn_bg,*p_text, *p_text_bg, *p_space;
 	u16 i;
+	#ifdef SUPPORT_EXTERN_IPTV
+	u16 ids_item[MAINMENU_BTN_CNT] = {IDS_TV,IDS_VOD,IDS_VOD,IDS_MULTI_MEDIA,IDS_SETUP};
+	u32 rstyle_item[MAINMENU_BTN_CNT][3] = 
+	{
+		{RSI_MMENU_TV,RSI_MMENU_TV_F,RSI_MMENU_TV},
+		{RSI_MMENU_VOD,RSI_MMENU_VOD_F,RSI_MMENU_VOD},
+		{RSI_MMENU_VOD,RSI_MMENU_VOD_F,RSI_MMENU_VOD},
+		{RSI_MMENU_MPLAY,RSI_MMENU_MPLAY_F,RSI_MMENU_MPLAY},
+		{RSI_MMENU_SET,RSI_MMENU_SET_F,RSI_MMENU_SET},
+	};
+	#else
 	u16 ids_item[MAINMENU_BTN_CNT] = {IDS_TV,IDS_VOD, IDS_MULTI_MEDIA,IDS_SETUP};
 	u32 rstyle_item[MAINMENU_BTN_CNT][3] = 
 	{
@@ -71,6 +90,7 @@ RET_CODE open_main_menu(u32 para1, u32 para2)
 		{RSI_MMENU_MPLAY,RSI_MMENU_MPLAY_F,RSI_MMENU_MPLAY},
 		{RSI_MMENU_SET,RSI_MMENU_SET_F,RSI_MMENU_SET},
 	};
+	#endif
 	p_cont = fw_create_mainwin(ROOT_ID_MAINMENU,
 							   MMENU_CONT_X, MMENU_CONT_Y,
 							   MMENU_CONT_W, MMENU_CONT_H+MAINMENU_FONT_H,
@@ -384,6 +404,30 @@ mul_pic_param_t pic_param = {{0},};
 }
 */ 
 
+RET_CODE xmain_menu_open_iptv(u8 root_id, u16 idc)
+{
+	u32 iptv_id;
+
+	#ifdef SUPPORT_EXTERN_IPTV
+		if(IDC_VOD == idc)
+		{
+			iptv_id = IPTV_ID_IQY;
+		}
+		else
+		{
+			iptv_id = IPTV_ID_XM;
+		}
+	#else
+		#if defined IPTV_SUPPORT_IQY
+		iptv_id = IPTV_ID_IQY;
+		#elif defined IPTV_SUPPORT_XINGMEI
+		iptv_id = IPTV_ID_XM;
+		#endif
+	#endif
+	DEBUG(UI_IPTV,INFO,"iptv_id=%d \n",iptv_id);
+	return manage_open_menu(ROOT_ID_IPTV, iptv_id, 0);
+}
+
 static RET_CODE on_mainmenu_btn_select(control_t *p_ctrl, u16 msg, u32 para1, u32 para2)
 {
 	u8 ctrlID;
@@ -396,6 +440,9 @@ static RET_CODE on_mainmenu_btn_select(control_t *p_ctrl, u16 msg, u32 para1, u3
 		case IDC_TV:
 			on_exit_all(p_ctrl, msg, para1, para2);
 			break;
+		#ifdef SUPPORT_EXTERN_IPTV
+		case IDC_EXTERN_VOD:
+		#endif
 		case IDC_VOD:
 			if(xmian_check_network_stat())
 			{
@@ -413,10 +460,10 @@ static RET_CODE on_mainmenu_btn_select(control_t *p_ctrl, u16 msg, u32 para1, u3
 				else if (NC_AUTH_BEATING_FAILURE == auth_state)
 					ret = xmain_show_dlg(SYS_DLG_FOR_CHK_X,SYS_DLG_FOR_CHK_Y,PWDLG_W,PWDLG_H,2000,IDS_NC_AUTH_BEAT_FAILURE);
 				else
-					ret = manage_open_menu(ROOT_ID_IPTV, 0, 0);
+					ret = xmain_menu_open_iptv(ROOT_ID_IPTV, ctrlID);
 					
 #else
-                ret = manage_open_menu(ROOT_ID_IPTV, 0, 0);
+                ret = xmain_menu_open_iptv(ROOT_ID_IPTV, ctrlID);
 #endif
 
 				//  get_image_httphead("http://192.168.2.12/test/a.xml");

@@ -114,8 +114,6 @@
 					<Add directory='&quot;${PROJECT_LOC}\inc\kware\RSSClient\tinyxml&quot;' />
 					<Add directory="${PROJECT_LOC}\src\drv\nim\dvbt\m88dd3k-6301" />
 					<Add directory='&quot;${PROJECT_LOC}\inc\drv\secure&quot;' />
-					<Add directory='&quot;${PROJECT_LOC}\prj\dvbc\rabi\vod&quot;' />
-					<Add directory='&quot;${PROJECT_LOC}\prj\dvbc\rabi\vod\server_iqy&quot;' />
 				</Compiler>
 				<Linker>
 					<Add option="--oformat elf32-tradlittlemips --gc-sections -nostdlib -T${PROJECT_DIR}\link.lds -o rabi_dtmb.elf -Map rabi_dtmb.map" />
@@ -628,6 +626,10 @@
 		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\ui\ui_iptv.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\ui\ui_iptv_api.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\ui\ui_iptv_api.h" />
 		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\ui\ui_iptv_description.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -914,6 +916,9 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\ui\ui_video_goto.h" />
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\ui\ui_video_iqy.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\ui\ui_video_iqy.h" />
 		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\ui\ui_video_m.c">
 			<Option compilerVar="CC" />
@@ -1025,28 +1030,11 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\user_table\user_parse_table.h" />
-		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\iptv_interface.h" />
-		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_iqy\IqiyiLibPorcess.h" />
-		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_iqy\IqiyiLibProcess.cpp" />
-		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_iqy\IqyDataProvider.cpp" />
-		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_iqy\IqyDataProvider.h" />
-		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_iqy\iqiyiTV_C.h" />
-		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_iqy\iqy_api.c">
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\IIPTVDataProvider.cpp" />
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\IqiyiDataProvider.cpp" />
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\iqy_porting_function.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_iqy\iqy_api.h" />
-		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_iqy\iqy_porting_function.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_iqy\iqy_porting_function.h" />
-		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_iqy\ui_video_iqy.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_iqy\ui_video_iqy.h" />
-		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\ui_iptv_api.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\ui_iptv_api.h" />
 		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\atbm\iic.c">
 			<Option compilerVar="CC" />
 		</Unit>

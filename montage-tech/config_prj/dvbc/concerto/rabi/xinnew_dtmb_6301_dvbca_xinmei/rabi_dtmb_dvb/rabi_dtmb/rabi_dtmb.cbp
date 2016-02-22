@@ -26,6 +26,11 @@
 					<Add option="-DPROGRAM_LIST_FAST_CUT" />
 					<Add option="-DREMOTE_REPEAT_DELAY" />
 					<Add option="-DTV_BIRTHNESS_EN" />
+					<Add option="-DSUPPORT_EXTERN_IPTV" />
+					<Add option="-DIPTV_SUPPORT_IQY" />
+					<Add option="-DIPTV_SUPPORT_XM" />
+					<Add option="-DPRINT_ON" />
+					<Add option="-DIPTV_TEST" />
 					<Add directory='&quot;${PROJECT_LOC}\inc&quot;' />
 					<Add directory='&quot;${PROJECT_LOC}\inc\ap&quot;' />
 					<Add directory='&quot;${PROJECT_LOC}\inc\api&quot;' />
@@ -115,6 +120,7 @@
 					<Add directory='&quot;${PROJECT_LOC}\inc\drv\secure&quot;' />
 					<Add directory='&quot;${PROJECT_LOC}\prj\dvbc\rabi\vod&quot;' />
 					<Add directory='&quot;${PROJECT_LOC}\prj\dvbc\rabi\vod\server_iqy&quot;' />
+					<Add directory='&quot;${PROJECT_LOC}\prj\dvbc\rabi\vod\server_xingmei&quot;' />
 				</Compiler>
 				<Linker>
 					<Add option="--oformat elf32-tradlittlemips --gc-sections -nostdlib -T${PROJECT_DIR}\link.lds -o rabi_dtmb.elf -Map rabi_dtmb.map" />
@@ -1041,6 +1047,19 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_iqy\ui_video_iqy.h" />
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_xingmei\smediaTV_C.h" />
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_xingmei\ui_video_xinmei.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_xingmei\ui_video_xinmei.h" />
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_xingmei\xingmeiDataPorcess.h" />
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_xingmei\xingmeiDataProcess.cpp" />
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_xingmei\xingmeiDataProvider.cpp" />
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_xingmei\xingmeiDataProvider.h" />
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_xingmei\xingmei_api.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_xingmei\xingmei_api.h" />
 		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\ui_iptv_api.c">
 			<Option compilerVar="CC" />
 		</Unit>

@@ -389,7 +389,7 @@ typedef struct {
 	get_search_word_func				get_search_word;
 }IQY_DP_HDL_T;
 
-const VodDpInterface_t* GetDpInterface(void);
+const VodDpInterface_t* GetIqyDpInterface(void);
 #ifdef __cplusplus
 }
 #endif 

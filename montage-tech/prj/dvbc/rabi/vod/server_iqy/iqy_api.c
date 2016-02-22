@@ -10,44 +10,11 @@
 #include "iqy_api.h"
 #include "ui_iptv_prot.h"
 
-
 //#include "lib_char.h"
 #if ENABLE_NETWORK
+#include "ui_iptv_api.h"
 
-#define APP_IPTV    APP_NVOD
-
-typedef enum
-{
-    IPTV_EVT_INIT_SUCCESS = ((APP_IPTV << 16) + 0),
-    IPTV_EVT_INIT_FAIL,
-    IPTV_EVT_DEINIT_SUCCESS,
-    IPTV_EVT_NEW_RES_NAME_ARRIVE,
-    IPTV_EVT_GET_RES_NAME_FAIL,
-    IPTV_EVT_NEW_RES_CATGRY_ARRIVE,
-    IPTV_EVT_GET_RES_CATGRY_FAIL,
-    IPTV_EVT_NEW_PAGE_VDO_ARRIVE,
-    IPTV_EVT_GET_PAGE_VDO_FAIL,
-    IPTV_EVT_NEW_SEARCH_VDO_ARRIVE,
-    IPTV_EVT_GET_SEARCH_VDO_FAIL,
-    IPTV_EVT_NEW_VDO_INFO_ARRIVE,
-    IPTV_EVT_GET_VDO_INFO_FAIL,
-    IPTV_EVT_NEW_INFO_URL_ARRIVE,
-    IPTV_EVT_GET_INFO_URL_FAIL,
-    IPTV_EVT_NEW_PLAY_URL_ARRIVE,
-    IPTV_EVT_GET_PLAY_URL_FAIL,
-    IPTV_EVT_NEW_RECMND_INFO_ARRIVE,
-    IPTV_EVT_GET_RECMND_INFO_FAIL,
-    IPTV_EVT_NEW_SOURCE_FORMAT_ARRIVE,
-    IPTV_EVT_GET_SOURCE_FORMAT_FAIL,
-    IPTV_EVT_NEW_SEARCH_WORD_ARRIVE,
-    IPTV_EVT_GET_SEARCH_WORD_FAIL,
-    IPTV_EVT_MAX
-} iptv_api_evt_t;
-
-
-
-
-u16 ui_iptv_evtmap(u32 event);
+u16 iqy_evtmap(u32 event);
 
 extern iconv_t g_cd_utf8_to_utf16le;
 extern iconv_t g_cd_utf16le_to_utf8;
@@ -64,7 +31,7 @@ static void set_vdo_id(VDO_ID_t *id,const char * qpid,const char * tvqid,char* s
 	id->type = type;
 }
 //fuxl add
-static al_iptv_search_word_t *ui_iptv_gen_search_word(IQY_SEARCH_WORD_T *p_param)
+static al_iptv_search_word_t *iqy_gen_search_word(IQY_SEARCH_WORD_T *p_param)
 {
     al_iptv_search_word_t *p_data = NULL;
     char *inbuf, *outbuf;
@@ -96,7 +63,7 @@ static al_iptv_search_word_t *ui_iptv_gen_search_word(IQY_SEARCH_WORD_T *p_param
     return p_data;
 }
 
-static void ui_iptv_free_search_word(u32 param)
+static void iqy_free_search_word(u32 param)
 {
     al_iptv_search_word_t *p_data = (al_iptv_search_word_t *)param;
     u16 i;
@@ -120,7 +87,7 @@ static void ui_iptv_free_search_word(u32 param)
 
 
 //SY modify
-static al_iptv_name_res_list_t *ui_iptv_gen_name_res_list(IQY_CATEGORY_LIST_T *p_param)
+static al_iptv_name_res_list_t *iqy_gen_name_res_list(IQY_CATEGORY_LIST_T *p_param)
 {
     al_iptv_name_res_list_t *p_data = NULL;
     IQY_Channel *p_item;
@@ -159,7 +126,7 @@ static al_iptv_name_res_list_t *ui_iptv_gen_name_res_list(IQY_CATEGORY_LIST_T *p
     return p_data;
 }
 
-static void ui_iptv_free_name_res_list(u32 param)
+static void iqy_free_name_res_list(u32 param)
 {
     al_iptv_name_res_list_t *p_data = (al_iptv_name_res_list_t *)param;
     u16 i;
@@ -181,7 +148,7 @@ static void ui_iptv_free_name_res_list(u32 param)
     }
 }
 
-static al_iptv_cat_res_list_t *ui_iptv_gen_cat_res_list(IQY_CATEGORY_TYPE_ALL_T *p_param)
+static al_iptv_cat_res_list_t *iqy_gen_cat_res_list(IQY_CATEGORY_TYPE_ALL_T *p_param)
 {
     al_iptv_cat_res_list_t *p_data = NULL;
 	IQY_SubTag *iqy_subtag;
@@ -351,7 +318,7 @@ static al_iptv_cat_res_list_t *ui_iptv_gen_cat_res_list(IQY_CATEGORY_TYPE_ALL_T 
     return p_data;
 }
 
-static void ui_iptv_free_cat_res_list(u32 param)
+static void iqy_free_cat_res_list(u32 param)
 {
     al_iptv_cat_res_list_t *p_data = (al_iptv_cat_res_list_t *)param;
     u16 i, j,k;
@@ -408,7 +375,7 @@ static void ui_iptv_free_cat_res_list(u32 param)
     }
 }
 
-static al_iptv_vdo_list_t *ui_iptv_gen_vdo_list(IQY_CHANNEL_LIST_T *p_param)
+static al_iptv_vdo_list_t *iqy_gen_vdo_list(IQY_CHANNEL_LIST_T *p_param)
 {
     al_iptv_vdo_list_t *p_data = NULL;
     IQY_AlbumInfo *palbum;
@@ -474,7 +441,7 @@ static al_iptv_vdo_list_t *ui_iptv_gen_vdo_list(IQY_CHANNEL_LIST_T *p_param)
     return p_data;
 }
 
-static void ui_iptv_free_vdo_list(u32 param)
+static void iqy_free_vdo_list(u32 param)
 {
     al_iptv_vdo_list_t *p_data = (al_iptv_vdo_list_t *)param;
     u16 i;
@@ -513,7 +480,7 @@ u16 chrn (char *str, char c)
     }
     return cnt;
 }
-static al_iptv_vdo_info_t *ui_iptv_gen_vdo_info(IQY_CHANNEL_INFO_T *p_param)
+static al_iptv_vdo_info_t *iqy_gen_vdo_info(IQY_CHANNEL_INFO_T *p_param)
 {
     al_iptv_vdo_info_t *p_data = NULL;
     char *inbuf, *outbuf;
@@ -652,7 +619,7 @@ static al_iptv_vdo_info_t *ui_iptv_gen_vdo_info(IQY_CHANNEL_INFO_T *p_param)
     return p_data;
 }
 
-static void ui_iptv_free_vdo_info(u32 param)
+static void iqy_free_vdo_info(u32 param)
 {
     al_iptv_vdo_info_t *p_data = (al_iptv_vdo_info_t *)param;
     if (p_data)
@@ -708,7 +675,7 @@ static void ui_iptv_free_vdo_info(u32 param)
     }
 }
 
-static al_iptv_info_url_list_t *ui_iptv_gen_info_url(IQY_CHANNEL_INFO_T *p_param)
+static al_iptv_info_url_list_t *iqy_gen_info_url(IQY_CHANNEL_INFO_T *p_param)
 {
     al_iptv_info_url_list_t *p_data = NULL;
     IQY_Episode *pepisode;
@@ -783,7 +750,7 @@ static al_iptv_info_url_list_t *ui_iptv_gen_info_url(IQY_CHANNEL_INFO_T *p_param
     return p_data;
 }
 
-static void ui_iptv_free_info_url(u32 param)
+static void iqy_free_info_url(u32 param)
 {
     al_iptv_info_url_list_t *p_data = (al_iptv_info_url_list_t *)param;
     u16 i;
@@ -805,7 +772,7 @@ static void ui_iptv_free_info_url(u32 param)
     }
 }
 
-static al_iptv_recomand_info_t *ui_iptv_gen_remend_info(IQY_RECMD_INFO_T *p_param)
+static al_iptv_recomand_info_t *iqy_gen_remend_info(IQY_RECMD_INFO_T *p_param)
 {
 	al_iptv_recomand_info_t *p_data = NULL;
 	IQY_AlbumInfo *p_item;
@@ -892,7 +859,7 @@ static al_iptv_recomand_info_t *ui_iptv_gen_remend_info(IQY_RECMD_INFO_T *p_para
 	return p_data;
 }
 
-static void ui_iptv_free_remend_info(u32 param)
+static void iqy_free_remend_info(u32 param)
 {
     al_iptv_recomand_info_t *p_data = (al_iptv_recomand_info_t *)param;
     u16 i;
@@ -917,7 +884,7 @@ static void ui_iptv_free_remend_info(u32 param)
     }
 }
 
-static al_iptv_source_format_t *ui_iptv_gen_source_format(IQY_VIDEO_FORMAT_T * format)
+static al_iptv_source_format_t *iqy_gen_source_format(IQY_VIDEO_FORMAT_T * format)
 {
 	al_iptv_source_format_t *p_data = NULL;
 	int i;
@@ -935,7 +902,7 @@ static al_iptv_source_format_t *ui_iptv_gen_source_format(IQY_VIDEO_FORMAT_T * f
 	return p_data;
 }
 
-static void ui_iptv_free_source_format(u32 param)
+static void iqy_free_source_format(u32 param)
 {
     al_iptv_source_format_t *p_data = (al_iptv_source_format_t *)param;
 
@@ -949,7 +916,7 @@ static void ui_iptv_free_source_format(u32 param)
     }
 }
 
-static al_iptv_play_url_list_t *ui_iptv_gen_play_url(IQY_CHANNEL_PLAY_URL_T *p_param)
+static al_iptv_play_url_list_t *iqy_gen_play_url(IQY_CHANNEL_PLAY_URL_T *p_param)
 {
     al_iptv_play_url_list_t *p_data = NULL;
     IQY_CHANNEL_URL_T *p_item;
@@ -979,7 +946,7 @@ static al_iptv_play_url_list_t *ui_iptv_gen_play_url(IQY_CHANNEL_PLAY_URL_T *p_p
     return p_data;
 }
 
-static void ui_iptv_free_play_url(u32 param)
+static void iqy_free_play_url(u32 param)
 {
     al_iptv_play_url_list_t *p_data = (al_iptv_play_url_list_t *)param;
 
@@ -1030,7 +997,7 @@ static RET_CODE  iptv_dp_event_callback(IPTV_EVENT_TYPE event, u32 param)
              DEBUG(UI_PLAY_API,INFO,"@@@IPTV_CATEGORY_ARRIVAL status=%d\n", p_param->status);
              if (p_param->status == IPTV_DATA_SUCCESS)
              {
-                 al_iptv_name_res_list_t *p_data = ui_iptv_gen_name_res_list(p_param);
+                 al_iptv_name_res_list_t *p_data = iqy_gen_name_res_list(p_param);
  
                  if (p_data != NULL)
                  {
@@ -1055,7 +1022,7 @@ static RET_CODE  iptv_dp_event_callback(IPTV_EVENT_TYPE event, u32 param)
             DEBUG(UI_PLAY_API,INFO,"@@@IPTV_CATEGORY_TYPE_ARRIVAL status=%d\n", p_param->status);
             if (p_param->status == IPTV_DATA_SUCCESS)
             {
-                al_iptv_cat_res_list_t *p_data = ui_iptv_gen_cat_res_list(p_param);
+                al_iptv_cat_res_list_t *p_data = iqy_gen_cat_res_list(p_param);
 
                 if (p_data != NULL)
                 {
@@ -1081,7 +1048,7 @@ static RET_CODE  iptv_dp_event_callback(IPTV_EVENT_TYPE event, u32 param)
                     DEBUG(UI_PLAY_API,INFO,"@@@IPTV_QUERY_MODE_CATGRY status[%d], query_mode[%d]\n",p_param->status,p_param->query_mode);
                     if (p_param->status == IPTV_DATA_SUCCESS)
                     {
-                        al_iptv_vdo_list_t *p_data = ui_iptv_gen_vdo_list(p_param);
+                        al_iptv_vdo_list_t *p_data = iqy_gen_vdo_list(p_param);
 
 			   if (p_param->query_mode == IPTV_QUERY_MODE_CATGRY)
                         	evt.id = IPTV_EVT_NEW_PAGE_VDO_ARRIVE;
@@ -1129,14 +1096,14 @@ static RET_CODE  iptv_dp_event_callback(IPTV_EVENT_TYPE event, u32 param)
             {
                 if (p_param->is_description == FALSE)
                 {
-                    al_iptv_info_url_list_t *p_data = ui_iptv_gen_info_url(p_param);
+                    al_iptv_info_url_list_t *p_data = iqy_gen_info_url(p_param);
                     evt.id = IPTV_EVT_NEW_INFO_URL_ARRIVE;
                     evt.data1 = (u32)p_data;
                     ap_frm_send_evt_to_ui(APP_IPTV, &evt);
                 }
                 else
                 {
-                    al_iptv_vdo_info_t *p_data = ui_iptv_gen_vdo_info(p_param);
+                    al_iptv_vdo_info_t *p_data = iqy_gen_vdo_info(p_param);
                     evt.id = IPTV_EVT_NEW_VDO_INFO_ARRIVE;
                     evt.data1 = (u32)p_data;
                     ap_frm_send_evt_to_ui(APP_IPTV, &evt);
@@ -1159,7 +1126,7 @@ static RET_CODE  iptv_dp_event_callback(IPTV_EVENT_TYPE event, u32 param)
             DEBUG(UI_PLAY_API,INFO,"@@@IPTV_RECOMMEND_INFO_ARRIVAL status=%d\n", p_param->status);
             if (p_param->status == IPTV_DATA_SUCCESS)
             {
-                al_iptv_recomand_info_t *p_data = ui_iptv_gen_remend_info(p_param);
+                al_iptv_recomand_info_t *p_data = iqy_gen_remend_info(p_param);
                 if (p_data != NULL)
                 {
                     evt.id = IPTV_EVT_NEW_RECMND_INFO_ARRIVE;
@@ -1179,7 +1146,7 @@ static RET_CODE  iptv_dp_event_callback(IPTV_EVENT_TYPE event, u32 param)
             al_iptv_source_format_t *p_data;
 	     IQY_VIDEO_FORMAT_T *p_param = (IQY_VIDEO_FORMAT_T*)param;
             DEBUG(UI_PLAY_API,INFO,"@@@IPTV_FORMAT_TYPE_ARRIVAL param.total[%d]\n", p_param->total);
-            p_data = ui_iptv_gen_source_format(p_param);
+            p_data = iqy_gen_source_format(p_param);
             if (p_data != NULL)
             {
                 evt.id = IPTV_EVT_NEW_SOURCE_FORMAT_ARRIVE;
@@ -1201,7 +1168,7 @@ static RET_CODE  iptv_dp_event_callback(IPTV_EVENT_TYPE event, u32 param)
             DEBUG(UI_PLAY_API,INFO,"@@@IPTV_PLAY_URL_ARRIVAL status=%d\n", p_param->status);
             if (p_param->status == IPTV_DATA_SUCCESS)
             {
-                al_iptv_play_url_list_t *p_data = ui_iptv_gen_play_url(p_param);
+                al_iptv_play_url_list_t *p_data = iqy_gen_play_url(p_param);
 
                 if (p_data != NULL)
                 {
@@ -1226,7 +1193,7 @@ static RET_CODE  iptv_dp_event_callback(IPTV_EVENT_TYPE event, u32 param)
              if (p_param->status == IPTV_DATA_SUCCESS)
              {
 		 DEBUG(UI_PLAY_API,INFO,"@@@ IPTV_SEARCH_WORD_ARRIVAL\n");
-                 al_iptv_search_word_t *p_data = ui_iptv_gen_search_word(p_param);
+                 al_iptv_search_word_t *p_data = iqy_gen_search_word(p_param);
  
                  if (p_data != NULL)
                  {
@@ -1249,7 +1216,7 @@ static RET_CODE  iptv_dp_event_callback(IPTV_EVENT_TYPE event, u32 param)
     return SUCCESS;
 }
 
-void ui_iptv_free_msg_data(u16 msg, u32 para1, u32 para2)
+void iqy_free_msg_data(u16 msg, u32 para1, u32 para2)
 {
     if (msg < MSG_IPTV_EVT_BEGIN || msg >= MSG_IPTV_EVT_END)
     {
@@ -1260,48 +1227,48 @@ void ui_iptv_free_msg_data(u16 msg, u32 para1, u32 para2)
     {
         case MSG_IPTV_EVT_NEW_SEARCH_WORD_ARRIVE:
         {
-            ui_iptv_free_search_word(para1);
+            iqy_free_search_word(para1);
         }
             break;
         case MSG_IPTV_EVT_NEW_RES_NAME_ARRIVE:
         {
-            ui_iptv_free_name_res_list(para1);
+            iqy_free_name_res_list(para1);
         }
             break;
         case MSG_IPTV_EVT_NEW_RES_CATGRY_ARRIVE:
         {
-            ui_iptv_free_cat_res_list(para1);
+            iqy_free_cat_res_list(para1);
         }
             break;
         case MSG_IPTV_EVT_NEW_PAGE_VDO_ARRIVE:
         case MSG_IPTV_EVT_NEW_SEARCH_VDO_ARRIVE:
         {
-            ui_iptv_free_vdo_list(para1);
+            iqy_free_vdo_list(para1);
         }
             break;
         case MSG_IPTV_EVT_NEW_VDO_INFO_ARRIVE:
         {
-            ui_iptv_free_vdo_info(para1);
+            iqy_free_vdo_info(para1);
         }
             break;
         case MSG_IPTV_EVT_NEW_INFO_URL_ARRIVE:
         {
-            ui_iptv_free_info_url(para1);
+            iqy_free_info_url(para1);
         }
             break;
         case MSG_IPTV_EVT_NEW_RECMND_INFO_ARRIVE:
         {
-            ui_iptv_free_remend_info(para1);
+            iqy_free_remend_info(para1);
         }
             break;
         case MSG_IPTV_EVT_NEW_SOURCE_FORMAT_ARRIVE:
         {
-            ui_iptv_free_source_format(para1);
+            iqy_free_source_format(para1);
         }
             break;
         case MSG_IPTV_EVT_NEW_PLAY_URL_ARRIVE:
         {
-            ui_iptv_free_play_url(para1);
+            iqy_free_play_url(para1);
         }
             break;
         default:
@@ -1309,15 +1276,15 @@ void ui_iptv_free_msg_data(u16 msg, u32 para1, u32 para2)
     }
 }
 
-const VodDpInterface_t *pVod = NULL; //vod interface
-void ui_iptv_dp_init(void)
+static const VodDpInterface_t *pVod = NULL; //vod interface
+void iqy_dp_init(void)
 {
 #ifndef WIN32
 	DO_CMD_TASK_CONFIG_T config;
 
-	pVod = GetDpInterface();
+	pVod = GetIqyDpInterface();
 
-	DEBUG(UI_PLAY_API,INFO,"@@@ui_iptv_dp_init\n");
+	DEBUG(UI_PLAY_API,INFO,"@@@iqy_dp_init\n");
 	memset(&config, 0, sizeof(DO_CMD_TASK_CONFIG_T));
 	vdo_identify_code = 0;
 	config.priority = VOD_DP_PRIORITY;
@@ -1341,7 +1308,7 @@ void ui_iptv_dp_init(void)
 #endif
 }
 
-void ui_iptv_dp_deinit(void)
+void iqy_dp_deinit(void)
 {
     if (pVod != NULL)
     {
@@ -1352,17 +1319,17 @@ void ui_iptv_dp_deinit(void)
     }
 }
 
-void ui_iptv_register_msg(void)
+void iqy_dp_register_msg(void)
 {
-	DEBUG(UI_PLAY_API,INFO,"@@@ui_iptv_register_msg\n");
-	fw_register_ap_evtmap(APP_IPTV, ui_iptv_evtmap);
+	DEBUG(UI_PLAY_API,INFO,"@@@iqy_register_msg\n");
+	fw_register_ap_evtmap(APP_IPTV, iqy_evtmap);
 	fw_register_ap_msghost(APP_IPTV, ROOT_ID_IPTV);
 	fw_register_ap_msghost(APP_IPTV, ROOT_ID_IPTV_SEARCH);
 }
 
-void ui_iptv_unregister_msg(void)
+void iqy_dp_unregister_msg(void)
 {
-	DEBUG(UI_PLAY_API,INFO,"@@@ui_iptv_unregister_msg\n");
+	DEBUG(UI_PLAY_API,INFO,"@@@iqy_unregister_msg\n");
 	fw_unregister_ap_evtmap(APP_IPTV);
 	fw_unregister_ap_msghost(APP_IPTV, ROOT_ID_IPTV);
 	fw_unregister_ap_msghost(APP_IPTV, ROOT_ID_IPTV_SEARCH);
@@ -1376,7 +1343,7 @@ inline const VodDpInterface_t * ui_iqy_return_instance(void)
 
 
 
-BEGIN_AP_EVTMAP(ui_iptv_evtmap)
+BEGIN_AP_EVTMAP(iqy_evtmap)
 CONVERT_EVENT(IPTV_EVT_INIT_SUCCESS, MSG_IPTV_EVT_INIT_SUCCESS)
 CONVERT_EVENT(IPTV_EVT_INIT_FAIL, MSG_IPTV_EVT_INIT_FAIL)
 CONVERT_EVENT(IPTV_EVT_DEINIT_SUCCESS, MSG_IPTV_EVT_DEINIT_SUCCESS)
@@ -1400,6 +1367,6 @@ CONVERT_EVENT(IPTV_EVT_NEW_SOURCE_FORMAT_ARRIVE, MSG_IPTV_EVT_NEW_SOURCE_FORMAT_
 CONVERT_EVENT(IPTV_EVT_GET_SOURCE_FORMAT_FAIL, MSG_IPTV_EVT_GET_SOURCE_FORMAT_FAIL)
 CONVERT_EVENT(IPTV_EVT_NEW_SEARCH_WORD_ARRIVE, MSG_IPTV_EVT_NEW_SEARCH_WORD_ARRIVE)
 CONVERT_EVENT(IPTV_EVT_GET_SEARCH_WORD_FAIL, MSG_IPTV_EVT_GET_SEARCH_WORD_FAIL)
-END_AP_EVTMAP(ui_iptv_evtmap)
+END_AP_EVTMAP(iqy_evtmap)
 
 #endif

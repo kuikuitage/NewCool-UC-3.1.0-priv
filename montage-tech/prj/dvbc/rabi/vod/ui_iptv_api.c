@@ -9,18 +9,152 @@
 #include "iptv_interface.h"
 #include "ui_iptv_api.h"
 
-extern const VodDpInterface_t * ui_iqy_return_instance(void);
-const VodPlayerInterface_t* GetIqyPlayerInterface(void);
+#include "iqy_api.h"
+#include "xingmei_api.h"
 
- inline static const VodDpInterface_t * ui_iptv_get_instance(void)
+const VodPlayerInterface_t* GetIqyPlayerInterface(void);
+const VodPlayerInterface_t* GetXingMeiPlayerInterface(void);
+
+static u8 iptv_nc_id;
+
+inline static const VodDpInterface_t * ui_iptv_get_instance(void)
 {
-	return ui_iqy_return_instance();
+	switch(iptv_nc_id)
+	{
+		case IPTV_ID_IQY:
+			#ifdef IPTV_SUPPORT_IQY
+			return ui_iqy_return_instance();
+			#endif
+			break;
+		case IPTV_ID_XM:
+			#ifdef IPTV_SUPPORT_XM
+			return ui_xm_return_instance();
+			#endif
+			break;
+		default:
+			break;
+	}
+	return NULL;
 }
 
 inline const VodPlayerInterface_t * ui_iptv_get_player_instance(void)
 {
-	return GetIqyPlayerInterface();
+	switch(iptv_nc_id)
+	{
+		case IPTV_ID_IQY:
+			#ifdef IPTV_SUPPORT_IQY
+			return GetIqyPlayerInterface();
+			#endif
+			break;
+		case IPTV_ID_XM:
+			#ifdef IPTV_SUPPORT_XM
+			return GetXingMeiPlayerInterface();
+			#endif
+			break;
+		default:
+			break;
+	}
+	return NULL;
 }
+
+void ui_iptv_dp_set_iptvId(u8 iptv_id)
+{
+	iptv_nc_id = iptv_id;
+}
+
+void ui_iptv_dp_init(void)
+{
+	switch(iptv_nc_id)
+	{
+		case IPTV_ID_IQY:
+			#ifdef IPTV_SUPPORT_IQY
+			iqy_dp_init();
+			#endif
+			break;
+		case IPTV_ID_XM:
+			#ifdef IPTV_SUPPORT_XM
+			xm_dp_init();
+			#endif
+			break;
+		default:
+			break;
+	}
+}
+void ui_iptv_dp_deinit(void)
+{
+	switch(iptv_nc_id)
+	{
+		case IPTV_ID_IQY:
+			#ifdef IPTV_SUPPORT_IQY
+			iqy_dp_deinit();
+			#endif
+			break;
+		case IPTV_ID_XM:
+			#ifdef IPTV_SUPPORT_XM
+			xm_dp_deinit();
+			#endif
+			break;
+		default:
+			break;
+	}
+}
+void ui_iptv_register_msg(void)
+{
+	switch(iptv_nc_id)
+	{
+		case IPTV_ID_IQY:
+			#ifdef IPTV_SUPPORT_IQY
+			DEBUG(UI_IPTV,INFO,"@@@register_msg\n");
+			iqy_dp_register_msg();
+			#endif
+			break;
+		case IPTV_ID_XM:
+			#ifdef IPTV_SUPPORT_XM
+			DEBUG(UI_IPTV,INFO,"@@@register_msg\n");
+			xm_dp_register_msg();
+			#endif
+			break;
+		default:
+			break;
+	}
+}
+void ui_iptv_unregister_msg(void)
+{
+	switch(iptv_nc_id)
+	{
+		case IPTV_ID_IQY:
+			#ifdef IPTV_SUPPORT_IQY
+			iqy_dp_unregister_msg();
+			#endif
+			break;
+		case IPTV_ID_XM:
+			#ifdef IPTV_SUPPORT_XM
+			xm_dp_unregister_msg();
+			#endif
+			break;
+		default:
+			break;
+	}
+}
+void ui_iptv_free_msg_data(u16 msg, u32 para1, u32 para2)
+{
+	switch(iptv_nc_id)
+	{
+		case IPTV_ID_IQY:
+			#ifdef IPTV_SUPPORT_IQY
+			iqy_free_msg_data(msg, para1, para2);
+			#endif
+			break;
+		case IPTV_ID_XM:
+			#ifdef IPTV_SUPPORT_XM
+			xm_free_msg_data(msg, para1, para2);
+			#endif
+			break;
+		default:
+			break;
+	}
+}
+
 static u16 g_dp_state = IPTV_DP_STATE_UNINIT;
 static u8  search_keyword[MAX_KEYWORD_LENGTH*3+1];
 static BOOL g_plid_flag = TRUE;

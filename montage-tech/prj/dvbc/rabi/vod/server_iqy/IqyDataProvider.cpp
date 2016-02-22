@@ -811,11 +811,10 @@ static int   IQY_GetSearchWord(u8 *searchWord)
 	DEBUG(IPTVDP,INFO,"end end ... \n");
 	return ret;
 }
-#define VOD_IQY
+
 static VodDpInterface_t iqyDpInterface;
-const VodDpInterface_t* GetDpInterface(void)
+const VodDpInterface_t* GetIqyDpInterface(void)
 {
-#if defined(VOD_IQY)
 	if (iqyDpInterface.init == NULL)
 	{
 		iqyDpInterface.init					= IQY_InitDataProvider;
@@ -824,10 +823,10 @@ const VodDpInterface_t* GetDpInterface(void)
 		iqyDpInterface.getCategoryList    	= IQY_GetCategoryList;
 		iqyDpInterface.getCategoryTypeList 	= IQY_GetCategoryTypeList;
 		iqyDpInterface.updatePage 			= IQY_UpdatePage;
-		iqyDpInterface.getRecommendInfo		= IQY_GetRecommendInfo;
+		iqyDpInterface.getRecommendInfo	= IQY_GetRecommendInfo;
 		iqyDpInterface.getVideoInfo 		= IQY_GetVideoInfo;
 		iqyDpInterface.getPlayUrl 			= IQY_GetPlayUrl;
-		iqyDpInterface.getPlayUrlFormat 	= IQY_GetPlayUrlFormat;
+		iqyDpInterface.getPlayUrlFormat 		= IQY_GetPlayUrlFormat;
 		iqyDpInterface.setPageSize 			= IQY_SetPageSize;
 		iqyDpInterface.getArea				= IQY_GetArea;
 		iqyDpInterface.getSearchWord		= IQY_GetSearchWord;
@@ -835,7 +834,4 @@ const VodDpInterface_t* GetDpInterface(void)
 		iqyDpInterface.registerCb			= IQY_RegisterCallback;
 	}
 	return &iqyDpInterface;
-#elif defined(VOD_XINMEI)
-	
-#endif
 }

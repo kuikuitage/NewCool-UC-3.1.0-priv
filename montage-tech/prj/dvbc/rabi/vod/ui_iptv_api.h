@@ -1,6 +1,37 @@
 #ifndef __UI_IPTV_API_H__
 #define __UI_IPTV_API_H__
+#include "ui_common.h"
 #include "iptv_interface.h"
+
+#define APP_IPTV    APP_NVOD
+typedef enum
+{
+    IPTV_EVT_INIT_SUCCESS = ((APP_IPTV << 16) + 0),
+    IPTV_EVT_INIT_FAIL,
+    IPTV_EVT_DEINIT_SUCCESS,
+    IPTV_EVT_NEW_RES_NAME_ARRIVE,
+    IPTV_EVT_GET_RES_NAME_FAIL,
+    IPTV_EVT_NEW_RES_CATGRY_ARRIVE,
+    IPTV_EVT_GET_RES_CATGRY_FAIL,
+    IPTV_EVT_NEW_PAGE_VDO_ARRIVE,
+    IPTV_EVT_GET_PAGE_VDO_FAIL,
+    IPTV_EVT_NEW_SEARCH_VDO_ARRIVE,
+    IPTV_EVT_GET_SEARCH_VDO_FAIL,
+    IPTV_EVT_NEW_VDO_INFO_ARRIVE,
+    IPTV_EVT_GET_VDO_INFO_FAIL,
+    IPTV_EVT_NEW_INFO_URL_ARRIVE,
+    IPTV_EVT_GET_INFO_URL_FAIL,
+    IPTV_EVT_NEW_PLAY_URL_ARRIVE,
+    IPTV_EVT_GET_PLAY_URL_FAIL,
+    IPTV_EVT_NEW_RECMND_INFO_ARRIVE,
+    IPTV_EVT_GET_RECMND_INFO_FAIL,
+    IPTV_EVT_NEW_SOURCE_FORMAT_ARRIVE,
+    IPTV_EVT_GET_SOURCE_FORMAT_FAIL,
+    IPTV_EVT_NEW_SEARCH_WORD_ARRIVE,
+    IPTV_EVT_GET_SEARCH_WORD_FAIL,
+    IPTV_EVT_MAX
+} iptv_api_evt_t;
+
 
 typedef enum
 {
@@ -40,6 +71,13 @@ typedef enum
     IPTV_DP_STATE_INIT_SUCC,
     IPTV_DP_STATE_INIT_FAIL,
 } iptv_dp_state_t;
+
+typedef enum
+{
+	IPTV_INVALID_ID,
+    IPTV_ID_IQY,
+	IPTV_ID_XM,
+} iptv_module_id_t;
 
 
 typedef  struct
@@ -245,6 +283,7 @@ void ui_iptv_get_play_url(IPTV_API_FORMAT_T format,u8 *tvQid,u8 *vid,int episode
 void ui_iptv_get_play_format(u8 *tvQid,u8 *vid,int episode_num);
 void ui_iptv_set_page_size(u16 page_size);
 int ui_iptv_vdo_idntfy_cmp(u32 unidntf_code);
+void ui_iptv_dp_set_iptvId(u8 iptv_id);
 
 inline const VodPlayerInterface_t * ui_iptv_get_player_instance(void);
 

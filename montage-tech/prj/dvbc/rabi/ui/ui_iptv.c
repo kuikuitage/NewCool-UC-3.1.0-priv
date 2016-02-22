@@ -2235,6 +2235,7 @@ RET_CODE ui_open_iptv(u32 para1, u32 para2)
 	ui_adv_pic_release();
 	DEBUG(ADS,INFO,"\n");
 #endif
+	ui_iptv_dp_set_iptvId((u8)para1);
 
 	if(ui_is_playing())
 	{

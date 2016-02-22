@@ -10,7 +10,11 @@
 #define MMENU_CONT_H          150
 
 //btn
+#ifdef SUPPORT_EXTERN_IPTV
+#define MAINMENU_BTN_CNT			 5
+#else
 #define MAINMENU_BTN_CNT			 4
+#endif
 #define MAINMENU_BTN_H			 MMENU_CONT_H
 #define MAINMENU_BTN_W			 200
 #define MAINMENU_TV_X			 ((MMENU_CONT_W-(MAINMENU_BTN_CNT*(MAINMENU_BTN_W+SPACE_W))-SPACE_W)/2)
