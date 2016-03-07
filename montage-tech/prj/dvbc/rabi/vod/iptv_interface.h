@@ -47,16 +47,14 @@ typedef enum {
 
 /* video ID*/
 typedef struct VDO_ID_S{
-
-	unsigned int _1stCatId;
-	unsigned int _2ndCatId;
-	unsigned int _3thCatId;
-	unsigned int vdoId;
-
-	char    qpId[IPTV_STRING_ID_LEN];                 //专辑奇谱（视频/专辑/来源）ID for iqy
-	char    tvQid[IPTV_STRING_ID_LEN];                //剧集奇谱ID for iqy
-	char    sourceCode[IPTV_STRING_SHORT];   //来源code
-	int      type;                               //专辑类型（0：视频，1：专辑）调用此接口传进来的那个qpId的数据类型，不是返回结果中的qpId的数据类型
+	int	   	res_id;
+	int 	cat_id;
+	int     program_id;
+	
+	char    qpId[IPTV_STRING_ID_LEN];                 	//专辑奇谱（视频/专辑/来源）ID for iqy
+	char    tvQid[IPTV_STRING_ID_LEN];                	//剧集奇谱ID for iqy
+	char    sourceCode[IPTV_STRING_SHORT];   			//来源code
+	int     type;                               		//专辑类型（0：视频，1：专辑）调用此接口传进来的那个qpId的数据类型，不是返回结果中的qpId的数据类型
 }VDO_ID_t;//external ID
 
 
@@ -118,7 +116,8 @@ typedef enum
 * the parameter of IIPTV_updatePage()
 */
 typedef struct{
-	int 					cat_id;
+	int 					cat_id;//一级分类ID
+	int 					cat_id2;// 二级分类ID
 	char 					tags[IPTV_STRING_LONG];
 	/*
 	* used for search, co-operate with types
@@ -308,7 +307,46 @@ typedef  struct vod_player_interface_s{
 
 
 
+//common functions 
+/*u must malloc output buffer before call the function  */
+int iptv_common_porting_http_get(const char* url,
+                     const char* extraHeaders,
+                     const char* body,
+                     unsigned int bodyLen,
+                     unsigned int timeout,
+                     char* buffer,              //response
+                     unsigned int bufferSize,
+                     BOOL if_http_gzip);
 
+
+int iptv_common_http_get_with_malloc_internal(const char* url,
+                     const char* extraHeaders,
+                     const char* body,
+                     unsigned int bodyLen,
+                     unsigned int timeout,
+                     char** out_buffer,              //response
+                     unsigned int *out_bufferSize,
+                     BOOL if_http_gzip);
+
+
+int iptv_common_http_get_with_malloc_internal_with_no_loop(const char* url,
+                     const char* extraHeaders,
+                     const char* body,
+                     unsigned int bodyLen,
+                     unsigned int timeout,
+                     char** out_buffer,              //response
+                     unsigned int *out_bufferSize,
+                     BOOL if_http_gzip);
+
+///
+int iptv_common_http_post_with_malloc_internal(const char* url,
+                                           const char* postBody,
+                                           unsigned int postBodyLen,
+                                           const char* extraHeaders,
+                                           unsigned int timeout,
+                                           char** out_buffer,              //response
+                                           unsigned int *out_bufferSize,
+                                           BOOL if_http_gzip);
 
 #ifdef __cplusplus
 }

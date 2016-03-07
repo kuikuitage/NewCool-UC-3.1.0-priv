@@ -2,6 +2,7 @@
 #define __UI_IPTV_API_H__
 #include "ui_common.h"
 #include "iptv_interface.h"
+#include "xmTV.h"
 
 #define APP_IPTV    APP_NVOD
 typedef enum
@@ -109,9 +110,10 @@ typedef struct
 
 typedef struct
 {
+	u32 cat_id;				//二级ID
     u16 *name;
-    u8  *key;
-    u32 total_vdo;
+    u8  *key;				//	USED by Filter ~ Search
+    u32 total_vdo;			//	Temp inited with 1000
 } al_iptv_cat_item_t;
 
 typedef struct
@@ -133,7 +135,7 @@ typedef struct
 
 typedef struct
 {
-    VDO_ID_t vdo_id;
+    VDO_ID_t vdo_id;//which　one is used to save the play info
     u32 res_id;
     u16 *name;
     u8  *img_url;
@@ -198,6 +200,17 @@ typedef struct
 //////////////////////////////////////////////////
 typedef struct
 {	
+	//For xinmei
+	//播放地址名
+	char name[20];
+	//播放码率
+	int hdtv;
+	//播放地址
+	char playUrl[256];
+	//频道时移地址
+	char timeshiftUrl[256];
+	
+	//For iqy
     char  tvQid[IPTV_STRING_ID_LEN];                //剧集奇谱ID
     char  vid[IPTV_STRING_ID_LEN];                   //播放码流id
     u16 *urltitle;
@@ -229,6 +242,12 @@ typedef struct
 
 typedef struct pp_info
 {
+	int id;
+	char name[XM_TAG_MAX];//播放地址名
+	int hdtv;//播放码率
+	char playUrl[XM_LEN_URL];//播放地址
+	char timeshiftUrl[XM_LEN_URL];
+
     char  tvQid[IPTV_STRING_ID_LEN];                //剧集奇谱ID
     char  vid[IPTV_STRING_ID_LEN];                   //播放码流id
 }al_iptv_play_url_info_t;
@@ -284,7 +303,7 @@ void ui_iptv_get_play_format(u8 *tvQid,u8 *vid,int episode_num);
 void ui_iptv_set_page_size(u16 page_size);
 int ui_iptv_vdo_idntfy_cmp(u32 unidntf_code);
 void ui_iptv_dp_set_iptvId(u8 iptv_id);
-
+inline iptv_module_id_t ui_iptv_dp_get_iptvId(void);
 inline const VodPlayerInterface_t * ui_iptv_get_player_instance(void);
 
 extern volatile u32 vdo_identify_code;

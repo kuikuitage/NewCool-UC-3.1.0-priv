@@ -16,6 +16,7 @@ const VodPlayerInterface_t* GetIqyPlayerInterface(void);
 const VodPlayerInterface_t* GetXingMeiPlayerInterface(void);
 
 static u8 iptv_nc_id;
+int cur_cat_id;	//Record the category id of level 2
 
 inline static const VodDpInterface_t * ui_iptv_get_instance(void)
 {
@@ -61,6 +62,13 @@ void ui_iptv_dp_set_iptvId(u8 iptv_id)
 {
 	iptv_nc_id = iptv_id;
 }
+
+inline iptv_module_id_t ui_iptv_dp_get_iptvId(void)
+{
+	return iptv_nc_id;
+}
+
+
 
 void ui_iptv_dp_init(void)
 {
@@ -212,11 +220,13 @@ void ui_iptv_get_video_list(u32 res_id, u16 *cat_name, u8 *key, u32 page_num)
 	IPTV_UPPAGE_REQ_T req = {0};
 	size_t src_len, dest_len;
 	const VodDpInterface_t * pvod = ui_iptv_get_instance();
-
+	DEBUG(UI_PLAY_API,INFO,"res_id = %d,cat_name = %s,key = %s,page_num = %d/n",res_id,cat_name,key,page_num);
 	if (pvod != NULL)
 	{
-		req.cat_id = (int)res_id;
-
+		req.cat_id = (int)res_id;//一级ID
+		extern int cur_cat_id;
+		req.cat_id2 = cur_cat_id;//新媒根据二级的CAT_NAME获取到二级的CAT_ID
+		DEBUG(UI_PLAY_API,INFO,"cur_cat_id = %d\n",cur_cat_id);
 		if (cat_name)
 		{
 			inbuf = (char *)cat_name;
@@ -225,12 +235,12 @@ void ui_iptv_get_video_list(u32 res_id, u16 *cat_name, u8 *key, u32 page_num)
 			dest_len = sizeof(req.types);
 			iconv(g_cd_utf16le_to_utf8, (char**) &inbuf, &src_len, (char**) &outbuf, &dest_len);
 		}
-
+		
 		if (key)
 		{
 			strcpy(req.keys, key);
 		}
-
+		req.page_size = 12;
 		req.page_index = (int)page_num;
 		req.query_mode = IPTV_QUERY_MODE_CATGRY;
 		vdo_identify_code++;
@@ -333,7 +343,7 @@ void ui_iptv_search(u32 page_num, u16 index)
 	}
 }
 
-void ui_iptv_get_video_info(VDO_ID_t *vdo_id, u8 cat_id)
+void ui_iptv_get_video_info(VDO_ID_t *vdo_id, u8 cat_id)//cat_id is type of the Program or series for xinmei
 {
 #if 1//SY DELETE
 	const VodDpInterface_t * pvod = ui_iptv_get_instance();
@@ -343,6 +353,9 @@ void ui_iptv_get_video_info(VDO_ID_t *vdo_id, u8 cat_id)
 		req.cat_id = cat_id;
 		req.page_index = 1;
 		req.id = *vdo_id;
+
+		req.id.program_id= vdo_id->program_id;
+		
 		req.is_description = TRUE;
 		req.page_size = 10;
 		req.page_index = 1;

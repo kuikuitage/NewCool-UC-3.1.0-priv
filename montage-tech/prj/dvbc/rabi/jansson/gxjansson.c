@@ -13,6 +13,8 @@
 #include "gx_jansson.h"
 #include "jansson.h"
 
+#define printf(...)  do{}while(0)
+
 
 typedef enum{
 	OBJECT,
@@ -513,6 +515,19 @@ long long  gxjsonsub_get_integer(GxJson_t container,const char* key)
 	return val;
 }
 
+int  gxjsonsub_get_array_size(GxJson_t container,const char* key)
+{
+	char * last_key;
+	void * last_item;
+	int index=0;
+	gxjsonsub_get_sub_item(container,key,&last_item,&last_key,&index);
+	if (json_is_array((json_t*)last_item))
+		return json_array_size((json_t*)last_item);
+
+	return 0;
+}
+
+
 
 #define   ___EXPORT_FUNCTIONS__
 /**
@@ -691,6 +706,22 @@ long long  GxJson_GetIntegerWithFmtKey(GxJson_t container,const char* fmt,...)
 	return gxjsonsub_get_integer(container,buffer);
 }
 
+/**
+ * @brief get array size
+ * @param GxJson_t  container: pointer to container.
+ * @param const char* key
+ * @return long long  if(0) the value of integer is 0 or failure;else,the integer value;
+ */
+int  GxJson_GetArraySizeWithFmtKey(GxJson_t container,const char* fmt,...)
+{
+	char buffer[MAX_JSON_KEY_LEN];
+	va_list ap;
+	va_start(ap,fmt);
+	vsnprintf(buffer,MAX_JSON_KEY_LEN,fmt,ap);
+	return gxjsonsub_get_array_size(container,buffer);
+}
+
+
 
 /**
  * @brief free the container and all item that appended to it will be free
@@ -718,12 +749,13 @@ char* GxJson_DumpString(GxJson_t container)
  * @param const char* string: pointer to string;
  * @return GxJson_t  if(NULL),failure;else,the string;
  */
+  int mtos_printk(const char *p_fmt, ...);
 GxJson_t GxJson_LoadString(const char* string)
 {
 	json_error_t error;
 	json_t *json;
 	json = json_loads(string,2,&error);
-	//	printf("%s,%s\n",error.source,error.text);
+	//mtos_printk("%s,%s\n",error.source,error.text);
 	return (GxJson_t )json;
 }
 

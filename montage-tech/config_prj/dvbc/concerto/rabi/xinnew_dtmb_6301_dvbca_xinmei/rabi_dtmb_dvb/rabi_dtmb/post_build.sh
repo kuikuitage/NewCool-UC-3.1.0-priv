@@ -46,6 +46,9 @@ echo  "backup rabi_dtmb.elf & rabi_dtmb.map ............"
 cp ./rabi_dtmb.elf ./binary
 cp ./rabi_dtmb.map ./binary
 
+#mipsel-linux-objdump -C -d rabi_dtmb.elf > concerto.s
+#cp ./concerto.s ./binary
+
 echo "post build process completes"
 
 

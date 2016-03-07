@@ -662,6 +662,7 @@ static RET_CODE ui_iptv_update_catlist(control_t *p_catlist, u16 start, u16 size
     cnt = list_get_count(p_catlist);
 
     DEBUG(UI_IPTV,INFO,"@@@ui_iptv_update_catlist start=%d\n", start);
+
 	switch(start)
 	{
 		case IPTV_CATLIST_SEARCH:
@@ -671,8 +672,8 @@ static RET_CODE ui_iptv_update_catlist(control_t *p_catlist, u16 start, u16 size
 			p_unistr = (u16 *)gui_get_string_addr(IDS_ALL);
 			list_set_field_content_by_unistr(p_catlist, IPTV_CATLIST_ALL, 0, p_unistr);
 		case IPTV_CATLIST_FILTER:
-	        p_unistr = (u16 *)gui_get_string_addr(IDS_HD_FILTER);
-	        list_set_field_content_by_unistr(p_catlist, IPTV_CATLIST_FILTER, 0, p_unistr);
+	        	p_unistr = (u16 *)gui_get_string_addr(IDS_HD_FILTER);
+	        	list_set_field_content_by_unistr(p_catlist, IPTV_CATLIST_FILTER, 0, p_unistr);
 			
 			i = IPTV_CATLIST_EXTERN;
 			break;
@@ -683,6 +684,8 @@ static RET_CODE ui_iptv_update_catlist(control_t *p_catlist, u16 start, u16 size
 
     for (; i < start + size && i < cnt; i++){
         list_set_field_content_by_unistr(p_catlist, i, 0, g_pIptv->catList[i - IPTV_CATLIST_EXTERN].name);
+    	DEBUG(UI_IPTV,INFO,"@@@ui_iptv_update_catlist name[%d] = %s\n",i, g_pIptv->catList[i - IPTV_CATLIST_EXTERN].name);
+		
     }
     return SUCCESS;
 }
@@ -1118,7 +1121,8 @@ static STATEID StaIptv_initialize_on_newrescatgry_arrive(control_t *ctrl, u16 ms
                             {
                                 p_catList[k].key = NULL;
                             }
-
+							p_catList[k].cat_id = p_data->resList[j].catList[k].cat_id;
+							DEBUG(UI_IPTV,INFO,"cat_id[%d][%d] = %d\n",j,k,p_catList[k].cat_id);
                             p_catList[k].total_vdo = p_data->resList[j].catList[k].total_vdo;
                         }
                     }
@@ -1211,7 +1215,12 @@ static STATEID StaIptv_initialize_on_newrescatgry_arrive(control_t *ctrl, u16 ms
         {
             list_set_focus_pos(g_pIptv->hCatList, g_pIptv->curCatListIdx + IPTV_CATLIST_ALL);
             list_select_item(g_pIptv->hCatList, g_pIptv->curCatListIdx + IPTV_CATLIST_ALL);
-			g_pIptv->catFilter_flag = IPTV_FLAG_FILTER;
+  	    if(IPTV_ID_IQY == ui_iptv_dp_get_iptvId())
+  		g_pIptv->catFilter_flag = IPTV_FLAG_FILTER;
+  	    else if(IPTV_ID_XM == ui_iptv_dp_get_iptvId())
+  		g_pIptv->catFilter_flag = IPTV_FLAG_CAT;
+  	    else
+  		g_pIptv->catFilter_flag = IPTV_FLAG_CAT;
         }
         else
         {
@@ -1661,7 +1670,13 @@ static STATEID StaIptv_resource_on_reslist_selected(control_t *ctrl, u16 msg, u3
 
         text_set_content_by_extstr(g_pIptv->hTitleName, g_pIptv->mainMenuName[g_pIptv->curResListIdx]);
 
-        list_set_count(g_pIptv->hCatList, g_pIptv->total_cat+2, IPTV_CATLIST_PAGE_SIZE);
+	 if (ui_iptv_dp_get_iptvId() == IPTV_ID_IQY)
+       	     list_set_count(g_pIptv->hCatList, g_pIptv->total_cat+2, IPTV_CATLIST_PAGE_SIZE);
+	 else if (ui_iptv_dp_get_iptvId() == IPTV_ID_XM)
+       	     list_set_count(g_pIptv->hCatList, g_pIptv->total_cat+3, IPTV_CATLIST_PAGE_SIZE);
+	 else
+       	     list_set_count(g_pIptv->hCatList, g_pIptv->total_cat+2, IPTV_CATLIST_PAGE_SIZE);
+	 
         if (g_pIptv->total_cat > 0)
         {
             list_set_focus_pos(g_pIptv->hCatList, g_pIptv->curCatListIdx+IPTV_CATLIST_ALL);
@@ -1724,7 +1739,7 @@ static void SexIptv_Resource(void)
 static void SenIptv_ResVdoReq(void)
 {
     u16 vdo_cnt;
-
+	extern int cur_cat_id;
     DEBUG(UI_IPTV,INFO,"@@@SenIptv_ResVdoReq() curResListIdx=%d, curCatListIdx=%d\n", g_pIptv->curResListIdx, g_pIptv->curCatListIdx);
     ui_release_vdolist();
 
@@ -1762,7 +1777,8 @@ static void SenIptv_ResVdoReq(void)
 
     if (g_pIptv->catList)
     {
-     	 DEBUG(UI_IPTV,INFO,"get video list!\n");
+		cur_cat_id = g_pIptv->catList[g_pIptv->curCatListIdx].cat_id;
+		DEBUG(UI_IPTV,INFO,"get video list! cat_id = %d\n",cur_cat_id);
         ui_iptv_get_video_list(g_pIptv->resList[g_pIptv->curResListIdx].res_id, 
                           g_pIptv->catList[g_pIptv->curCatListIdx].name, 
                           g_pIptv->catList[g_pIptv->curCatListIdx].key, 
@@ -1793,6 +1809,7 @@ static STATEID StaIptv_resource_on_newpagevdo_arrive(control_t *ctrl, u16 msg, u
         for (i = 0; i < vdo_cnt; i++)
         {
             DEBUG(UI_IPTV,INFO,"i=%d, @@@vdo_id=%s, res_id=%d\n", i, p_data->vdoList[i].vdo_id.qpId, p_data->vdoList[i].res_id);
+			DEBUG(UI_IPTV,INFO,"vdo_id.type  = %d\n",p_data->vdoList[i].vdo_id.type);
             p_vdoList[i].vdo_id = p_data->vdoList[i].vdo_id;
             p_vdoList[i].res_id = p_data->vdoList[i].res_id;
             p_vdoList[i].b_single_page = p_data->vdoList[i].b_single_page;
@@ -1935,13 +1952,25 @@ static STATEID StaIptv_resource_on_vdolist_selected(control_t *ctrl, u16 msg, u3
     if((g_pIptv->vdoList)&&(get_iptv_des_state() == IPTV_DESC_DESTORY))
     {
         ui_iptv_pic_deinit();
-
+		//For IQY
         p_param.vdo_id = g_pIptv->vdoList[g_pIptv->curVdoListIdx].vdo_id;
         p_param.res_id = g_pIptv->vdoList[g_pIptv->curVdoListIdx].res_id;
         p_param.b_single_page = g_pIptv->vdoList[g_pIptv->curVdoListIdx].b_single_page;
-	 //p_param.album = g_pIptv->vdoList[g_pIptv->curVdoListIdx].album;
+		//p_param.album = g_pIptv->vdoList[g_pIptv->curVdoListIdx].album;
+
+		//For XM
+	 	p_param.vdo_id.res_id = g_pIptv->vdoList[g_pIptv->curVdoListIdx].vdo_id.res_id;
+		p_param.vdo_id.cat_id = g_pIptv->vdoList[g_pIptv->curVdoListIdx].vdo_id.cat_id;
+		p_param.vdo_id.program_id= g_pIptv->vdoList[g_pIptv->curVdoListIdx].vdo_id.program_id;
+		p_param.vdo_id.type = g_pIptv->vdoList[g_pIptv->curVdoListIdx].vdo_id.type;
+		
         DEBUG(UI_IPTV,INFO,"@@@vdo_id=%s, res_id=%d, b_single_page=%d \n", 
 				p_param.vdo_id.qpId, p_param.res_id, p_param.b_single_page);
+		DEBUG(UI_IPTV,INFO,"@@@res_id = %d,cat_id = %d,program_id = %d,type = %d\n",
+			p_param.vdo_id.res_id,
+			p_param.vdo_id.cat_id,
+			p_param.vdo_id.program_id,
+			p_param.vdo_id.type);
         manage_open_menu(ROOT_ID_IPTV_DESCRIPTION, (u32)&p_param, (u32)ROOT_ID_IPTV);
     }
 

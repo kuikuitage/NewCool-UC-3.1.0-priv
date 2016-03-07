@@ -136,6 +136,14 @@ long long  GxJson_GetIntegerWithFmtKey(GxJson_t container,const char* fmt,...);
 
 
 /**
+ * @brief get array size
+ * @param GxJson_t  container: pointer to container.
+ * @param const char* key
+ * @return long long  if(0) the value of integer is 0 or failure;else,the integer value;
+ */
+int  GxJson_GetArraySizeWithFmtKey(GxJson_t container,const char* fmt,...);
+
+/**
 * @brief free the container and all item that appended to it will be free
 * @param GxJson_t  container: pointer to container.
 * @return int <0,failure;>=o,success;

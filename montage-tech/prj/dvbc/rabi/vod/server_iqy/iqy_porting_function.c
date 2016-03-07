@@ -15,6 +15,7 @@
 #include "ap_cas.h"
 #include "time.h"
 #include "sys_dbg.h"
+#include "iptv_interface.h"
 
 #define  USE_HTTP_GZIP
 
@@ -27,11 +28,6 @@ typedef unsigned int  ck_size_t;
 #define CK_VA_START(ap, A)    (void) ((ap) = (((char *) &(A)) + (CK_BND (A,CK_AUPBND))))
 extern int ck_vsnprintf(char *buf, ck_size_t size, const char *fmt, ck_va_list args);
 
-struct  aqi_ctrl_block{
-	int http_inited;
-};
-
-static struct  aqi_ctrl_block aqi;
 
 ///
 char* porting_getMac(void)
@@ -92,47 +88,11 @@ int porting_http_get(const char* url,
                      char* buffer,              //response
                      unsigned int bufferSize)
 {
-	int ret;
-	ufs_file_t fd = {0};
-	u16 unicode[48] = {0};
-	u32 len;
-	u8 err;
-	u8 file_name[40] = {0};
-	unsigned long s,ms,us;
-	mtos_systime_get(&s,&ms,&us);
-	
-	sprintf((char*)file_name,"r:rcv%ld%03ld%03ld",s,ms,us);
-	OS_PRINTF("get url[%s]:\r\n############file_name[%s]\r\n",url,file_name);
-	str_asc2uni(file_name, unicode);
-	if (0 ==  aqi.http_inited)
-	{
-		unsigned char * mem = SY_MALLOC(16*1024);
-		Nw_Download_Init_Download_Manager();
-		Nw_Download_Init(TASK_AIQIYI_HTTP, mem,16*1024);
-		aqi.http_inited = 1;
-
-	}
-
-	ret = Nw_DownloadURLTimeout(url, file_name, timeout, NULL, NULL, extraHeaders, body, bodyLen);
-	if (ret <= 0)
-	{
-		OS_PRINTF("get server resp failure!\n");
-		ufs_delete(unicode,0);		
-		return -1;
-	}
-
-	err = ufs_open(&fd, (tchar_t*)unicode, UFS_READ);
-	if (err != UFS_OK)
-	{
-	    ufs_delete(unicode,0);
-	    return -1;
-	}
-
-	ufs_read(&fd,buffer, bufferSize, &len);
-	ufs_close(&fd);
-	ufs_delete(unicode,0);
-
-	return len;
+#ifdef USE_HTTP_GZIP
+	return iptv_common_porting_http_get(url, extraHeaders,body,bodyLen, timeout,buffer, bufferSize, TRUE);
+#else
+	return iptv_common_porting_http_get(url, extraHeaders,body,bodyLen, timeout,buffer, bufferSize, FALSE);
+#endif
 }
 
 int porting_http_get_with_malloc_internal(const char* url,
@@ -143,78 +103,13 @@ int porting_http_get_with_malloc_internal(const char* url,
                      char** out_buffer,              //response
                      unsigned int *out_bufferSize)
 {
-	int ret;
-	ufs_file_t fd = {0};
-	u16 unicode[48] = {0};
-	u32 len;
-	u8 err;
-	u8 file_name[40] = {0};
-	int file_len = 0;
-	int time_out_array[4] = {5,5,10,10};
-	int i;
-	int *buf_tmp;
-	unsigned long s,ms,us;
-	mtos_systime_get(&s,&ms,&us);
-	
-	sprintf((char*)file_name,"r:rcv%ld%03ld%03ld",s,ms,us);
-	str_asc2uni(file_name, unicode);
-	OS_PRINTF("get url mac[%s]:\r\n############file_name[%s]\r\n",url,file_name);
 
-	if (0 ==  aqi.http_inited)
-	{
-		unsigned char * mem = SY_MALLOC(1*1024);
-		Nw_Download_Init_Download_Manager();
-		Nw_Download_Init(TASK_AIQIYI_HTTP, mem,1*1024);
-		aqi.http_inited = 1;
-
-	}
-	for (i=0;i<ARRAY_SIZE(time_out_array);i++)
-	{
 #ifdef USE_HTTP_GZIP
-		if (strncasecmp(url,"https",5) != 0)
-			ret = Nw_DownloadURLTimeout_Gzip(url, file_name, time_out_array[i], NULL, NULL, extraHeaders, body, bodyLen);
-		else
-			ret = Nw_DownloadURLTimeout(url, file_name, time_out_array[i], NULL, NULL, extraHeaders, body, bodyLen);
+	return iptv_common_http_get_with_malloc_internal(url, extraHeaders,body,bodyLen,timeout,out_buffer,out_bufferSize, TRUE);
 #else
-		ret = Nw_DownloadURLTimeout(url, file_name, time_out_array[i], NULL, NULL, extraHeaders, body, bodyLen);
+	return iptv_common_http_get_with_malloc_internal(url, extraHeaders,body,bodyLen,timeout,out_buffer,out_bufferSize, FALSE);
 #endif
-		if (ret <= 0)
-		{
-			OS_PRINTF("get server resp failure!\n");
-		       ufs_delete(unicode,0);		
-		}
-		else
-		{
-			i = -1;
-			break;
-		}
-	}
-	if (i != -1)
-	{
-		OS_PRINTF("http get failure 5 times!\n");
-		return -1;
-	}
 
-	err = ufs_open(&fd, (tchar_t*)unicode, UFS_READ);
-	if (err != UFS_OK)
-	{
-	    ufs_delete(unicode,0);
-	    return -1;
-	}
-
-	file_len = fd.file_size;
-	buf_tmp = SY_CALLOC(1,file_len+4);
-	if (buf_tmp == NULL)
-	{
-	       ufs_delete(unicode,0);
-		return -1;
-	}
-	ufs_read(&fd,buf_tmp, file_len, &len);
-	*out_bufferSize = file_len;
-	*out_buffer = (void*)buf_tmp;
-	ufs_close(&fd);
-	ufs_delete(unicode, 0);	
-	return len;
 }
 
 
@@ -226,64 +121,11 @@ int porting_http_get_with_malloc_internal_with_no_loop(const char* url,
                      char** out_buffer,              //response
                      unsigned int *out_bufferSize)
 {
-	int ret;
-	ufs_file_t fd = {0};
-	u16 unicode[48] = {0};
-	u32 len;
-	u8 err;
-	u8 file_name[40] = {0};
-	int file_len = 0;
-	int *buf_tmp;
-	unsigned long s,ms,us;
-	mtos_systime_get(&s,&ms,&us);
-	
-	sprintf((char*)file_name,"r:rcv%ld%03ld%03ld",s,ms,us);
-	str_asc2uni(file_name, unicode);
-	OS_PRINTF("get url mac no loop[%s]:\r\n############file_name[%s]\r\n",url,file_name);
-
-	if (0 ==  aqi.http_inited)
-	{
-		unsigned char * mem = SY_MALLOC(1*1024);
-		Nw_Download_Init_Download_Manager();
-		Nw_Download_Init(TASK_AIQIYI_HTTP, mem,1*1024);
-		aqi.http_inited = 1;
-
-	}
-#ifdef USE_HTTP_GZIP	
-	if (strncasecmp(url,"https",5) != 0)
-		ret = Nw_DownloadURLTimeout_Gzip(url, file_name, timeout, NULL, NULL, extraHeaders, body, bodyLen);
-	else
-		ret = Nw_DownloadURLTimeout(url, file_name, timeout, NULL, NULL, extraHeaders, body, bodyLen);
+#ifdef USE_HTTP_GZIP
+	return iptv_common_http_get_with_malloc_internal_with_no_loop(url, extraHeaders,body,bodyLen,timeout,out_buffer,out_bufferSize, TRUE);
 #else
-	ret = Nw_DownloadURLTimeout(url, file_name, timeout, NULL, NULL, extraHeaders, body, bodyLen);
+	return iptv_common_http_get_with_malloc_internal_with_no_loop(url, extraHeaders,body,bodyLen,timeout,out_buffer,out_bufferSize, FALSE);
 #endif
-	if (ret <= 0)
-	{
-		OS_PRINTF("get server resp failure!\n");
-	       ufs_delete(unicode,0);		
-		return -1;
-	}
-
-	err = ufs_open(&fd, (tchar_t*)unicode, UFS_READ);
-	if (err != UFS_OK)
-	{
-	    ufs_delete(unicode,0);
-	    return -1;
-	}
-
-	file_len = fd.file_size;
-	buf_tmp = SY_CALLOC(1,file_len+4);
-	if (buf_tmp == NULL)
-	{
-	       ufs_delete(unicode,0);
-		return -1;
-	}
-	ufs_read(&fd,buf_tmp, file_len, &len);
-	*out_bufferSize = file_len;
-	*out_buffer = (void*)buf_tmp;
-	ufs_close(&fd);
-	ufs_delete(unicode, 0);	
-	return len;
 }
 
 
@@ -297,56 +139,12 @@ int porting_http_post_with_malloc_internal(const char* url,
                                            char** out_buffer,              //response
                                            unsigned int *out_bufferSize)
 {
-
-	int ret;
-	ufs_file_t fd = {0};
-	u16 unicode[48] = {0};
-	u8 err;
-	u8 file_name[40] = {0};
-	int file_len = 0;
-	int *buf_tmp;
-	u32 len;
-	unsigned long s,ms,us;
-	mtos_systime_get(&s,&ms,&us);
-	
-	sprintf((char*)file_name,"r:snd%ld%03ld%03ld",s,ms,us);
-	OS_PRINTF("post url[%s]:\r\n############file_name[%s]\r\n",url,file_name);
-	str_asc2uni(file_name, unicode);
-
-#ifdef USE_HTTP_GZIP		
-	if (strncasecmp(url,"https",5) != 0)
-		ret = Nw_DownloadURL_POST_Gzip(url, postBody, postBodyLen, file_name, extraHeaders, NULL, NULL, timeout);
-	else
-		ret = Nw_DownloadURL_POST_ex(url, postBody, postBodyLen, file_name, extraHeaders, NULL, NULL, timeout);
+#ifdef USE_HTTP_GZIP
+	return iptv_common_http_post_with_malloc_internal(url,postBody,postBodyLen,extraHeaders,timeout,out_buffer,out_bufferSize,TRUE);
 #else
-	ret = Nw_DownloadURL_POST_ex(url, postBody, postBodyLen, file_name, extraHeaders, NULL, NULL, timeout);
+	return iptv_common_http_post_with_malloc_internal(url,postBody,postBodyLen,extraHeaders,timeout,out_buffer,out_bufferSize,FALSE);
 #endif
-	if (ret <= 0)
-	{
-		OS_PRINTF("post get server resp failure!\n");
-	       ufs_delete(unicode,0);
-		return -1;
-	}
 
-	err = ufs_open(&fd, (tchar_t*)unicode, UFS_READ);
-	if (err != UFS_OK)
-	{
-	       ufs_delete(unicode,0);
-		return -1;
-	}
-	file_len = fd.file_size;
-	buf_tmp = SY_CALLOC(1,file_len+4);
-	if (buf_tmp == NULL)
-	{
-	       ufs_delete(unicode,0);
-		return -1;
-	}
-	ufs_read(&fd,buf_tmp, file_len, &len);
-	*out_bufferSize = file_len;
-	*out_buffer = (void*)buf_tmp;
-	ufs_close(&fd);
-	ufs_delete(unicode, 0);
-	return len;
 }
 
 /*!

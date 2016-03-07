@@ -1,30 +1,30 @@
 /*******************************************************************************
- **
+ ** 
  ** Copyright (c) 2004, S.Moben Technology Corp.
  ** All rights reserved.
- **
+ ** 
  ** Document Name: SM_StateMachine.c
  ** Abstract     : MMI state machine
- **
+ ** 
  ** Current Ver  : V0.01
  ** Author       : yuliangzhong
  ** Date  		 : 2006/01/25
- **
+ ** 
  ** Modification Histroy£º
  ** (V0.01) yuliangzhong@2006.01.25: create this file
- **
+ ** 
  ******************************************************************************/
 #include "ui_common.h"
 #include "SM_StateMachine.h"
 #include "sys_define.h"
 
-#define SM_TRACE    OS_PRINTF
+//#define SM_TRACE    OS_PRINTF
 
-//#define SM_TRACE(...)
+#define SM_TRACE(...)    
 
 static u16 SmGetStatesChain(
-	STATE_TREE_INFO_T * pStateTreeInfo,
-	STATEID nDstStateID,
+	STATE_TREE_INFO_T * pStateTreeInfo, 
+	STATEID nDstStateID, 
 	STATEID * pStatesChain)
 {
 	s32 i;
@@ -75,7 +75,7 @@ static u16 SmGetStatesChain(
 }
 
 static BOOL SmDoTransition(
-	STATE_TREE_INFO_T * pStateTreeInfo,
+	STATE_TREE_INFO_T * pStateTreeInfo, 
 	STATEID nDstStateID)
 {
 	s32 i;
@@ -86,7 +86,7 @@ static BOOL SmDoTransition(
 
 	MT_ASSERT(nDstStateID>SID_NULL);
 	MT_ASSERT(nDstStateID<pStateTreeInfo->maxStateID);
-	SM_TRACE("SM Transiting...: %s", pStateTreeInfo->pModuleName);
+	SM_TRACE("SM Transiting...: %s\n", pStateTreeInfo->pModuleName);
 
 	//Get state chain of destination, and its depth
 	dstDepth = SmGetStatesChain(pStateTreeInfo, nDstStateID, dstStates);
@@ -110,12 +110,12 @@ static BOOL SmDoTransition(
 	for (i=curDepth-1; i>=sameParentDepth; i--)
 	{
 		pStateNode = &pStateTree[pStateTreeInfo->activeStateID[i]];
-		SM_TRACE("SM Exiting state: %d", pStateTreeInfo->activeStateID[i]);
+		SM_TRACE("SM Exiting state: %d\n", pStateTreeInfo->activeStateID[i]);
 		if (NULL!=pStateNode->Exit)
 		{
 			pStateNode->Exit();
 		}
-		SM_TRACE("SM Exited state: %d", pStateTreeInfo->activeStateID[i]);
+		SM_TRACE("SM Exited state: %d\n", pStateTreeInfo->activeStateID[i]);
 		pStateTreeInfo->activeStateID[i] = SID_NULL;
 		pStateTreeInfo->activeDepth--;
 	}
@@ -125,15 +125,15 @@ static BOOL SmDoTransition(
 		pStateTreeInfo->activeStateID[i] = dstStates[i];
 		pStateTreeInfo->activeDepth++;
 		pStateNode = &pStateTree[dstStates[i]];
-		SM_TRACE("SM Entering state: %d", pStateTreeInfo->activeStateID[i]);
+		SM_TRACE("SM Entering state: %d\n", pStateTreeInfo->activeStateID[i]);
 		if (NULL!=pStateNode->Entry)
 		{
 			pStateNode->Entry();
 		}
-		SM_TRACE("SM Entered state: %d", pStateTreeInfo->activeStateID[i]);
+		SM_TRACE("SM Entered state: %d\n", pStateTreeInfo->activeStateID[i]);
 	}
 
-	SM_TRACE("SM Transited...: %s", pStateTreeInfo->pModuleName);
+	SM_TRACE("SM Transited...: %s\n", pStateTreeInfo->pModuleName);
 	return TRUE;
 }
 
@@ -145,7 +145,7 @@ BOOL SM_OpenStateTree(STATE_TREE_INFO_T * pStateTreeInfo)
 	MT_ASSERT(NULL!=pStateTreeInfo->pStateTree);
 	MT_ASSERT(0==pStateTreeInfo->activeDepth);
 
-	SM_TRACE("SM Opening...: %s", pStateTreeInfo->pModuleName);
+	SM_TRACE("SM Opening...: %s\n", pStateTreeInfo->pModuleName);
 
 	for (i=0; i<STATE_TREE_MAX_DEPTH; i++)
 	{
@@ -164,28 +164,28 @@ BOOL SM_CloseStateTree(STATE_TREE_INFO_T * pStateTreeInfo)
 	MT_ASSERT(NULL!=pStateTreeInfo->pStateTree);
 	MT_ASSERT(0!=pStateTreeInfo->activeDepth);
 
-	SM_TRACE("SM Closing...: %s", pStateTreeInfo->pModuleName);
+	SM_TRACE("SM Closing...: %s\n", pStateTreeInfo->pModuleName);
 	pStateTree = pStateTreeInfo->pStateTree;
 
 	//Exit current states
 	for (i=pStateTreeInfo->activeDepth-1; i>=0; i--)
 	{
 		pStateNode = &pStateTree[pStateTreeInfo->activeStateID[i]];
-		SM_TRACE("SM Exiting state: %d", pStateTreeInfo->activeStateID[i]);
+		SM_TRACE("SM Exiting state: %d\n", pStateTreeInfo->activeStateID[i]);
 		if (NULL!=pStateNode->Exit)
 		{
 			pStateNode->Exit();
 		}
-		SM_TRACE("SM Exited state: %d", pStateTreeInfo->activeStateID[i]);
+		SM_TRACE("SM Exited state: %d\n", pStateTreeInfo->activeStateID[i]);
 		pStateTreeInfo->activeStateID[i] = SID_NULL;
 		pStateTreeInfo->activeDepth--;
 	}
-
+	
 	return 1;
 }
 
 BOOL SM_IsStateActive(
-	STATE_TREE_INFO_T * pStateTreeInfo,
+	STATE_TREE_INFO_T * pStateTreeInfo, 
 	STATEID stateID)
 {
 	s32 i;
@@ -206,7 +206,7 @@ BOOL SM_IsStateActive(
 }
 
 BOOL SM_IsStateInactive(
-	STATE_TREE_INFO_T * pStateTreeInfo,
+	STATE_TREE_INFO_T * pStateTreeInfo, 
 	STATEID stateID)
 {
 	s32 i;
@@ -240,7 +240,7 @@ s32 SM_DispatchMsg(STATE_TREE_INFO_T * pStateTreeInfo, control_t *ctrl, u16 msg,
 	MT_ASSERT(NULL!=pStateTreeInfo->pStateTree);
 	MT_ASSERT(0!=pStateTreeInfo->activeDepth);
 
-	SM_TRACE("SM Dispatching MSG %d to MODULE %s", msg, pStateTreeInfo->pModuleName);
+	SM_TRACE("SM Dispatching MSG %d to MODULE %s\n", msg, pStateTreeInfo->pModuleName);
 	pStateTree = pStateTreeInfo->pStateTree;
 	nMsgID = msg;
 
@@ -249,7 +249,7 @@ s32 SM_DispatchMsg(STATE_TREE_INFO_T * pStateTreeInfo, control_t *ctrl, u16 msg,
 	//Check each state node from bottom to top
 	for (i=pStateTreeInfo->activeDepth-1; i>=0; i--)
 	{
-		SM_TRACE("SM Parsing in state: %d", pStateTreeInfo->activeStateID[i]);
+		SM_TRACE("SM Parsing in state: %d\n", pStateTreeInfo->activeStateID[i]);
 		curStateID = pStateTreeInfo->activeStateID[i];
 		if ((SID_NULL==curStateID)
 			|| (curStateID>=pStateTreeInfo->maxStateID)
@@ -269,24 +269,24 @@ s32 SM_DispatchMsg(STATE_TREE_INFO_T * pStateTreeInfo, control_t *ctrl, u16 msg,
 
 			if (pStateTrans->msgID==nMsgID) //Message ID matched, then check transit condition and do transition
 			{
-				SM_TRACE("SM Msg matched in state %d at pos %d", pStateTreeInfo->activeStateID[i], j);
-				if ((NULL!=pStateTrans->TransCondition)
+				SM_TRACE("SM Msg matched in state %d at pos %d\n", pStateTreeInfo->activeStateID[i], j);
+				if ((NULL!=pStateTrans->TransCondition) 
 					&& (FALSE==pStateTrans->TransCondition(ctrl, msg, para1, para2)))
 				{ //It has transit condition, but the condition is FALSE
 					continue;
 				}
 
-				SM_TRACE("SM Msg processing in state %d at pos %d", pStateTreeInfo->activeStateID[i], j);
+				SM_TRACE("SM Msg processing in state %d at pos %d\n", pStateTreeInfo->activeStateID[i], j);
 				result = SUCCESS; //The message has been processed
 
 				if (NULL!=pStateTrans->TransAction)
 				{ //Process its transit action
-					SM_TRACE("SM Msg action...MODULE: %s", pStateTreeInfo->pModuleName);
+					SM_TRACE("SM Msg action...MODULE: %s\n", pStateTreeInfo->pModuleName);
 					nextStateID = pStateTrans->TransAction(ctrl, msg, para1, para2);
-					SM_TRACE("SM Msg action OK...MODULE: %s", pStateTreeInfo->pModuleName);
+					SM_TRACE("SM Msg action OK...MODULE: %s\n", pStateTreeInfo->pModuleName);
 				}
 
-				SM_TRACE("SM destState: %d, but nextState: %d", pStateTrans->dstStateID, nextStateID);
+				SM_TRACE("SM destState: %d, but nextState: %d\n", pStateTrans->dstStateID, nextStateID);
 				if (SID_INTERNAL==pStateTrans->dstStateID)
 				{
 					if (SID_NULL==nextStateID)
@@ -295,9 +295,9 @@ s32 SM_DispatchMsg(STATE_TREE_INFO_T * pStateTreeInfo, control_t *ctrl, u16 msg,
 					}
 					if ((SID_NULL!=nextStateID) && (nextStateID<pStateTreeInfo->maxStateID))
 					{ //Transit to the RETURNed state, and return directly
-						SM_TRACE("SM Msg INTERNAL jumping...next state: %d", nextStateID);
+						SM_TRACE("SM Msg INTERNAL jumping...next state: %d\n", nextStateID);
 						SmDoTransition(pStateTreeInfo, nextStateID);
-						SM_TRACE("SM Msg INTERNAL jumped...next state: %d", nextStateID);
+						SM_TRACE("SM Msg INTERNAL jumped...next state: %d\n", nextStateID);
 						return result;
 					}
 					else
@@ -310,9 +310,9 @@ s32 SM_DispatchMsg(STATE_TREE_INFO_T * pStateTreeInfo, control_t *ctrl, u16 msg,
 					nextStateID = pStateTrans->dstStateID;
 					if ((SID_NULL!=nextStateID) && (nextStateID<pStateTreeInfo->maxStateID))
 					{ //We will not check any more and return directly
-						SM_TRACE("SM Msg JUMPing...next state: %d", nextStateID);
+						SM_TRACE("SM Msg JUMPing...next state: %d\n", nextStateID);
 						SmDoTransition(pStateTreeInfo, nextStateID);
-						SM_TRACE("SM Msg JUMPed...next state: %d", nextStateID);
+						SM_TRACE("SM Msg JUMPed...next state: %d\n", nextStateID);
 					}
 					return result;
 				}

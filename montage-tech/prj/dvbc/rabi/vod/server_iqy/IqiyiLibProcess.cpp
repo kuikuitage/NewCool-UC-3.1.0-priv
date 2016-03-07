@@ -91,7 +91,7 @@ typedef struct {
 typedef struct
 {
 	IQY_CATEGORY_LIST_T  			* category_list;
-	IQY_CATEGORY_TYPE_ALL_T		* category_type_all;
+	IQY_CATEGORY_TYPE_ALL_T			* category_type_all;
 	IQY_CHANNEL_LIST_T    			* program_list;
 	IQY_CHANNEL_INFO_T   			* program_info;
 	IQY_RECMD_INFO_T 				* recommend_info;
@@ -101,21 +101,21 @@ typedef struct
 
 	/*iqy operate memory,  alloc when init and free when deinit*/
 	IQY_ChannelList					* op_channel_list;
-	IQY_AlbumList						* op_album_list;
-	IQY_PlayList						* op_play_list;
+	IQY_AlbumList					* op_album_list;
+	IQY_PlayList					* op_play_list;
 	IQY_EpisodeList					* op_episode_list;
-	IQY_ChannelLabelList 				* op_chLable_list;	
-	IQY_SEARCH_WORD_T					* op_search_word;
+	IQY_ChannelLabelList 			* op_chLable_list;	
+	IQY_SEARCH_WORD_T				* op_search_word;
 	IPTV_PROGRAM_WINDOW_T 			* op_window;
 
-	BOOL                       				is_init;	/*whether this type of data provider has been initilized successfully*/
+	BOOL                       		is_init;	/*whether this type of data provider has been initilized successfully*/
 	BOOL							get_new_info_from_net_every_call_in;
 
 	/*current status*/
 	VDO_ID_t						cur_video_id;
-	char 								cur_plid[IQY_LEN_CHANNEL_LABEL_ITEM1];
-    	int     							cur_chId;                          //ÆµµÀid
-    	int 								cur_episode_num;
+	char 							cur_plid[IQY_LEN_CHANNEL_LABEL_ITEM1];
+    int     						cur_chId;                          //ÆµµÀid
+    int 							cur_episode_num;
 
 }iqy_vod_dp_priv;
 

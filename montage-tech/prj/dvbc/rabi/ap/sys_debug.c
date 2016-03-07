@@ -34,14 +34,22 @@ void xn_debug_init(void)
 	DEBUG_ENABLE_MODE(IPLAY, ERR);
 	DEBUG_ENABLE_MODE(UI_IPLAY_DESC, ERR);
 	DEBUG_ENABLE_MODE(UI_PLAY_API, ERR);
-	DEBUG_ENABLE_MODE(UI_PLAYER, ERR);
+	DEBUG_ENABLE_MODE(UI_PLAYER, ERR); 	
 	DEBUG_ENABLE_MODE(UI_IPLAY_FAV, ERR);
 	DEBUG_ENABLE_MODE(UI_IPTV_SEARCH, ERR);
 	DEBUG_ENABLE_MODE(UI_IPTV, ERR);
 
-    DEBUG_ENABLE_MODE(UI_IPTV, INFO);
+	DEBUG_ENABLE_MODE(UI_IPTV, INFO);
 	DEBUG_ENABLE_MODE(IPTVDP, INFO);
 	DEBUG_ENABLE_MODE(IQY, INFO);
+	DEBUG_ENABLE_MODE(IPLAY,INFO);
+	DEBUG_ENABLE_MODE(UI_PLAY_API,INFO);
+	DEBUG_ENABLE_MODE(UI_IPLAY_DESC,INFO);
+
+	DEBUG_ENABLE_MODE(XINGMEI,INFO);
+	DEBUG_ENABLE_MODE(XM_AUTH,INFO);
+	DEBUG_ENABLE_MODE(XM_GEN,INFO);
+	DEBUG_ENABLE_MODE(DBG,INFO);
 }
 
 #ifdef SHOW_MEM_SUPPORT
@@ -153,17 +161,17 @@ void show_single_memory_mapping(unsigned int flag, unsigned int start_addr, unsi
 #endif
 
 
-#ifdef SY_MALLOC_DEBUG
+#ifdef SY_MALLOC_DEBUG	
 
 #define SY_TRACR_MAX_LEN		96
-#define SY_TRACR_MAX_COUNT	5000
+#define SY_TRACR_MAX_COUNT	5000		
 
 typedef struct _trace_info{
 	int 	 			have_not_freed;
 	char  			trace[SY_TRACR_MAX_LEN];
 	char  			free_trace[SY_TRACR_MAX_LEN];
-
-	void 				*addr;
+	
+	void 				*addr;	
 	unsigned int 		size;
 }SY_MEM_TRACE_T;
 typedef struct mem_info{
@@ -190,7 +198,7 @@ void* __sy_malloc(unsigned int size,const char * file,const char *func,int line)
 		snprintf(_sy_mem_info.infos[i].trace,sizeof (_sy_mem_info.infos[i].trace),"%s()%d ",func,line);
 		_sy_mem_info.infos[i].free_trace[0] = 0;
 	}
-
+		
 	return m;
 }
 
@@ -229,12 +237,12 @@ void* __sy_realloc(void * prev,unsigned int size,const char * file,const char *f
 
 			mc = (unsigned int *)(prev);
 			mc += (_sy_mem_info.infos[i].size + 3)/4;
-			if (*mc != 0x88888888)
+			if (*mc != 0x88888888) 
 			{
 				OS_PRINTF("%s  memory crossed when free!!!\n",_sy_mem_info.infos[i].trace);
-				MT_ASSERT(0);
+				MT_ASSERT(0);				
 			}
-
+	
 			if (_sy_mem_info.infos[i].have_not_freed == 0)
 			{
 				OS_PRINTF("%s  free two times\n",_sy_mem_info.infos[i].trace);
@@ -286,9 +294,9 @@ void __sy_free(void * m,const char * file,const char *func,int line)
 
 			mc = (unsigned int *)(m);
 			mc += (_sy_mem_info.infos[i].size + 3)/4;
-			if (*mc != 0x88888888)
+			if (*mc != 0x88888888) 
 				OS_PRINTF("%s  memory crossed when free!!!\n",_sy_mem_info.infos[i].trace);
-
+	
 			if (_sy_mem_info.infos[i].have_not_freed == 0)
 			{
 				while (times --)
@@ -304,8 +312,9 @@ void __sy_free(void * m,const char * file,const char *func,int line)
 		}
 	}
 	if (i == SY_TRACR_MAX_COUNT)
-		OS_PRINTF("SY Free mem not malloced!!!!!!\n");
-
+	{
+		OS_PRINTF("SY Free mem not malloced!!!!!!at%s ,%d\n",file,line);
+	}
 	mtos_free(m);
 }
 

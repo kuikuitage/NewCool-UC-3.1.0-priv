@@ -53,6 +53,9 @@
 #if ENABLE_TEST_SPEED
 #include "commondata.h"
 #endif
+#ifdef IPTV_SUPPORT_XM
+#include "xmTV.h"
+#endif
 
 #define ReturnCheck(Ret_In, Ret_Out, Stand)\
 {\
@@ -3942,7 +3945,7 @@ void ui_desktop_start(void)
      do_cmd_connect_gprs(&gprs_info);
   }
 
-#ifdef   NC_AUTH_EN
+#if defined   NC_AUTH_EN || defined IPTV_SUPPORT_XM
 {
     u8 mac[6] = {0x0C,0xF0,0xB4,0x06,0x74,0xE5};
     NC_AuthInit("87079770", mac, 6);

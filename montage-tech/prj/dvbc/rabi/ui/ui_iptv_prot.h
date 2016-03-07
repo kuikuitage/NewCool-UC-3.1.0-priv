@@ -48,10 +48,10 @@ typedef enum
 
 typedef struct
 {
-    VDO_ID_t vdo_id;
-    u32 res_id;
-    u8  b_single_page;
-   // IQY_AlbumInfo * album; //iqy album info
+   VDO_ID_t vdo_id;
+   u32 res_id;
+   u8  b_single_page;
+   //IQY_AlbumInfo * album; //iqy album info
 } ui_iptv_description_param_t;
 
 /*!

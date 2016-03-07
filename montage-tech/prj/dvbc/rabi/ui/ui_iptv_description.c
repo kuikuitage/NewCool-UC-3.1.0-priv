@@ -512,7 +512,7 @@ static RET_CODE on_iptv_draw_recomm_icon(control_t *p_cont, u16 pic_index)
   }
   ctrl_get_frame(p_pic, &rect);
   ctrl_client2screen(p_pic, &rect);
-    if(p_rec_data->recmmd[pic_index].img && pic_index < p_rec_data->number)
+  if(p_rec_data->recmmd[pic_index].img && pic_index < p_rec_data->number)
   {
     if(strlen(p_rec_data->recmmd[pic_index].img)!=0)
     {
@@ -2003,12 +2003,21 @@ RET_CODE open_iptv_description(u32 para1, u32 para2)
 
 	set_iptv_des_state(IPTV_DESC_INIT);
     ui_iptv_dat->g_parent_root_id = para2;
-
-    ui_iptv_dat->category_id = p_param->res_id;
-    ui_iptv_dat->video_id = p_param->vdo_id;
+	//gw::aiqiyi trans the res id ,xinmei trans the program type
+	if(IPTV_ID_IQY ==  ui_iptv_dp_get_iptvId())
+    	ui_iptv_dat->category_id = p_param->res_id;
+	else if(IPTV_ID_XM ==  ui_iptv_dp_get_iptvId())
+		ui_iptv_dat->video_id.type = p_param->vdo_id.type;
+	else
+		ui_iptv_dat->category_id = 0;
+	ui_iptv_dat->video_id = p_param->vdo_id;
     DEBUG(UI_IPLAY_DESC,INFO,"vdo_id cat id[%d] qpid[%s],tvQid[%s]\n", 
             ui_iptv_dat->category_id,ui_iptv_dat->video_id.qpId, ui_iptv_dat->video_id.tvQid);
-
+	DEBUG(UI_IPTV,INFO,"res_id = %d,cat_id = %d,program_id = %d,type = %d\n",
+			p_param->vdo_id.res_id,
+			p_param->vdo_id.cat_id,
+			p_param->vdo_id.program_id,
+			p_param->vdo_id.type);
     ui_iptv_dat->b_single_page = p_param->b_single_page;
 
     ui_iptv_dat->category = ui_iptv_choose_cate_id(p_param);
@@ -2061,11 +2070,11 @@ RET_CODE open_iptv_description(u32 para1, u32 para2)
       
 static void ui_iptv_save_img_url(u8 *p_url)
 { 
-    u8 *p_iptv_url = NULL;
-    p_iptv_url = SY_MALLOC(strlen(p_url) + 1);
-    memcpy(p_iptv_url,p_url,strlen(p_url) + 1);
-    ui_iptv_dat->p_img_url = p_iptv_url;
-    return;
+	u8 *p_iptv_url = NULL;
+	p_iptv_url = SY_MALLOC(strlen(p_url) + 1);
+	memcpy(p_iptv_url,p_url,strlen(p_url) + 1);
+	ui_iptv_dat->p_img_url = p_iptv_url;
+	return;
 }
 
 
@@ -2115,27 +2124,37 @@ static void ui_iptv_save_img_url(u8 *p_url)
  
 void ui_iptv_des_info_fail_exit(void)
 {
-    pic_stop();
-    ui_pic_release();
-    manage_close_menu(ROOT_ID_IPTV_DESCRIPTION, 0, 0);
-    return;
+	pic_stop();
+	ui_pic_release();
+	manage_close_menu(ROOT_ID_IPTV_DESCRIPTION, 0, 0);
+	return;
 }
 static RET_CODE on_iptv_des_get_vdo_info_fail(control_t *p_ctrl, u16 msg,u32 para1, u32 para2)
 {
-     ui_comm_dlg_close();
-     ui_comm_cfmdlg_open(NULL, IDS_HD_DATA_ERROR, ui_iptv_des_info_fail_exit, 2000);
-     return SUCCESS;
+	ui_comm_dlg_close();
+	ui_comm_cfmdlg_open(NULL, IDS_HD_DATA_ERROR, ui_iptv_des_info_fail_exit, 2000);
+	return SUCCESS;
 }
 
 static RET_CODE on_iptv_des_vdo_info_arrive(control_t *p_ctrl, u16 msg,u32 para1, u32 para2)
 {
-   al_iptv_vdo_info_t *p_data = (al_iptv_vdo_info_t *)(para1);
-   control_t *p_des_cont = NULL;
-   control_t *p_des_type = NULL;
-   control_t *p_des_temp= NULL;
-   control_t *p_des_pic = NULL;
-   control_t *p_des_title = NULL;
-   control_t *p_active_cont = NULL;
+	al_iptv_vdo_info_t *p_data = (al_iptv_vdo_info_t *)(para1);
+	control_t *p_des_cont = NULL;
+	control_t *p_des_type = NULL;
+	control_t *p_des_temp= NULL;
+	control_t *p_des_pic = NULL;
+	control_t *p_des_title = NULL;
+	control_t *p_active_cont = NULL;
+
+	DEBUG(UI_IPLAY_DESC,INFO,"program_id = [%d]\n",p_data->vdo_id.program_id);
+	DEBUG(UI_IPLAY_DESC,INFO,"type = [%d]\n",p_data->vdo_id.type);
+	DEBUG(UI_IPLAY_DESC,INFO,"name = [%s]\n",p_data->name);
+	DEBUG(UI_IPLAY_DESC,INFO,"area = [%s]\n",p_data->area);
+	DEBUG(UI_IPLAY_DESC,INFO,"director = [%s]\n",p_data->director);
+	DEBUG(UI_IPLAY_DESC,INFO,"actor = [%s]\n",p_data->actor);
+	DEBUG(UI_IPLAY_DESC,INFO,"desc = [%s]\n",p_data->description);
+	DEBUG(UI_IPLAY_DESC,INFO,"attr = [%s]\n",p_data->attr);
+	DEBUG(UI_IPLAY_DESC,INFO,"img_url = [%s]\n",p_data->img_url);
    
    rect_t rect;
    u8 i = 0;
@@ -2152,9 +2171,10 @@ static RET_CODE on_iptv_des_vdo_info_arrive(control_t *p_ctrl, u16 msg,u32 para1
    if((strcmp(p_data->vdo_id.qpId, ui_iptv_dat->video_id.qpId) != 0)
    		&&(strcmp(p_data->vdo_id.tvQid, ui_iptv_dat->video_id.tvQid) != 0))
    {
+   		DEBUG(UI_IPTV,ERR,"aiyiqi para err!!!\n");
    		return SUCCESS;
    }
-	
+  DEBUG(UI_IPTV,INFO,"aiyiqi para SUCCESS!!!\n");
   ui_comm_dlg_close();
   on_ui_iptv_init_play_data();    
   
@@ -2169,87 +2189,134 @@ static RET_CODE on_iptv_des_vdo_info_arrive(control_t *p_ctrl, u16 msg,u32 para1
       {
          if(p_data->orgnList[i].name != NULL)
          {
+         	DEBUG(UI_IPTV,INFO,"\n");
             uni_strcpy(&ui_iptv_dat->rsc_uni_str[i][0],p_data->orgnList[i].name);
          }
       }
    }
- 
+ 	
    p_des_pic = ctrl_get_child_by_id(p_ctrl, IDC_IPTV_DESC_PICTURE);
     if(p_des_pic != NULL)
     {
       if(p_data->img_url != NULL)
       {
       	   // TODO:  indedfify
-          ui_iptv_dat->identify = (0xFFFF << 16) | (u16)ui_iptv_dat->video_id.qpId[0];
+      	   if(IPTV_ID_XM == ui_iptv_dp_get_iptvId())
+      	   {
+				ui_iptv_dat->identify = vdo_identify_code;
+		   }
+		   else if(IPTV_ID_IQY == ui_iptv_dp_get_iptvId())
+		   {
+				ui_iptv_dat->identify = (0xFFFF << 16) | (u16)ui_iptv_dat->video_id.qpId[0];
+		   }
+		   else
+		   {
+				DEBUG(UI_IPTV,ERR,"Img url ERR!!!\n");
+				return SUCCESS;
+		   }
+          
+		   
           ctrl_get_frame(p_des_pic, &rect);
           ctrl_client2screen(p_des_pic, &rect);
           ui_pic_play_by_url(p_data->img_url, &rect,ui_iptv_dat->identify);
       }
+	  
       else
       {
            g_draw_rec = TRUE;
       }
     }
+	DEBUG(UI_IPTV,INFO,"\n");
+
     p_des_cont = ctrl_get_child_by_id(p_ctrl, IDC_IPTV_DESC_CONT);
     p_des_title = ctrl_get_child_by_id(p_des_cont, IDC_IPTV_DESC_TITLE);
    if(p_data->name != NULL)
    {
       memcpy(ui_iptv_dat->iptv_fav_name,p_data->name,sizeof(iptv_info.iptv_fav_name));
-
+		DEBUG(UI_IPTV,INFO,"\n");
       if(p_des_title != NULL)
       {
+      	DEBUG(UI_IPTV,INFO,"\n");
         text_set_content_by_unistr(p_des_title, p_data->name);
+		DEBUG(UI_IPTV,INFO,"\n");
         ctrl_set_sts(p_des_title, OBJ_STS_SHOW);
+		DEBUG(UI_IPTV,INFO,"\n");
         ctrl_paint_ctrl(p_des_title,TRUE);
+		DEBUG(UI_IPTV,INFO,"\n");
       }
    }
 
-
+	DEBUG(UI_IPTV,INFO,"\n");
     p_des_cont = ctrl_get_child_by_id(p_ctrl, IDC_IPTV_DESC_CONT);
     p_des_type = ctrl_get_child_by_id(p_des_cont, IDC_IPTV_DESC_SCORE);
     if(p_des_type)
     {
-    ctrl_set_sts(p_des_type, OBJ_STS_SHOW);
-    ctrl_paint_ctrl(p_des_type,TRUE);
+    	DEBUG(UI_IPTV,INFO,"\n");
+	    ctrl_set_sts(p_des_type, OBJ_STS_SHOW);
+	    ctrl_paint_ctrl(p_des_type,TRUE);
     }
-    
+    DEBUG(UI_IPTV,INFO,"\n");
    if(p_data->score != NULL)
-   {
+   {	
+   		DEBUG(UI_IPTV,INFO,"\n");
       p_des_type = ctrl_get_child_by_id(p_des_cont, IDC_IPTV_DESC_TXT_SCORE);
       if(p_des_type != NULL)
       {
-      text_set_content_by_unistr(p_des_type, p_data->score);
-      ctrl_set_sts(p_des_type, OBJ_STS_SHOW);
-      ctrl_paint_ctrl(p_des_type, TRUE);
+	      text_set_content_by_unistr(p_des_type, p_data->score);
+	      ctrl_set_sts(p_des_type, OBJ_STS_SHOW);
+	      ctrl_paint_ctrl(p_des_type, TRUE);
       }
    }
-   else
-   {
-      p_des_type = ctrl_get_child_by_id(p_des_cont, IDC_IPTV_DESC_TXT_SCORE);
-      if(p_des_type != NULL)
-      {
-      u16 uni_str[16] = {0};
-      convert_gb2312_chinese_asc2unistr("ÔÝÎÞ", uni_str, sizeof(uni_str));
-      text_set_content_by_unistr(p_des_type, uni_str);
-      ctrl_set_sts(p_des_type, OBJ_STS_SHOW);
-      ctrl_paint_ctrl(p_des_type, TRUE);
-      }
-   }
-   
+	else
+	{
+		p_des_type = ctrl_get_child_by_id(p_des_cont, IDC_IPTV_DESC_TXT_SCORE);
+		if(p_des_type != NULL)
+		{
+			DEBUG(UI_IPTV,INFO,"\n");
+			u16 uni_str[16] = {0};
+			convert_gb2312_chinese_asc2unistr("ÔÝÎÞ", uni_str, sizeof(uni_str));
+			DEBUG(UI_IPTV,INFO,"\n");
+			text_set_content_by_unistr(p_des_type, uni_str);
+			DEBUG(UI_IPTV,INFO,"\n");
+			ctrl_set_sts(p_des_type, OBJ_STS_SHOW);
+			DEBUG(UI_IPTV,INFO,"\n");
+			ctrl_paint_ctrl(p_des_type, TRUE);
+			DEBUG(UI_IPTV,INFO,"\n");
+		}
+	}
+   DEBUG(UI_IPTV,INFO,"\n");
    p_des_cont = ctrl_get_child_by_id(p_ctrl, IDC_IPTV_DESCNT);
+    DEBUG(UI_IPTV,INFO,"\n");
    if(p_des_cont == NULL)
    {
+    DEBUG(UI_IPTV,INFO,"\n");
      return SUCCESS;
    }
+    DEBUG(UI_IPTV,INFO,"\n");
+	if(0 != p_data->format->total_format)
+	{
+	 	DEBUG(UI_IPTV,INFO,"\n");
+		ui_iptv_dat->total_format = p_data->format->total_format;
+	    DEBUG(UI_IPTV,INFO,"p_data->format->total_format = %d\n",p_data->format->total_format);
+	   ui_iptv_dat->format_index = (ui_iptv_dat->total_format)/2;
+	    DEBUG(UI_IPTV,INFO,"format_index = %d\n",ui_iptv_dat->format_index);
+	   DEBUG(UI_IPLAY_DESC,INFO,"format total [%d]\n",ui_iptv_dat->total_format);   
+	   for (i=0;i<ui_iptv_dat->total_format && i <ARRAY_SIZE(ui_iptv_dat->format_list);i++)
+	   {
+	   		ui_iptv_dat->format_list[i] = p_data->format->formatList[i];
+	       DEBUG(UI_IPLAY_DESC,INFO,"format[%d]\n",ui_iptv_dat->format_list[i]);
+	   }
+	}
+	 DEBUG(UI_IPTV,INFO,"\n");
+   if(IPTV_ID_XM == ui_iptv_dp_get_iptvId())
+	{
+		DEBUG(UI_IPTV,INFO,"\n");
+		ui_iptv_dat->category = p_data->vdo_id.type;
+		DEBUG(UI_IPLAY_DESC,INFO,"ui_iptv_dat->category[%d]\n",p_data->vdo_id.type);
+	}
+    DEBUG(UI_IPTV,INFO,"\n");
 
-   ui_iptv_dat->total_format = p_data->format->total_format;
-   ui_iptv_dat->format_index = (ui_iptv_dat->total_format)/2;
-   DEBUG(UI_IPLAY_DESC,INFO,"format total [%d]\n",ui_iptv_dat->total_format);   
-   for (i=0;i<ui_iptv_dat->total_format && i <ARRAY_SIZE(ui_iptv_dat->format_list);i++)
-   {
-   	ui_iptv_dat->format_list[i] = p_data->format->formatList[i];
-       DEBUG(UI_IPLAY_DESC,INFO,"format[%d]\n",ui_iptv_dat->format_list[i]);
-   }
+	
    if(ui_iptv_dat->category == IPTV_TV)
    {
        p_des_temp = ctrl_get_child_by_id(p_des_cont, IDC_IPTV_DESCNT_VDO_SERIES);
@@ -2370,6 +2437,7 @@ static RET_CODE on_iptv_des_vdo_info_arrive(control_t *p_ctrl, u16 msg,u32 para1
 
         ctrl_paint_ctrl(p_des_cont,TRUE);          
     }
+   
    else if(ui_iptv_dat->category == IPTV_MOVIE)
    {
         p_des_temp = ctrl_get_child_by_id(p_des_cont, IDC_IPTV_DESCNT_MOVIE_ACTOR);
@@ -2399,7 +2467,8 @@ static RET_CODE on_iptv_des_vdo_info_arrive(control_t *p_ctrl, u16 msg,u32 para1
        
        p_des_temp = ctrl_get_child_by_id(p_des_cont, IDC_IPTV_DESCNT_MOVIE_DIRECTER);
        ctrl_set_sts(p_des_temp, OBJ_STS_SHOW);
-       if(p_data->area != NULL)
+	   
+       if(p_data->director != NULL)
        {
            p_des_type = ctrl_get_child_by_id(p_des_cont, IDC_IPTV_DESCNT_MOVIE_TXT_DIRECTER);
            text_set_content_by_unistr(p_des_type, p_data->director);
@@ -2441,7 +2510,7 @@ static RET_CODE on_iptv_des_vdo_info_arrive(control_t *p_ctrl, u16 msg,u32 para1
 		   DEBUG(UI_IPLAY_DESC,INFO," in \n");
 	  }
 	  else
-	   DEBUG(UI_IPLAY_DESC,INFO," in \n");
+	  	DEBUG(UI_IPLAY_DESC,INFO," in \n");
 
       create_iptv_desc_movie_rsc_btn(p_des_cont); 
       p_des_temp = ctrl_get_child_by_id(p_des_cont,IDC_IPTV_DESCNT_MOVIE_RSC_MBOX);

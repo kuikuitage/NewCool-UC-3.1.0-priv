@@ -25,6 +25,10 @@ enum
 	UI_PLAYER,
 	UI_IPLAY_FAV,
 	UI_IPTV_SEARCH,
+	XINGMEI,
+	XM_AUTH,
+	XM_GEN,
+	
 	MAX_MOD_ID = 128
 };
 
@@ -131,7 +135,7 @@ void __sy_mem_status(const char *func,int line);
 void SY_MEM_CHECK(void);
 void SY_MEM_INIT(void);
 
-//#define SY_MALLOC_DEBUG
+#define SY_MALLOC_DEBUG
 #ifdef SY_MALLOC_DEBUG	
 #define SY_MALLOC(x)   			__sy_malloc(x,__FILE__,__FUNCTION__,__LINE__)
 #define SY_CALLOC(x,y)   			__sy_calloc(x,y,__FILE__,__FUNCTION__,__LINE__)

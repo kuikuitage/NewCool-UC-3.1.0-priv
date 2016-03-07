@@ -26,7 +26,6 @@
 					<Add option="-DPROGRAM_LIST_FAST_CUT" />
 					<Add option="-DREMOTE_REPEAT_DELAY" />
 					<Add option="-DTV_BIRTHNESS_EN" />
-					<Add option="-DPRINT_ON" />
 					<Add directory='&quot;${PROJECT_LOC}\inc&quot;' />
 					<Add directory='&quot;${PROJECT_LOC}\inc\ap&quot;' />
 					<Add directory='&quot;${PROJECT_LOC}\inc\api&quot;' />

@@ -20,7 +20,6 @@
 					<Add option="-DUSE_AV_OS" />
 					<Add option="-DAUTO_FACTORY_DEFAULT" />
 					<Add option="-DIMPL_NEW_EPG" />
-					<Add option="-DDTMB_PROJECT" />
 					<Add option="-DENABLE_CA" />
 					<Add option="-DDVB_CA" />
 					<Add option="-DPROGRAM_LIST_FAST_CUT" />
@@ -30,7 +29,6 @@
 					<Add option="-DIPTV_SUPPORT_IQY" />
 					<Add option="-DIPTV_SUPPORT_XM" />
 					<Add option="-DPRINT_ON" />
-					<Add option="-DIPTV_TEST" />
 					<Add directory='&quot;${PROJECT_LOC}\inc&quot;' />
 					<Add directory='&quot;${PROJECT_LOC}\inc\ap&quot;' />
 					<Add directory='&quot;${PROJECT_LOC}\inc\api&quot;' />
@@ -223,10 +221,6 @@
 		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\ap\sys_debug.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\authorization\authorization.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\authorization\authorization.h" />
 		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\ca\cas_manager.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -1029,6 +1023,9 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\user_table\user_parse_table.h" />
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\iptv_interface.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\iptv_interface.h" />
 		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_iqy\IqiyiLibPorcess.h" />
 		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_iqy\IqiyiLibProcess.cpp" />
@@ -1047,7 +1044,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_iqy\ui_video_iqy.h" />
-		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_xingmei\smediaTV_C.h" />
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_xingmei\des.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_xingmei\des.h" />
 		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_xingmei\ui_video_xinmei.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -1060,16 +1060,14 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_xingmei\xingmei_api.h" />
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_xingmei\xmTV.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\server_xingmei\xmTV.h" />
 		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\ui_iptv_api.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="..\..\..\..\..\..\..\prj\dvbc\rabi\vod\ui_iptv_api.h" />
-		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\atbm\iic.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\atbm\nim_atbm.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k-6301\MaxLinearDataTypes.h" />
 		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k-6301\MxL603_Features.h" />
 		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k-6301\MxL603_OEM_Drv.h" />
@@ -1085,56 +1083,17 @@
 		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k-6301\mt_fe_tn_tc3800.h" />
 		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k\MaxLinearDataTypes.h" />
 		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k\MxL603_Features.h" />
-		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k\MxL603_OEM_Drv.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k\MxL603_OEM_Drv.h" />
-		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k\MxL603_TunerApi.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k\MxL603_TunerApi.h" />
-		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k\MxL603_TunerCfg.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k\MxL603_TunerCfg.h" />
-		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k\MxL603_TunerSpurTable.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k\MxL603_TunerSpurTable.h" />
-		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k\MxL603_UserApi.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k\MxL_Debug.h" />
 		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k\fe_dd3k_def.h" />
-		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k\fe_dd3k_i2c.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k\fe_dd3k_i2c.h" />
 		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k\mt_fe_common.h" />
-		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k\mt_fe_dmd_dd3k.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k\mt_fe_dmd_fw_dd3k.h" />
-		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k\mt_fe_tn_tc2800.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k\mt_fe_tn_tc2800.h" />
-		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k\mt_fe_tn_tc3800.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k\mt_fe_tn_tc3800.h" />
-		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k\mt_fe_tn_tdac3_c02a.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k\mt_fe_tn_tdac7_d01.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\dvbt\m88dd3k\nim_dd3k.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\nim.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="..\..\..\..\..\..\..\src\drv\nim\nim_priv.h" />
 		<Unit filename="..\..\..\..\..\..\..\src\drv\uio\uio_priv.h" />
 		<Extensions>

@@ -108,7 +108,7 @@ static al_iptv_name_res_list_t *iqy_gen_name_res_list(IQY_CATEGORY_LIST_T *p_par
         for (i = 0; i < p_data->total_res; i++)
         {
             p_item = p_param->array + i;
-	     DEBUG(UI_PLAY_API,INFO,"res id[%d],name[%s]\n",p_item->channelId,p_item->name);
+	     	DEBUG(UI_PLAY_API,INFO,"res id[%d],name[%s]\n",p_item->channelId,p_item->name);
             p_data->resList[i].res_id = p_item->channelId;
             if (p_item->name != NULL)
             {
@@ -150,14 +150,14 @@ static void iqy_free_name_res_list(u32 param)
 
 static al_iptv_cat_res_list_t *iqy_gen_cat_res_list(IQY_CATEGORY_TYPE_ALL_T *p_param)
 {
-    al_iptv_cat_res_list_t *p_data = NULL;
+	al_iptv_cat_res_list_t *p_data = NULL;
 	IQY_SubTag *iqy_subtag;
-    IQY_Channel * iqy_channel;
-    IQY_ChannelLabelList *iqy_label;
-    IQY_ChannelLabelInfo *iqy_label_info;
-    char *inbuf, *outbuf;
-    size_t src_len, dest_len;
-    u16 i, j, type_index;
+	IQY_Channel * iqy_channel;
+	IQY_ChannelLabelList *iqy_label;
+	IQY_ChannelLabelInfo *iqy_label_info;
+	char *inbuf, *outbuf;
+	size_t src_len, dest_len;
+	u16 i, j, type_index;
 
     DEBUG(UI_PLAY_API,INFO,"@@@%s\n",__FUNCTION__);
     DEBUG(UI_PLAY_API,INFO,"count %d\n",p_param->category->total);
@@ -173,11 +173,11 @@ static al_iptv_cat_res_list_t *iqy_gen_cat_res_list(IQY_CATEGORY_TYPE_ALL_T *p_p
 
         for (i = 0; i < p_data->total_res; i++)
         {
-            DEBUG(UI_PLAY_API,INFO,"cate id[%d] name[%s]\n",p_param->category->array[i].channelId,p_param->category->array[i].name);
-            iqy_channel = p_param->category->array + i;
-	     iqy_label     = p_param->category->labels + i;
-            p_data->resList[i].res_id = iqy_channel->channelId;
-	     /*read channel  name*/
+			DEBUG(UI_PLAY_API,INFO,"cate id[%d] name[%s]\n",p_param->category->array[i].channelId,p_param->category->array[i].name);
+			iqy_channel = p_param->category->array + i;
+			iqy_label   = p_param->category->labels + i;
+			p_data->resList[i].res_id = iqy_channel->channelId;
+	        /*read channel  name*/
             src_len = strlen(iqy_channel->name) + 1;
             dest_len = src_len * sizeof(u16);
             inbuf = iqy_channel->name;
@@ -188,52 +188,52 @@ static al_iptv_cat_res_list_t *iqy_gen_cat_res_list(IQY_CATEGORY_TYPE_ALL_T *p_p
 			
             if ((iqy_label != NULL) && (iqy_label->size > 0))
             {
-#if 0            
-            	  for(type_index=0;type_index<iqy_channel->tagSize;type_index++)
-            	  {
-			static char UTF8_type[] = {0xe7,0xb1,0xbb,0xe5,0x9e,0x8b,0x00};            	  
-            	  	if (UTF8_type[0])//(strcmp((char*)UTF8_type,(char*)iqy_channel->tags[type_index].name) == 0)
-        	  	{
-   			    p_data->resList[i].total_cat = iqy_channel->tags[type_index].subTagSize;
-     			    p_data->resList[i].catList = (al_iptv_cat_item_t *)SY_MALLOC(p_data->resList[i].total_cat * sizeof(al_iptv_cat_item_t));
-     			    MT_ASSERT(p_data->resList[i].catList != NULL);
-     			    memset(p_data->resList[i].catList, 0, p_data->resList[i].total_cat * sizeof(al_iptv_cat_item_t));
-			    break;
-        	  	}
-			p_data->resList[i].total_cat = 0;
-            	  }
-#endif				  
-		  p_data->resList[i].total_cat = iqy_label->size;
-  		  p_data->resList[i].catList = (al_iptv_cat_item_t *)SY_CALLOC(1,p_data->resList[i].total_cat * sizeof(al_iptv_cat_item_t));
-  		  MT_ASSERT(p_data->resList[i].catList != NULL);
-		  
-               // DEBUG(UI_PLAY_API,INFO,"type count = %d\n",p_data->resList[i].total_cat);
-                for (j = 0; j < p_data->resList[i].total_cat; j++) // iqy_tag->subTagSize
-                {
-                    iqy_label_info = iqy_label->labelList + j;
-//DEBUG(UI_PLAY_API,INFO,"name[%s]\n",iqy_label_info->name);
-                    if (iqy_label_info->name != NULL)
-                    {
-                        src_len = strlen(iqy_label_info->name) + 1;
-                        dest_len = src_len * sizeof(u16);
-                        inbuf = iqy_label_info->name;
-                        outbuf = (char *)SY_CALLOC(1,dest_len);
-                        MT_ASSERT(outbuf != NULL);
-                        p_data->resList[i].catList[j].name = (u16 *)outbuf;
-                        iconv(g_cd_utf8_to_utf16le, (char**) &inbuf, &src_len, (char**) &outbuf, &dest_len);
-                    }
-//DEBUG(UI_PLAY_API,INFO,"plid[%s]\n",iqy_label_info->plid);
-                    if (iqy_label_info->plid != NULL)
-                    {
-                        dest_len = sizeof (iqy_label_info->plid) +1;
-                        outbuf = (char *)SY_CALLOC(1,dest_len);
-                        MT_ASSERT(outbuf != NULL);
-                        memcpy((char *)outbuf, (char *)iqy_label_info->plid,sizeof (iqy_label_info->plid));
-                        p_data->resList[i].catList[j].key = (u8 *)outbuf;
-                    }
+				#if 0            
+				for(type_index=0;type_index<iqy_channel->tagSize;type_index++)
+				{
+					static char UTF8_type[] = {0xe7,0xb1,0xbb,0xe5,0x9e,0x8b,0x00};            	  
+					if (UTF8_type[0])//(strcmp((char*)UTF8_type,(char*)iqy_channel->tags[type_index].name) == 0)
+					{
+						p_data->resList[i].total_cat = iqy_channel->tags[type_index].subTagSize;
+						p_data->resList[i].catList = (al_iptv_cat_item_t *)SY_MALLOC(p_data->resList[i].total_cat * sizeof(al_iptv_cat_item_t));
+						MT_ASSERT(p_data->resList[i].catList != NULL);
+						memset(p_data->resList[i].catList, 0, p_data->resList[i].total_cat * sizeof(al_iptv_cat_item_t));
+						break;
+					}
+					p_data->resList[i].total_cat = 0;
+				}
+				#endif				  
+				p_data->resList[i].total_cat = iqy_label->size;
+				p_data->resList[i].catList   = (al_iptv_cat_item_t *)SY_CALLOC(1,p_data->resList[i].total_cat * sizeof(al_iptv_cat_item_t));
+				MT_ASSERT(p_data->resList[i].catList != NULL);
 
-                    p_data->resList[i].catList[j].total_vdo = 1000; //tmp
-                }
+				// DEBUG(UI_PLAY_API,INFO,"type count = %d\n",p_data->resList[i].total_cat);
+				for (j = 0; j < p_data->resList[i].total_cat; j++) // iqy_tag->subTagSize
+				{
+					iqy_label_info = iqy_label->labelList + j;
+					//DEBUG(UI_PLAY_API,INFO,"name[%s]\n",iqy_label_info->name);
+					if (iqy_label_info->name != NULL)
+					{
+						src_len = strlen(iqy_label_info->name) + 1;
+						dest_len = src_len * sizeof(u16);
+						inbuf = iqy_label_info->name;
+						outbuf = (char *)SY_CALLOC(1,dest_len);
+						MT_ASSERT(outbuf != NULL);
+						p_data->resList[i].catList[j].name = (u16 *)outbuf;
+						iconv(g_cd_utf8_to_utf16le, (char**) &inbuf, &src_len, (char**) &outbuf, &dest_len);
+					}
+					//DEBUG(UI_PLAY_API,INFO,"plid[%s]\n",iqy_label_info->plid);
+					if (iqy_label_info->plid != NULL)
+					{
+						dest_len = sizeof (iqy_label_info->plid) +1;
+						outbuf = (char *)SY_CALLOC(1,dest_len);
+						MT_ASSERT(outbuf != NULL);
+						memcpy((char *)outbuf, (char *)iqy_label_info->plid,sizeof (iqy_label_info->plid));
+						p_data->resList[i].catList[j].key = (u8 *)outbuf;
+						
+					}
+					p_data->resList[i].catList[j].total_vdo = 1000; //tmp
+				}
             }
             else
             {
@@ -241,68 +241,65 @@ static al_iptv_cat_res_list_t *iqy_gen_cat_res_list(IQY_CATEGORY_TYPE_ALL_T *p_p
                 p_data->resList[i].catList = NULL;
             }
 			
-		if ((iqy_channel->tags != NULL) && (iqy_channel->tagSize > 0))
-            {
-		    p_data->resList[i].total_filter = iqy_channel->tagSize;
-		    p_data->resList[i].filter = (al_iptv_filter_item_t *)SY_MALLOC(p_data->resList[i].total_filter * sizeof(al_iptv_filter_item_t));
-		    MT_ASSERT(p_data->resList[i].filter != NULL);
-		    memset(p_data->resList[i].filter, 0, p_data->resList[i].total_filter * sizeof(al_iptv_filter_item_t));
-
+			if ((iqy_channel->tags != NULL) && (iqy_channel->tagSize > 0))
+			{
+			    p_data->resList[i].total_filter = iqy_channel->tagSize;
+			    p_data->resList[i].filter = (al_iptv_filter_item_t *)SY_MALLOC(p_data->resList[i].total_filter * sizeof(al_iptv_filter_item_t));
+			    MT_ASSERT(p_data->resList[i].filter != NULL);
+			    memset(p_data->resList[i].filter, 0, p_data->resList[i].total_filter * sizeof(al_iptv_filter_item_t));
 
                 for(type_index=0;type_index<iqy_channel->tagSize;type_index++)
-            	   {
-			static char UTF8_type[] = {0xe7,0xb1,0xbb,0xe5,0x9e,0x8b,0x00};            	  
+            	{
+					static char UTF8_type[] = {0xe7,0xb1,0xbb,0xe5,0x9e,0x8b,0x00};            	  
             	  	if (UTF8_type[0])//(strcmp((char*)UTF8_type,(char*)iqy_channel->tags[type_index].name) == 0)
-        	  	{
-			    p_data->resList[i].filter[type_index].total_vdo = 1000; //tmp
-   			    p_data->resList[i].filter[type_index].subTagSize = iqy_channel->tags[type_index].subTagSize;
-     			    p_data->resList[i].filter[type_index].subtag = (al_iptv_tags_item_t *)SY_MALLOC(p_data->resList[i].filter[type_index].subTagSize * sizeof(al_iptv_tags_item_t));
-     			    MT_ASSERT(p_data->resList[i].filter[type_index].subtag != NULL);
-     			    memset(p_data->resList[i].filter[type_index].subtag, 0, p_data->resList[i].filter[type_index].subTagSize * sizeof(al_iptv_tags_item_t));
+	        	  	{
+				    	p_data->resList[i].filter[type_index].total_vdo = 1000; //tmp
+	   			    	p_data->resList[i].filter[type_index].subTagSize = iqy_channel->tags[type_index].subTagSize;
+	     			    p_data->resList[i].filter[type_index].subtag = (al_iptv_tags_item_t *)SY_MALLOC(p_data->resList[i].filter[type_index].subTagSize * sizeof(al_iptv_tags_item_t));
+	     			    MT_ASSERT(p_data->resList[i].filter[type_index].subtag != NULL);
+	     			    memset(p_data->resList[i].filter[type_index].subtag, 0, p_data->resList[i].filter[type_index].subTagSize * sizeof(al_iptv_tags_item_t));
 
-			    if (iqy_channel->tags[type_index].name != NULL)
-			    {
-				    src_len = strlen(iqy_channel->tags[type_index].name) + 1;
-				    dest_len = src_len * sizeof(u16);
-				    inbuf = iqy_channel->tags[type_index].name;
-				    outbuf = (char *)SY_CALLOC(1,dest_len);
-				    MT_ASSERT(outbuf != NULL);
-				    p_data->resList[i].filter[type_index].name = (u16 *)outbuf;
-				    //DEBUG(UI_PLAY_API,INFO,"[debug] type_index = %d %s %d tagname = %s \n",type_index,__FUNCTION__,__LINE__,iqy_channel->tags[type_index].name);
-				    iconv(g_cd_utf8_to_utf16le, (char**) &inbuf, &src_len, (char**) &outbuf, &dest_len);
-			    }
+					    if (iqy_channel->tags[type_index].name != NULL)
+					    {
+						    src_len = strlen(iqy_channel->tags[type_index].name) + 1;
+						    dest_len = src_len * sizeof(u16);
+						    inbuf = iqy_channel->tags[type_index].name;
+						    outbuf = (char *)SY_CALLOC(1,dest_len);
+						    MT_ASSERT(outbuf != NULL);
+						    p_data->resList[i].filter[type_index].name = (u16 *)outbuf;
+						    //DEBUG(UI_PLAY_API,INFO,"[debug] type_index = %d %s %d tagname = %s \n",type_index,__FUNCTION__,__LINE__,iqy_channel->tags[type_index].name);
+						    iconv(g_cd_utf8_to_utf16le, (char**) &inbuf, &src_len, (char**) &outbuf, &dest_len);
+					    }
 
-			    DEBUG(UI_PLAY_API,INFO,"type count = %d\n",p_data->resList[i].filter[type_index].subTagSize);
-			    for (j = 0; j < p_data->resList[i].filter[type_index].subTagSize; j++) // iqy_tag->subTagSize
-			    {
-				    iqy_subtag =iqy_channel->tags[type_index].subtag + j;
+				   	 	DEBUG(UI_PLAY_API,INFO,"type count = %d\n",p_data->resList[i].filter[type_index].subTagSize);
+				    	for (j = 0; j < p_data->resList[i].filter[type_index].subTagSize; j++) // iqy_tag->subTagSize
+					    {
+						    iqy_subtag =iqy_channel->tags[type_index].subtag + j;
 
-				    if (iqy_subtag->name != NULL)
-				    {
-					    src_len = strlen(iqy_subtag->name) + 1;
-					    dest_len = src_len * sizeof(u16);
-					    inbuf = iqy_subtag->name;
-					    outbuf = (char *)SY_CALLOC(1,dest_len);
-					    MT_ASSERT(outbuf != NULL);
-					    p_data->resList[i].filter[type_index].subtag[j].name = (u16 *)outbuf;
-					    //DEBUG(UI_PLAY_API,INFO,"[debug] %s %d subname = %s dest_len =%d\n",__FUNCTION__,__LINE__,iqy_subtag->name,dest_len);
-					    iconv(g_cd_utf8_to_utf16le, (char**) &inbuf, &src_len, (char**) &outbuf, &dest_len);
-				    }
+						    if (iqy_subtag->name != NULL)
+						    {
+							    src_len = strlen(iqy_subtag->name) + 1;
+							    dest_len = src_len * sizeof(u16);
+							    inbuf = iqy_subtag->name;
+							    outbuf = (char *)SY_CALLOC(1,dest_len);
+							    MT_ASSERT(outbuf != NULL);
+							    p_data->resList[i].filter[type_index].subtag[j].name = (u16 *)outbuf;
+							    //DEBUG(UI_PLAY_API,INFO,"[debug] %s %d subname = %s dest_len =%d\n",__FUNCTION__,__LINE__,iqy_subtag->name,dest_len);
+							    iconv(g_cd_utf8_to_utf16le, (char**) &inbuf, &src_len, (char**) &outbuf, &dest_len);
+						    }
 
-				    if (iqy_subtag->value != NULL)
-				    {
-					    dest_len = strlen(iqy_subtag->value) + 1;
-					    outbuf = (char *)SY_MALLOC(dest_len);
-					    MT_ASSERT(outbuf != NULL);
-					    strcpy((char *)outbuf, (char *)iqy_subtag->value);
-					    //DEBUG(UI_PLAY_API,INFO,"[debug] %s %d subname = %s \n",__FUNCTION__,__LINE__,iqy_subtag->value);
-					    p_data->resList[i].filter[type_index].subtag[j].key = (u8 *)outbuf;
-				    }
+						    if (iqy_subtag->value != NULL)
+						    {
+							    dest_len = strlen(iqy_subtag->value) + 1;
+							    outbuf = (char *)SY_MALLOC(dest_len);
+							    MT_ASSERT(outbuf != NULL);
+							    strcpy((char *)outbuf, (char *)iqy_subtag->value);
+							    //DEBUG(UI_PLAY_API,INFO,"[debug] %s %d subname = %s \n",__FUNCTION__,__LINE__,iqy_subtag->value);
+							    p_data->resList[i].filter[type_index].subtag[j].key = (u8 *)outbuf;
+						    }
 
-			    }
-
-
-			}
+					    }
+				}
 		  }
             }
             else
@@ -499,48 +496,48 @@ static al_iptv_vdo_info_t *iqy_gen_vdo_info(IQY_CHANNEL_INFO_T *p_param)
     p_data->tvsets= (u16)(p_param->album->tvsets > p_param->album->tvCount? p_param->album->tvsets:p_param->album->tvCount);
     set_vdo_id(&p_data->vdo_id,p_param->album->qpId, p_param->album->tvQid, p_param->album->sourceCode,p_param->album->type);
 
-     if(p_param->album->name != NULL)
+    if(p_param->album->name != NULL)
     {
-    src_len = strlen(p_param->album->name) + 1;
-    dest_len = src_len * sizeof(u16);
-    inbuf =p_param->album->name;
-    outbuf = (char *)SY_CALLOC(1,dest_len);
-    MT_ASSERT(outbuf != NULL);
-    p_data->name = (u16 *)outbuf;
-    iconv(g_cd_utf8_to_utf16le, (char**) &inbuf, &src_len, (char**) &outbuf, &dest_len);
+	    src_len = strlen(p_param->album->name) + 1;
+	    dest_len = src_len * sizeof(u16);
+	    inbuf =p_param->album->name;
+	    outbuf = (char *)SY_CALLOC(1,dest_len);
+	    MT_ASSERT(outbuf != NULL);
+	    p_data->name = (u16 *)outbuf;
+	    iconv(g_cd_utf8_to_utf16le, (char**) &inbuf, &src_len, (char**) &outbuf, &dest_len);
     }
 	
      if(p_param->album->tag != NULL) // TODO: tag ->> area
     {
-    src_len = strlen(p_param->album->tag) + 1;
-    dest_len = src_len * sizeof(u16);
-    inbuf = p_param->album->tag;
-    outbuf = (char *)SY_CALLOC(1,dest_len);
-    MT_ASSERT(outbuf != NULL);
-    p_data->area = (u16 *)outbuf;
-    iconv(g_cd_utf8_to_utf16le, (char**) &inbuf, &src_len, (char**) &outbuf, &dest_len);
+	    src_len = strlen(p_param->album->tag) + 1;
+	    dest_len = src_len * sizeof(u16);
+	    inbuf = p_param->album->tag;
+	    outbuf = (char *)SY_CALLOC(1,dest_len);
+	    MT_ASSERT(outbuf != NULL);
+	    p_data->area = (u16 *)outbuf;
+	    iconv(g_cd_utf8_to_utf16le, (char**) &inbuf, &src_len, (char**) &outbuf, &dest_len);
     }
 
      if(p_param->album->cast.director != NULL) // 导演
    {
-    src_len = strlen(p_param->album->cast.director) + 1;
-    dest_len = src_len * sizeof(u16);
-    inbuf = p_param->album->cast.director;
-    outbuf = (char *)SY_CALLOC(1,dest_len);
-    MT_ASSERT(outbuf != NULL);
-    p_data->director = (u16 *)outbuf;
-    iconv(g_cd_utf8_to_utf16le, (char**) &inbuf, &src_len, (char**) &outbuf, &dest_len);
+	    src_len = strlen(p_param->album->cast.director) + 1;
+	    dest_len = src_len * sizeof(u16);
+	    inbuf = p_param->album->cast.director;
+	    outbuf = (char *)SY_CALLOC(1,dest_len);
+	    MT_ASSERT(outbuf != NULL);
+	    p_data->director = (u16 *)outbuf;
+	    iconv(g_cd_utf8_to_utf16le, (char**) &inbuf, &src_len, (char**) &outbuf, &dest_len);
     }
 
      if(p_param->album->cast.mainActor != NULL) //主演
     {
-    src_len = strlen(p_param->album->cast.mainActor) + 1;
-    dest_len = src_len * sizeof(u16);
-    inbuf = p_param->album->cast.mainActor;
-    outbuf = (char *)SY_CALLOC(1,dest_len);
-    MT_ASSERT(outbuf != NULL);
-    p_data->actor = (u16 *)outbuf;
-    iconv(g_cd_utf8_to_utf16le, (char**) &inbuf, &src_len, (char**) &outbuf, &dest_len);
+	    src_len = strlen(p_param->album->cast.mainActor) + 1;
+	    dest_len = src_len * sizeof(u16);
+	    inbuf = p_param->album->cast.mainActor;
+	    outbuf = (char *)SY_CALLOC(1,dest_len);
+	    MT_ASSERT(outbuf != NULL);
+	    p_data->actor = (u16 *)outbuf;
+	    iconv(g_cd_utf8_to_utf16le, (char**) &inbuf, &src_len, (char**) &outbuf, &dest_len);
     }
 	
      if(p_param->album->initIssueTime != NULL) // 年代
@@ -692,25 +689,25 @@ static al_iptv_info_url_list_t *iqy_gen_info_url(IQY_CHANNEL_INFO_T *p_param)
     if (p_param->album->type == IQY_TYPE_MOVE) //move
     {
     	p_data->count = 1;
-	p_data->page_count = 1;
-	p_data->page_total = 1;
+		p_data->page_count = 1;
+		p_data->page_total = 1;
     	p_data->urlList = (al_iptv_info_url_item_t *)SY_MALLOC(p_data->count * sizeof(al_iptv_info_url_item_t));
-	memset( p_data->urlList,0,p_data->count * sizeof(al_iptv_info_url_item_t));
-       MT_ASSERT(p_data->urlList != NULL);
-	   
-       memcpy((char *) p_data->urlList[0].tvQid, (char *)p_param->album->tvQid,sizeof(p_data->urlList[0].tvQid));
-       memcpy((char *) p_data->urlList[0].vid, (char *)p_param->album->vid,sizeof(p_data->urlList[0].vid));
-	DEBUG(UI_PLAY_API,INFO,"tvQid[%s],vid[%s]\n",p_data->urlList[0].tvQid,p_data->urlList[0].vid);
+		memset( p_data->urlList,0,p_data->count * sizeof(al_iptv_info_url_item_t));
+		MT_ASSERT(p_data->urlList != NULL);
 
-       src_len = strlen(p_param->album->name ) + 1;
-       dest_len = src_len * sizeof(u16);
-       inbuf =p_param->album->name ;
-       outbuf = (char *)SY_CALLOC(1,dest_len);
-       MT_ASSERT(outbuf != NULL);
-       p_data->urlList[0].urltitle = (u16 *)outbuf;
-       iconv(g_cd_utf8_to_utf16le, (char**) &inbuf, &src_len, (char**) &outbuf, &dest_len);
-       return p_data;
-    }
+		memcpy((char *) p_data->urlList[0].tvQid, (char *)p_param->album->tvQid,sizeof(p_data->urlList[0].tvQid));
+		memcpy((char *) p_data->urlList[0].vid, (char *)p_param->album->vid,sizeof(p_data->urlList[0].vid));
+		DEBUG(UI_PLAY_API,INFO,"tvQid[%s],vid[%s]\n",p_data->urlList[0].tvQid,p_data->urlList[0].vid);
+
+		src_len = strlen(p_param->album->name ) + 1;
+		dest_len = src_len * sizeof(u16);
+		inbuf =p_param->album->name ;
+		outbuf = (char *)SY_CALLOC(1,dest_len);
+		MT_ASSERT(outbuf != NULL);
+		p_data->urlList[0].urltitle = (u16 *)outbuf;
+		iconv(g_cd_utf8_to_utf16le, (char**) &inbuf, &src_len, (char**) &outbuf, &dest_len);
+		return p_data;
+	}
 
     p_data->count = (u32)p_param->this_page_size;
     if (p_param->episode_total > 0 && p_param->this_page_size > 0)
@@ -728,24 +725,24 @@ static al_iptv_info_url_list_t *iqy_gen_info_url(IQY_CHANNEL_INFO_T *p_param)
 
     for (i = 0; i < p_data->count; i++)
     {
-        pepisode = p_param->episodes + i;
-		
-       memcpy((char *) p_data->urlList[i].tvQid, (char *)pepisode->tvQid,sizeof(p_data->urlList[0].tvQid));
-       memcpy((char *) p_data->urlList[i].vid, (char *)pepisode->vid,sizeof(p_data->urlList[0].vid));
+		pepisode = p_param->episodes + i;
 
-	DEBUG(UI_PLAY_API,INFO,"url name[%s]\n",pepisode->name );
+		memcpy((char *) p_data->urlList[i].tvQid, (char *)pepisode->tvQid,sizeof(p_data->urlList[0].tvQid));
+		memcpy((char *) p_data->urlList[i].vid, (char *)pepisode->vid,sizeof(p_data->urlList[0].vid));
+
+		DEBUG(UI_PLAY_API,INFO,"url name[%s]\n",pepisode->name );
         //url title
         if(pepisode->name != NULL)
         {
-          src_len = strlen(pepisode->name ) + 1;
-          dest_len = src_len * sizeof(u16);
-          inbuf = pepisode->name ;
-          outbuf = (char *)SY_CALLOC(1,dest_len);
-          MT_ASSERT(outbuf != NULL);
-          p_data->urlList[i].urltitle = (u16 *)outbuf;
-          iconv(g_cd_utf8_to_utf16le, (char**) &inbuf, &src_len, (char**) &outbuf, &dest_len);
+			src_len = strlen(pepisode->name ) + 1;
+			dest_len = src_len * sizeof(u16);
+			inbuf = pepisode->name ;
+			outbuf = (char *)SY_CALLOC(1,dest_len);
+			MT_ASSERT(outbuf != NULL);
+			p_data->urlList[i].urltitle = (u16 *)outbuf;
+			iconv(g_cd_utf8_to_utf16le, (char**) &inbuf, &src_len, (char**) &outbuf, &dest_len);
         }
-    }
+	}
 
     return p_data;
 }

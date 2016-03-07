@@ -27,8 +27,11 @@
 #include "commonData.h"
 #include "download_api.h"
 
-#include "IqyDataProvider.h"
+#include "xingmeiDataProvider.h"
 #include "sys_dbg.h"
+#include "xingmeiDataProvider.h"
+#include "xingmeiDataPorcess.h"
+
 
 #define   DEF_ALLOC_CATEGORY_NUM  (20)
 #define   DEF_CATEGARY_COUNT (100)
@@ -43,23 +46,20 @@
 #define   IPTV_ERROR(format, args...)           mtos_printk(format, ##args)
 
 
-extern int iqy_iptv_dp_init(IQY_DP_HDL_T * iqyDpBlock);
-extern int iqy_iptv_dp_deinit(IQY_DP_HDL_T * iqyDpBlock);
-
 extern char *iptv_strdup(const char *s);
 
 static int do_iptv_cmd(void * p_dp, void * p_param)
 {
-
-	IQY_VIDEO_FORMAT_T 				* format = NULL;
-	IQY_CATEGORY_LIST_T  			* category_list = NULL;
-	IQY_CATEGORY_TYPE_ALL_T 		* category_type_list = NULL;
-	IQY_CHANNEL_LIST_T    			* channel_list = NULL;
-	IQY_CHANNEL_INFO_T   			* channel_info = NULL;
-	IQY_CHANNEL_PLAY_URL_T    		* play_channel_url = NULL;
-	IQY_RECMD_INFO_T 				* recommend_info = NULL;
-	IQY_AREA_INFO_LIST_T 			* area_list = NULL;
-	IQY_SEARCH_WORD_T  			* search_word = NULL;
+#if 1
+	XM_VIDEO_FORMAT_T 				* format = NULL;
+	XM_CATEGORY_LIST_T  			* category_list = NULL;
+	XM_CATEGORY_TYPE_ALL_T 		* category_type_list = NULL;
+	XM_CHANNEL_LIST_T    			* channel_list = NULL;
+	XM_CHANNEL_INFO_T   			* channel_info = NULL;
+	XM_CHANNEL_PLAY_URL_T    		* play_channel_url = NULL;
+	XM_RECMD_INFO_T 				* recommend_info = NULL;
+	XM_AREA_INFO_LIST_T 			* area_list = NULL;
+	XM_SEARCH_WORD_T  			* search_word = NULL;
 
 
 
@@ -67,16 +67,17 @@ static int do_iptv_cmd(void * p_dp, void * p_param)
 	memset(&tmp_cmd,0,sizeof(DP_CMD_T));
 	memcpy(&tmp_cmd,p_param,sizeof(DP_CMD_T));
 
-	IQY_DP_HDL_T * iptvDP = (IQY_DP_HDL_T *)p_dp;
+	XM_DP_HDL_T * iptvDP = (XM_DP_HDL_T *)p_dp;
 	DP_CMD_T * p_cmd = (DP_CMD_T *)(&tmp_cmd);
 
 	IPTV_UPPAGE_REQ_T *p_update_page_req = (IPTV_UPPAGE_REQ_T *)(p_cmd->param);
 	IPTV_RECOMMEND_REQ_T *p_recmd_req = (IPTV_RECOMMEND_REQ_T *)(p_cmd->param);
 	IPTV_VIDEO_INFO_REQ_T *p_info_req = (IPTV_VIDEO_INFO_REQ_T *)(p_cmd->param);
 	IPTV_VIDEO_URL_REQ_T *p_url_req = (IPTV_VIDEO_URL_REQ_T *)(p_cmd->param);
-	IQY_REQ_PARAM_T * p_req =  (IQY_REQ_PARAM_T *)(p_cmd->param);
+	XM_REQ_PARAM_T * p_req =  (XM_REQ_PARAM_T *)(p_cmd->param);
 	u8 *searchWord = (u8 *)(p_cmd->param);
 
+	DEBUG(IPTVDP,INFO,"do cmd: get\n");
 
 	switch(p_cmd->type)
 	{
@@ -84,7 +85,7 @@ static int do_iptv_cmd(void * p_dp, void * p_param)
 		{	
 			int ret  = 0 ;
 			DEBUG(IPTVDP,INFO,"do command [GET_IPTV_INIT]\n");
-			ret = iqy_iptv_dp_init(iptvDP);
+			ret = xingmei_iptv_dp_init(iptvDP);
 			if(iptvDP->event_callback)
 			{
 				if(ret == 0)
@@ -101,16 +102,17 @@ static int do_iptv_cmd(void * p_dp, void * p_param)
 		}		
 		break;
 
-
 		case GET_IPTV_CATEGORY:
-			DEBUG(IPTVDP,INFO,"do cmd: GET_CATEGORY\n");
+			DEBUG(IPTVDP,INFO,"do cmd: GET_CATEGORY iptvDP->event_callback = %x\n",iptvDP->event_callback);
 			if(iptvDP->get_category_list != NULL)
 			{
-				category_list = (IQY_CATEGORY_LIST_T *)iptvDP->get_category_list(iptvDP->priv);
+				category_list = (XM_CATEGORY_LIST_T *)iptvDP->get_category_list(iptvDP->priv);
 				if(iptvDP->event_callback)
 				{
+					DEBUG(IPTVDP,INFO,"\n");
 					if (category_list != NULL)
 					{
+						DEBUG(IPTVDP,INFO,"GET_CATEGORY\n");
 						iptvDP->event_callback(IPTV_CATEGORY_ARRIVAL, (u32) category_list);
 					}
 					else
@@ -125,10 +127,10 @@ static int do_iptv_cmd(void * p_dp, void * p_param)
 		break;
 
 		case GET_IPTV_CATEGORY_TYPE:
-			DEBUG(IPTVDP,INFO,"do cmd: GET_IPTV_CATEGORY_TYPE\n");
+			DEBUG(IPTVDP,INFO,"do cmd: GET_IPTV_CATEGORY_TYPE\n");		
 			if(iptvDP->get_category_type_list != NULL)
 			{
-				category_type_list = (IQY_CATEGORY_TYPE_ALL_T *)iptvDP->get_category_type_list(iptvDP->priv, p_req->cat_id);
+				category_type_list = (XM_CATEGORY_TYPE_ALL_T *)iptvDP->get_category_type_list(iptvDP->priv, p_req->cat_id);
 				if(iptvDP->event_callback)
 				{
 					if (category_type_list != NULL)
@@ -151,7 +153,7 @@ static int do_iptv_cmd(void * p_dp, void * p_param)
 			if(iptvDP->update_page  != NULL)
 			{
 
-				channel_list = (IQY_CHANNEL_LIST_T *)iptvDP->update_page(iptvDP->priv, p_update_page_req);
+				channel_list = (XM_CHANNEL_LIST_T *)iptvDP->update_page(iptvDP->priv, p_update_page_req);
 				if(channel_list != NULL)
 				{
 					channel_list->category_id = p_update_page_req->cat_id;
@@ -177,17 +179,18 @@ static int do_iptv_cmd(void * p_dp, void * p_param)
 		break;
 
 		case GET_IPTV_VIDEO_INFO:
-			DEBUG(IPTVDP,INFO,"do cmd: GET_IPTV_VIDEO_INFO p_info_req index[%d],size[%d]\n",
-					p_info_req->page_index,p_info_req->page_size);
+			DEBUG(IPTVDP,INFO,"do cmd: GET_IPTV_VIDEO_INFO p_info_req index[%d],size[%d], catid=program type = %d\n",
+					p_info_req->page_index,p_info_req->page_size,p_info_req->cat_id);
 			if(iptvDP->get_video_info != NULL)
 			{
-				channel_info = (IQY_CHANNEL_INFO_T *)iptvDP->get_video_info(iptvDP->priv, p_info_req);
+				DEBUG(IPTVDP,INFO,"\n");
+				channel_info = (XM_CHANNEL_INFO_T *)iptvDP->get_video_info(iptvDP->priv, p_info_req);
 				if(iptvDP->event_callback)
 				{
 					if(channel_info != NULL)
 					{
 						channel_info->is_description =  p_info_req->is_description;
-						channel_info->query_mode = p_info_req->query_mode;
+						channel_info->query_mode= p_info_req->query_mode;
 						iptvDP->event_callback(IPTV_VIDEO_INFO_ARRIVAL, (u32) channel_info);
 					}
 					else
@@ -197,6 +200,7 @@ static int do_iptv_cmd(void * p_dp, void * p_param)
 					}
 				}
 			}
+			DEBUG(IPTVDP,INFO,"\n");
 			if(p_info_req)
 				SY_FREE(p_info_req);
 		break;
@@ -205,7 +209,7 @@ static int do_iptv_cmd(void * p_dp, void * p_param)
 			DEBUG(IPTVDP,INFO,"do cmd: GET_IPTV_PLAY_URL\n");
 			if(iptvDP->get_playurl != NULL)
 			{
-				play_channel_url = (IQY_CHANNEL_PLAY_URL_T *)iptvDP->get_playurl(iptvDP->priv, p_url_req);
+				play_channel_url = (XM_CHANNEL_PLAY_URL_T *)iptvDP->get_playurl(iptvDP->priv, p_url_req);
 				if(iptvDP->event_callback)
 				{
 					if (play_channel_url != NULL)
@@ -239,7 +243,7 @@ static int do_iptv_cmd(void * p_dp, void * p_param)
 			DEBUG(IPTVDP,INFO,"do cmd: GET_IPTV_RECOMMEND_INFO\n");			
 			if(iptvDP->get_recommend_info != NULL)
 			{
-				recommend_info = (IQY_RECMD_INFO_T *)iptvDP->get_recommend_info(iptvDP->priv, p_recmd_req);
+				recommend_info = (XM_RECMD_INFO_T *)iptvDP->get_recommend_info(iptvDP->priv, p_recmd_req);
 				if(iptvDP->event_callback)
 				{
 					if (recommend_info != NULL)
@@ -262,7 +266,7 @@ static int do_iptv_cmd(void * p_dp, void * p_param)
 			DEBUG(IPTVDP,INFO,"do cmd: GET_IPTV_AREA\n");			
 			if(iptvDP->get_area != NULL)
 			{
-				area_list = (IQY_AREA_INFO_LIST_T *)iptvDP->get_area(iptvDP->priv);
+				area_list = (XM_AREA_INFO_LIST_T *)iptvDP->get_area(iptvDP->priv);
 				if(iptvDP->event_callback)
 				{
 					if (area_list != NULL)
@@ -283,7 +287,7 @@ static int do_iptv_cmd(void * p_dp, void * p_param)
 
 		case GET_IPTV_DEINIT:
 			DEBUG(IPTVDP,INFO,"do cmd: GET_IPTV_DEINIT\n");		
-			iqy_iptv_dp_deinit(iptvDP);
+		//	iqy_iptv_dp_deinit(iptvDP);
 			if(iptvDP->event_callback)
 				iptvDP->event_callback(IPTV_DEINIT_SUCCESS, NULL);
 
@@ -295,7 +299,7 @@ static int do_iptv_cmd(void * p_dp, void * p_param)
 			DEBUG(IPTVDP,INFO,"do cmd: GET_IPTV_SEARCH_WORD\n");
 			if(iptvDP->get_search_word != NULL)
 			{
-				search_word = (IQY_SEARCH_WORD_T *)iptvDP->get_search_word(iptvDP->priv, searchWord);
+				search_word = (XM_SEARCH_WORD_T *)iptvDP->get_search_word(iptvDP->priv, searchWord);
 				if(iptvDP->event_callback)
 				{
 					if (search_word != NULL)
@@ -317,6 +321,7 @@ static int do_iptv_cmd(void * p_dp, void * p_param)
 			DEBUG(IPTVDP,ERR,"do cmd: can't recognize this cmd  %d!!!!!!!!!\n", p_cmd->type);
 		break;
 	}
+#endif	
 	return 0;
 }
 
@@ -324,77 +329,76 @@ static int do_iptv_cmd(void * p_dp, void * p_param)
 *
 
 */
-static IQY_DP_HDL_T * iqyDpBlock = NULL;
+static XM_DP_HDL_T * xmDpBlock = NULL;
 
 
-static void IQY_RegisterCallback(void * p_cb_func) 
+static void XM_RegisterCallback(void * p_cb_func) 
 {
-	iqyDpBlock->event_callback= (iptv_event_callback)p_cb_func;
+	xmDpBlock->event_callback= (iptv_event_callback)p_cb_func;
 	return;
 }
 
-static void IQY_InitDataProvider(DO_CMD_TASK_CONFIG_T * p_config)
+static void XM_InitDataProvider(DO_CMD_TASK_CONFIG_T * p_config)
 {
-	if (!iqyDpBlock)
+#if 1
+	if (!xmDpBlock)
 	{
-		iqyDpBlock = (IQY_DP_HDL_T *)SY_MALLOC(sizeof(IQY_DP_HDL_T));
+		xmDpBlock = (XM_DP_HDL_T *)SY_MALLOC(sizeof(XM_DP_HDL_T));
 	}
 
-	if (!iqyDpBlock)
+	if (!xmDpBlock)
 	{
 		DEBUG(IPTVDP,ERR,"[ERROR] FAIL malloc dp block ...\n");	
 		return;
 	}
-	memset(iqyDpBlock,0,sizeof(IQY_DP_HDL_T));
+	memset(xmDpBlock,0,sizeof(XM_DP_HDL_T));
 	DO_CMD_TASK_CONFIG_T config;
 	memset(&config,0,sizeof(DO_CMD_TASK_CONFIG_T));
 
-    	mtos_printk("[%s] start start ...\n",__func__);
+    DEBUG(IPTVDP,ERR,"[%s] start start ...\n",__func__);
 	if(p_config == NULL)
 	{
 		config.proc_cmd_callback = do_iptv_cmd;
 		config.event_cmd_callback = NULL ;
-		config.p_data_provider = iqyDpBlock;
+		config.p_data_provider = xmDpBlock;
 	}
 	else
 	{
 		memcpy((&config),(void *)p_config,sizeof(DO_CMD_TASK_CONFIG_T));
 		config.proc_cmd_callback = do_iptv_cmd;
 		config.event_cmd_callback = NULL ;
-		config.p_data_provider = iqyDpBlock;
+		config.p_data_provider = xmDpBlock;
 		config.p_mem_start = (unsigned char *)SY_MALLOC(config.stack_size);
 		MT_ASSERT(config.p_mem_start != NULL);
 		memset(config.p_mem_start, 0x00, config.stack_size);
-		iqyDpBlock->bg_task_stack_addr = config.p_mem_start;
-		
-
+		xmDpBlock->bg_task_stack_addr = config.p_mem_start;
 	}
 
-
-	iqyDpBlock->mac = iptv_strdup(p_config->mac);
-	iqyDpBlock->id = iptv_strdup(p_config->id);
+	xmDpBlock->mac = iptv_strdup(p_config->mac);
+	xmDpBlock->id = iptv_strdup(p_config->id);
 	
-	iqyDpBlock->p_bg_task_hdl = DP_startDoCmdTask(config);
-	//iqyDpBlock->register_event_callback = iqy_register_callback;
+	xmDpBlock->p_bg_task_hdl = DP_startDoCmdTask(config);
+	//xmDpBlock->register_event_callback = iqy_register_callback;
 
 	//set default pagesize
-	iqyDpBlock->page_size = 5;
+	xmDpBlock->page_size = 5;
 
-	iqyDpBlock->dp =  (IPTV_DATA_PROVIDER)(p_config->dp);
-	iqyDpBlock->sub_dp = p_config->sub_dp;
+	xmDpBlock->dp =  (IPTV_DATA_PROVIDER)(p_config->dp);
+	xmDpBlock->sub_dp = p_config->sub_dp;
 
 	if(1)/////put the init to async in Cmd Task !
 	{
 		DP_CMD_T cmd;
 		memset(&cmd,0,sizeof(DP_CMD_T));
 		cmd.type = GET_IPTV_INIT;
-		int ret = DP_sendCmd(iqyDpBlock->p_bg_task_hdl,&cmd);
+		int ret = DP_sendCmd(xmDpBlock->p_bg_task_hdl,&cmd);
 		if(ret < 0)
 		{
 			DEBUG(IPTVDP,ERR,"[ERROR] FAIL SEND CMD ...\n");
 		}
 	}
-	mtos_printk("[%s] end end ...\n",__func__);
+	DEBUG(IPTVDP,ERR,"[%s] end end ...\n",__func__);
+#endif	
 }
 
 /************************************************************************
@@ -407,11 +411,11 @@ static void IQY_InitDataProvider(DO_CMD_TASK_CONFIG_T * p_config)
 *
 *
 ***********************************************************************************/
-static int  IQY_DeinitDataProvider(void)
+static int  XM_DeinitDataProvider(void)
 {
-    	 mtos_printk("[%s] start start ...\n",__func__);
+    DEBUG(IPTVDP,ERR,"[%s] start start ...\n",__func__);
 
-	if(iqyDpBlock == NULL)
+	if(xmDpBlock == NULL)
 	{
 		return 0;
 	}
@@ -420,28 +424,23 @@ static int  IQY_DeinitDataProvider(void)
 	DP_CMD_T cmd;
 	memset(&cmd,0,sizeof(DP_CMD_T));
 	cmd.type = GET_IPTV_DEINIT;
-	int ret = DP_sendCmd(iqyDpBlock->p_bg_task_hdl,&cmd);
+	int ret = DP_sendCmd(xmDpBlock->p_bg_task_hdl,&cmd);
 	if(ret < 0)
 	{
-		OS_PRINTF("[%s][ERROR] FAIL SEND CMD ...\n",__func__);
+		DEBUG(IPTVDP,ERR,"[%s][ERROR] FAIL SEND CMD ...\n",__func__);
 	}
-	//if (hdl->bg_task_stack_addr != NULL)
-		//SY_FREE(hdl->bg_task_stack_addr);
-	
-	//mtos_task_sleep(200);
-	//DP_stopDoCmdTask(hdl->p_bg_task_hdl);
-    	mtos_printk("[%s] end end ...\n",__func__);
+    DEBUG(IPTVDP,ERR,"[%s] end end ...\n",__func__);
+
 	return 0;
 }
 
-static int  IQY_DelCmdTask(void)
+static int  XM_DelCmdTask(void)
 {
-	mtos_printk("[%s] start start ...\n",__func__);
+	DEBUG(IPTVDP,ERR,"[%s] start start ...\n",__func__);
 
-	DP_stopDoCmdTask(iqyDpBlock->p_bg_task_hdl);
-
-	if (iqyDpBlock->bg_task_stack_addr != NULL)
-		SY_FREE(iqyDpBlock->bg_task_stack_addr);
+	DP_stopDoCmdTask(xmDpBlock->p_bg_task_hdl);
+	if (xmDpBlock->bg_task_stack_addr != NULL)
+		SY_FREE(xmDpBlock->bg_task_stack_addr);
 	return 0;
 }
 
@@ -455,27 +454,26 @@ static int  IQY_DelCmdTask(void)
 *
 *
 ***************************************************************************/
-static int   IQY_GetCategoryList(u32 identify)
+static int   XM_GetCategoryList(u32 identify)
 {
 	DP_CMD_T cmd;
-	IQY_REQ_PARAM_T * p_param = (IQY_REQ_PARAM_T *)SY_MALLOC(
-                                                       sizeof(IQY_REQ_PARAM_T));
+	XM_REQ_PARAM_T * p_param = (XM_REQ_PARAM_T *)SY_MALLOC(sizeof(XM_REQ_PARAM_T));
 
 	DEBUG(IPTVDP,INFO,"call in!\n");
-	memset(p_param,0,sizeof(IQY_REQ_PARAM_T));
+	memset(p_param,0,sizeof(XM_REQ_PARAM_T));
 	memset(&cmd,0,sizeof(DP_CMD_T));
 	cmd.type = GET_IPTV_CATEGORY;
 	p_param->identify= identify;
 	cmd.param = (u32)p_param;
 
-	int ret = DP_sendCmd(iqyDpBlock->p_bg_task_hdl,&cmd);
+	int ret = DP_sendCmd(xmDpBlock->p_bg_task_hdl,&cmd);
 	if(ret < 0)
 	{
 		DEBUG(IPTVDP,ERR,"[%s][ERROR] FAIL SEND CMD ...\n",__func__);
 	}
 	
 	DEBUG(IPTVDP,INFO,"call out!\n");
-	return ret;
+	return 0;
 }
 
 /*****************************************************************************
@@ -488,27 +486,29 @@ static int   IQY_GetCategoryList(u32 identify)
 *
 *
 ***************************************************************************/
-static int   IQY_GetArea(u32 identify)
+static int   XM_GetArea(u32 identify)
 {
-    	 OS_PRINTF("[%s] start start ...\n",__func__);
+#if 0
+    	 DEBUG(IPTVDP,ERR,"[%s] start start ...\n",__func__);
 	DP_CMD_T cmd;
-	IQY_REQ_PARAM_T * p_param = (IQY_REQ_PARAM_T *)SY_MALLOC(
-                                                       sizeof(IQY_REQ_PARAM_T));
-	memset(p_param,0,sizeof(IQY_REQ_PARAM_T));
+	XM_REQ_PARAM_T * p_param = (XM_REQ_PARAM_T *)SY_MALLOC(
+                                                       sizeof(XM_REQ_PARAM_T));
+	memset(p_param,0,sizeof(XM_REQ_PARAM_T));
 
 	memset(&cmd,0,sizeof(DP_CMD_T));
 	cmd.type = GET_IPTV_AREA;
 	p_param->identify= identify;
 	cmd.param = (u32)p_param;
 
-	int ret = DP_sendCmd(iqyDpBlock->p_bg_task_hdl,&cmd);
+	int ret = DP_sendCmd(xmDpBlock->p_bg_task_hdl,&cmd);
 	if(ret < 0)
 	{
-		OS_PRINTF("[%s][ERROR] FAIL SEND CMD ...\n",__func__);
+		DEBUG(IPTVDP,ERR,"[%s][ERROR] FAIL SEND CMD ...\n",__func__);
 	}
 	
-	OS_PRINTF("[%s] end end ...\n",__func__);
-	return ret;
+	DEBUG(IPTVDP,ERR,"[%s] end end ...\n",__func__);
+#endif	
+	return 0;
 }
 
 
@@ -523,33 +523,29 @@ static int   IQY_GetArea(u32 identify)
 *
 *
 ***************************************************************************/
-static int   IQY_GetCategoryTypeList(int cat_id, u32 identify)
+static int   XM_GetCategoryTypeList(int cat_id, u32 identify)
 {
-
-	OS_PRINTF("[%s] start start ...\n",__func__);
+	DEBUG(IPTVDP,ERR,"[%s] start start ...\n",__func__);
 
 	int ret;		 
 	DP_CMD_T cmd;
-	IQY_REQ_PARAM_T * p_param = (IQY_REQ_PARAM_T *)SY_MALLOC(
-                                                           sizeof(IQY_REQ_PARAM_T));
-	memset(p_param,0,sizeof(IQY_REQ_PARAM_T));
+	XM_REQ_PARAM_T * p_param = (XM_REQ_PARAM_T *)SY_MALLOC(sizeof(XM_REQ_PARAM_T));
+	memset(p_param,0,sizeof(XM_REQ_PARAM_T));
 
 	memset(&cmd,0,sizeof(DP_CMD_T));
 	cmd.type = GET_IPTV_CATEGORY_TYPE;
 	p_param->cat_id = cat_id;
 	p_param->identify= identify;
 	cmd.param = (u32)p_param;
-	ret = DP_sendCmd(iqyDpBlock->p_bg_task_hdl,&cmd);
+	ret = DP_sendCmd(xmDpBlock->p_bg_task_hdl,&cmd);
 	if(ret < 0)
 	{
-		OS_PRINTF("[%s][ERROR] FAIL SEND CMD ...\n",__func__);
+		DEBUG(IPTVDP,ERR,"[%s][ERROR] FAIL SEND CMD ...\n",__func__);
 	}
 	
-	OS_PRINTF("[%s] end end ...\n",__func__);
+	DEBUG(IPTVDP,ERR,"[%s] end end ...\n",__func__);
 	return 0;
 }
-
-
 
 
 /******************************************************
@@ -562,10 +558,11 @@ static int   IQY_GetCategoryTypeList(int cat_id, u32 identify)
 *
 *
 ******************************************************************************/
-static int  IQY_UpdatePage( IPTV_UPPAGE_REQ_T  *p_req)
+static int  XM_UpdatePage( IPTV_UPPAGE_REQ_T  *p_req)
 {
+#if 1
 
-	OS_PRINTF("[%s] start start ...\n",__func__);
+	DEBUG(IPTVDP,ERR,"[%s] start start ...\n",__func__);
 
 	int ret;		 
 	DP_CMD_T cmd;
@@ -573,40 +570,42 @@ static int  IQY_UpdatePage( IPTV_UPPAGE_REQ_T  *p_req)
                                                            sizeof(IPTV_UPPAGE_REQ_T));
 	memset(p_param,0,sizeof(IPTV_UPPAGE_REQ_T));
 
-	OS_PRINTF("%s catid=%d, page_index=%d, page_size=%d\n", __FUNCTION__,p_req->cat_id,
+	DEBUG(IPTVDP,ERR,"%s catid=%d,catid2=%d,page_index=%d, page_size=%d\n", __FUNCTION__,p_req->cat_id,p_req->cat_id2,
 				p_req->page_index, p_req->page_size);
 	memset(&cmd,0,sizeof(DP_CMD_T));
 	cmd.type = GET_IPTV_NEW_PAGE;
 	p_param->cat_id = p_req->cat_id;
-	p_param->years = p_req->years;
+	p_param->cat_id2 = p_req->cat_id2;
+	//p_param->years = p_req->years;
 	p_param->identify= p_req->identify;
 	p_param->query_mode= p_req->query_mode;
 	p_param->sort = p_req->sort;
-	p_param->cb = p_req->cb;
+	//p_param->cb = p_req->cb;
 
-	strcpy(p_param->names, p_req->names);
-	strcpy(p_param->title, p_req->title);
-	strcpy(p_param->area, p_req->area); 
-	strcpy(p_param->actor, p_req->actor);  
-	strcpy(p_param->director, p_req->director);
-	strcpy(p_param->types, p_req->types);
-	strcpy(p_param->pinyin, p_req->pinyin);
-	strcpy(p_param->attr, p_req->attr);
-	strcpy(p_param->keys, p_req->keys);
+	//strcpy(p_param->names, p_req->names);
+	//strcpy(p_param->title, p_req->title);
+	//strcpy(p_param->area, p_req->area); 
+	//strcpy(p_param->actor, p_req->actor);  
+	//strcpy(p_param->director, p_req->director);
+	//strcpy(p_param->types, p_req->types);
+	//strcpy(p_param->pinyin, p_req->pinyin);
+	//strcpy(p_param->attr, p_req->attr);
+	//strcpy(p_param->keys, p_req->keys);
 
 	IPTV_LOG("####%s %s\n", p_req->types, p_param->types);
 	
 	p_param->page_index = p_req->page_index;
-	p_param->searchWordIndex = p_req->searchWordIndex;
-	p_param->page_size = iqyDpBlock->page_size;
+	//p_param->searchWordIndex = p_req->searchWordIndex;
+	p_param->page_size = xmDpBlock->page_size;
 	cmd.param = (u32)p_param;
-	ret = DP_sendCmd(iqyDpBlock->p_bg_task_hdl,&cmd);
+	ret = DP_sendCmd(xmDpBlock->p_bg_task_hdl,&cmd);
 	if(ret < 0)
 	{
-		OS_PRINTF("[%s][ERROR] FAIL SEND CMD ...\n",__func__);
+		DEBUG(IPTVDP,ERR,"[%s][ERROR] FAIL SEND CMD ...\n",__func__);
 	}
 	
-	OS_PRINTF("[%s] end end ...\n",__func__);
+	DEBUG(IPTVDP,ERR,"[%s] end end ...\n",__func__);
+#endif	
 	return 0;
 }
 
@@ -620,9 +619,10 @@ static int  IQY_UpdatePage( IPTV_UPPAGE_REQ_T  *p_req)
 *
 *
 ******************************************************************************/
-static int  IQY_GetRecommendInfo(IPTV_RECOMMEND_REQ_T *p_req)
+static int  XM_GetRecommendInfo(IPTV_RECOMMEND_REQ_T *p_req)
 {
-	OS_PRINTF("[%s] start start ...\n",__func__);
+#if 1
+	DEBUG(IPTVDP,ERR,"[%s] start start ...\n",__func__);
 
 	int ret;		 
 	DP_CMD_T cmd;
@@ -643,13 +643,14 @@ static int  IQY_GetRecommendInfo(IPTV_RECOMMEND_REQ_T *p_req)
     	strcpy(p_param->types, p_req->types);
     
 	cmd.param = (u32)p_param;
-	ret = DP_sendCmd(iqyDpBlock->p_bg_task_hdl,&cmd);
+	ret = DP_sendCmd(xmDpBlock->p_bg_task_hdl,&cmd);
 	if(ret < 0)
 	{
-		OS_PRINTF("[%s][ERROR] FAIL SEND CMD ...\n",__func__);
+		DEBUG(IPTVDP,ERR,"[%s][ERROR] FAIL SEND CMD ...\n",__func__);
 	}
 	
-	OS_PRINTF("[%s] end end ...\n",__func__);
+	DEBUG(IPTVDP,ERR,"[%s] end end ...\n",__func__);
+#endif	
 	return 0;
 }
 
@@ -665,9 +666,11 @@ static int  IQY_GetRecommendInfo(IPTV_RECOMMEND_REQ_T *p_req)
 *
 *
 ******************************************************************************/
-static int  IQY_GetVideoInfo(IPTV_VIDEO_INFO_REQ_T *p_req)
+static int  XM_GetVideoInfo(IPTV_VIDEO_INFO_REQ_T *p_req)
 {
-	OS_PRINTF("[%s] start start ...\n",__func__);
+#if 1
+
+	DEBUG(IPTVDP,INFO,"[%s] start start ...\n",__func__);
 
 	int ret;		 
 	DP_CMD_T cmd;
@@ -680,28 +683,32 @@ static int  IQY_GetVideoInfo(IPTV_VIDEO_INFO_REQ_T *p_req)
 	p_param->identify	= p_req->identify;
 	p_param->cb	 	= p_req->cb;
 	p_param->id 		= p_req->id;
-	
+
+	p_param->id.program_id = p_req->id.program_id;
 
 	p_param->is_description = p_req->is_description;	
 
 	p_param->page_index = p_req->page_index;
-	
+
+	p_param->cat_id = p_req->cat_id;//add gw
+
 	if(p_req->page_size == 0)
 		p_param->page_size = 10;
 	else
 		p_param->page_size = p_req->page_size;
 
 
-       OS_PRINTF("p_param->page_index[%d],p_param->page_size[%d]",p_param->page_index,p_param->page_size);
+    DEBUG(IPTVDP,INFO,"p_param->page_index[%d],p_param->page_size[%d]",p_param->page_index,p_param->page_size);
 	p_param->query_mode = p_req->query_mode;
 	cmd.param = (u32)p_param;
-	ret = DP_sendCmd(iqyDpBlock->p_bg_task_hdl,&cmd);
+	ret = DP_sendCmd(xmDpBlock->p_bg_task_hdl,&cmd);
 	if(ret < 0)
 	{
-		OS_PRINTF("[%s][ERROR] FAIL SEND CMD ...\n",__func__);
+		DEBUG(IPTVDP,ERR,"[%s][ERROR] FAIL SEND CMD ...\n",__func__);
 	}
 	
-	OS_PRINTF("[%s] end end ...\n",__func__);
+	DEBUG(IPTVDP,INFO,"[%s] end end ...\n",__func__);
+#endif	
 	return 0;
 }
 
@@ -716,9 +723,11 @@ static int  IQY_GetVideoInfo(IPTV_VIDEO_INFO_REQ_T *p_req)
 *
 *
 ******************************************************************************/
-static int  IQY_GetPlayUrl(IPTV_VIDEO_URL_REQ_T *p_req)
+static int  XM_GetPlayUrl(IPTV_VIDEO_URL_REQ_T *p_req)
   {
-    OS_PRINTF("[%s] start start ...\n",__func__);
+  #if 1
+
+    DEBUG(IPTVDP,ERR,"[%s] start start ...\n",__func__);
   
     int ret;     
     DP_CMD_T cmd;
@@ -731,20 +740,23 @@ static int  IQY_GetPlayUrl(IPTV_VIDEO_URL_REQ_T *p_req)
 
     *p_param = *p_req;
     cmd.param = (u32)p_param;
-    ret = DP_sendCmd(iqyDpBlock->p_bg_task_hdl,&cmd);
+    ret = DP_sendCmd(xmDpBlock->p_bg_task_hdl,&cmd);
     if(ret < 0)
     {
-      OS_PRINTF("[%s][ERROR] FAIL SEND CMD ...\n",__func__);
+      DEBUG(IPTVDP,ERR,"[%s][ERROR] FAIL SEND CMD ...\n",__func__);
     }
     
-    OS_PRINTF("[%s] end end ...\n",__func__);
+    DEBUG(IPTVDP,ERR,"[%s] end end ...\n",__func__);
+#endif
     return 0;
   }
 
 
-static int  IQY_GetPlayUrlFormat(IPTV_VIDEO_URL_REQ_T *p_req)
+static int  XM_GetPlayUrlFormat(IPTV_VIDEO_URL_REQ_T *p_req)
   {
-    OS_PRINTF("[%s] start start ...\n",__func__);
+  #if 0
+
+    DEBUG(IPTVDP,ERR,"[%s] start start ...\n",__func__);
   
     int ret;     
     DP_CMD_T cmd;
@@ -756,30 +768,29 @@ static int  IQY_GetPlayUrlFormat(IPTV_VIDEO_URL_REQ_T *p_req)
     cmd.type = GET_IPTV_FORMAT_TYPE;
     *p_param = *p_req;
     cmd.param = (u32)p_param;
-    ret = DP_sendCmd(iqyDpBlock->p_bg_task_hdl,&cmd);
+    ret = DP_sendCmd(xmDpBlock->p_bg_task_hdl,&cmd);
     if(ret < 0)
     {
-      OS_PRINTF("[%s][ERROR] FAIL SEND CMD ...\n",__func__);
+      DEBUG(IPTVDP,ERR,"[%s][ERROR] FAIL SEND CMD ...\n",__func__);
     }
     
-    OS_PRINTF("[%s] end end ...\n",__func__);
+    DEBUG(IPTVDP,ERR,"[%s] end end ...\n",__func__);
+#endif
     return 0;
   }
 
 
-static int 	IQY_SetPageSize(int pagesize)
+static int 	XM_SetPageSize(int pagesize)
 {
-	iqyDpBlock->page_size	= pagesize;
+	xmDpBlock->page_size	= pagesize;
 	return 0;
 }
 	
-BOOL IQY_CMP_ID_2(VDO_ID_t *id_1,VDO_ID_t *id_2)
+BOOL XM_CMP_ID_2(VDO_ID_t *id_1,VDO_ID_t *id_2)
 {
-	VDO_ID_t *id1 = (VDO_ID_t*)id_1;
-	VDO_ID_t *id2 = (VDO_ID_t*)id_2;
-	if ((strcmp(id1->qpId,id2->qpId) ==0)
-		&& (strcmp(id1->tvQid,id2->tvQid) ==0)
-		&& (id1->type == id2->type))
+	if (id_1->res_id == id_2->res_id
+		&& id_1->cat_id == id_2->cat_id
+		&& id_1->program_id== id_2->program_id)
 		return TRUE;
 	
 	return FALSE;
@@ -788,8 +799,9 @@ BOOL IQY_CMP_ID_2(VDO_ID_t *id_1,VDO_ID_t *id_2)
 /*****************************************************************************
 * fuxl add to get search word
 ***************************************************************************/
-static int   IQY_GetSearchWord(u8 *searchWord)
+static int   XM_GetSearchWord(u8 *searchWord)
 {
+#if 0
 	DEBUG(IPTVDP,INFO," start start ... searchWord = %s \n",searchWord);
 	DP_CMD_T cmd;
 	u8 *p_param = NULL;
@@ -802,36 +814,37 @@ static int   IQY_GetSearchWord(u8 *searchWord)
 	cmd.type = GET_IPTV_SEARCH_WORD;
 	cmd.param = (u32)p_param;
 
-	int ret = DP_sendCmd(iqyDpBlock->p_bg_task_hdl,&cmd);
+	int ret = DP_sendCmd(xmDpBlock->p_bg_task_hdl,&cmd);
 	if(ret < 0)
 	{
 		DEBUG(IPTVDP,ERR,"[%s][ERROR] FAIL SEND CMD ...\n",__func__);
 	}
 
 	DEBUG(IPTVDP,INFO,"end end ... \n");
-	return ret;
+#endif	
+	return 0;
 }
 
-static VodDpInterface_t iqyDpInterface;
-const VodDpInterface_t* GetIqyDpInterface(void)
+static VodDpInterface_t xmDpInterface;
+const VodDpInterface_t* GetXingMeiDpInterface(void)
 {
-	if (iqyDpInterface.init == NULL)
+	if (xmDpInterface.init == NULL)
 	{
-		iqyDpInterface.init					= IQY_InitDataProvider;
-		iqyDpInterface.deinit				= IQY_DeinitDataProvider;
-		iqyDpInterface.delCmdTask			= IQY_DelCmdTask;
-		iqyDpInterface.getCategoryList    	= IQY_GetCategoryList;
-		iqyDpInterface.getCategoryTypeList 	= IQY_GetCategoryTypeList;
-		iqyDpInterface.updatePage 			= IQY_UpdatePage;
-		iqyDpInterface.getRecommendInfo		= IQY_GetRecommendInfo;
-		iqyDpInterface.getVideoInfo 		= IQY_GetVideoInfo;
-		iqyDpInterface.getPlayUrl 			= IQY_GetPlayUrl;
-		iqyDpInterface.getPlayUrlFormat 	= IQY_GetPlayUrlFormat;
-		iqyDpInterface.setPageSize 			= IQY_SetPageSize;
-		iqyDpInterface.getArea				= IQY_GetArea;
-		iqyDpInterface.getSearchWord		= IQY_GetSearchWord;
-		iqyDpInterface.cmpId				= IQY_CMP_ID_2;
-		iqyDpInterface.registerCb			= IQY_RegisterCallback;
+		xmDpInterface.init					= XM_InitDataProvider;
+		xmDpInterface.deinit				= XM_DeinitDataProvider;
+		xmDpInterface.delCmdTask			= XM_DelCmdTask;
+		xmDpInterface.getCategoryList    	= XM_GetCategoryList;
+		xmDpInterface.getCategoryTypeList 	= XM_GetCategoryTypeList;
+		xmDpInterface.updatePage 			= XM_UpdatePage;
+		xmDpInterface.getRecommendInfo		= XM_GetRecommendInfo;
+		xmDpInterface.getVideoInfo 			= XM_GetVideoInfo;
+		xmDpInterface.getPlayUrl 			= XM_GetPlayUrl;
+		xmDpInterface.getPlayUrlFormat 		= XM_GetPlayUrlFormat;
+		xmDpInterface.setPageSize 			= XM_SetPageSize;
+		xmDpInterface.getArea				= XM_GetArea;
+		xmDpInterface.getSearchWord			= XM_GetSearchWord;
+		xmDpInterface.cmpId					= XM_CMP_ID_2;
+		xmDpInterface.registerCb			= XM_RegisterCallback;
 	}
-	return &iqyDpInterface;
+	return &xmDpInterface;
 }
